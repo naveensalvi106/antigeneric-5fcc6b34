@@ -26,9 +26,6 @@ const ThumbnailRow = ({ items, direction, speed }: { items: ThumbnailItem[]; dir
               )}
               <div className="absolute inset-0 rounded-xl border border-transparent group-hover:border-primary/20 transition-colors duration-300" />
             </div>
-            <span className="absolute bottom-2 left-2 text-xs font-medium px-2 py-0.5 rounded-md bg-card/80 backdrop-blur-sm text-muted-foreground border border-border">
-              {item.label}
-            </span>
           </div>
         ))}
       </div>
@@ -45,9 +42,9 @@ const ThumbnailShowcase = () => {
     <SectionWrapper id="thumbnails">
       <SectionHeader title="High-CTR Thumbnail Showcase" subtitle="Designed to stop the scroll and drive clicks." />
       <div className="space-y-3">
-        <ThumbnailRow items={THUMBNAILS_ROW1} direction="left" speed="40s" />
-        <ThumbnailRow items={THUMBNAILS_ROW2} direction="right" speed="35s" />
-        <ThumbnailRow items={[...r3, ...r2]} direction="left" speed="45s" />
+        <ThumbnailRow items={THUMBNAILS_ROW1} direction="left" speed="27s" />
+        <ThumbnailRow items={THUMBNAILS_ROW2} direction="right" speed="23s" />
+        <ThumbnailRow items={[...r3, ...r2]} direction="left" speed="30s" />
       </div>
     </SectionWrapper>
   );
