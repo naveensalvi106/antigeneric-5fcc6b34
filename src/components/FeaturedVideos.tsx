@@ -61,37 +61,20 @@ const FeaturedVideos = () => {
           className="flex gap-4 animate-marquee-right"
           style={{ "--marquee-duration": "40s", width: "max-content" } as React.CSSProperties}
         >
-          {duplicated.map((src, i) => (
+          {duplicatedRow1.map((src, i) => (
             <VideoCard key={`r1-${i}`} src={src} />
           ))}
         </div>
       </div>
 
-      {/* Row 2: Right to Left (empty placeholder) */}
+      {/* Row 2: Right to Left */}
       <div className="overflow-hidden">
         <div
           className="flex gap-4 animate-marquee-left"
           style={{ "--marquee-duration": "45s", width: "max-content" } as React.CSSProperties}
         >
-          {Array.from({ length: 9 }).map((_, i) => (
-            <div
-              key={`r2-${i}`}
-              className="flex-shrink-0 w-[280px] md:w-[340px] rounded-xl overflow-hidden bg-secondary/30 border border-border/30"
-            >
-              <div className="aspect-video flex items-center justify-center">
-                <span className="text-muted-foreground/40 text-xs">Coming Soon</span>
-              </div>
-            </div>
-          ))}
-          {Array.from({ length: 9 }).map((_, i) => (
-            <div
-              key={`r2d-${i}`}
-              className="flex-shrink-0 w-[280px] md:w-[340px] rounded-xl overflow-hidden bg-secondary/30 border border-border/30"
-            >
-              <div className="aspect-video flex items-center justify-center">
-                <span className="text-muted-foreground/40 text-xs">Coming Soon</span>
-              </div>
-            </div>
+          {duplicatedRow2.map((src, i) => (
+            <VideoCard key={`r2-${i}`} src={src} />
           ))}
         </div>
       </div>
