@@ -99,11 +99,24 @@
 }
 
 .card-nuclear {
-  box-shadow: 0 0 0 1px hsl(217 91% 60% / 0.1), 0 4px 24px -1px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 50%, rgba(255,255,255,0.05) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 
+    0 8px 32px rgba(0,0,0,0.4),
+    inset 0 1px 0 rgba(255,255,255,0.1),
+    inset 0 -1px 0 rgba(255,255,255,0.03);
 }
 
 .card-nuclear:hover {
-  box-shadow: 0 0 0 1px hsl(217 91% 60% / 0.2), 0 8px 32px -1px rgba(0, 0, 0, 0.4), 0 0 20px -5px hsl(217 91% 60% / 0.15);
+  background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.04) 50%, rgba(255,255,255,0.08) 100%);
+  border-color: rgba(255,255,255,0.18);
+  box-shadow: 
+    0 12px 40px rgba(0,0,0,0.5),
+    0 0 20px -5px hsl(217 91% 60% / 0.2),
+    inset 0 1px 0 rgba(255,255,255,0.15),
+    inset 0 -1px 0 rgba(255,255,255,0.05);
 }
 
 /* Gradient text */

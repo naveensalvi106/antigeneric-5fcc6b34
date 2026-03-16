@@ -18,9 +18,7 @@ const FAQ = () => {
             return (
               <motion.div
                 key={i}
-                className={`rounded-xl overflow-hidden transition-all duration-300 ${
-                  isOpen ? "bg-card card-nuclear" : "bg-card/50 hover:bg-card"
-                }`}
+                className={`rounded-xl overflow-hidden transition-all duration-300 card-nuclear`}
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}

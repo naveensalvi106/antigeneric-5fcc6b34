@@ -5,7 +5,7 @@ import { SectionWrapper, SectionHeader } from "@/components/SectionWrapper";
 type TestimonialItem = typeof TESTIMONIALS_ROW1[0];
 
 const TestimonialCard = ({ item }: { item: TestimonialItem }) => (
-  <div className="w-[200px] md:w-[220px] p-4 rounded-xl bg-card/50 backdrop-blur-sm card-nuclear transition-all duration-300 hover:scale-[1.02]">
+  <div className="w-[200px] md:w-[220px] p-4 rounded-xl card-nuclear transition-all duration-300 hover:scale-[1.02]">
     <div className="flex items-center gap-2 mb-2.5">
       <img src={item.pfp} alt={item.name} className="w-8 h-8 rounded-full object-cover" />
       <div className="min-w-0">

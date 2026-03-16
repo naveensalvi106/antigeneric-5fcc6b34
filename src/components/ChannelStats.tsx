@@ -14,7 +14,7 @@ const MarqueeRow = ({ items, direction }: { items: ChannelItem[]; direction: "le
         {doubled.map((item, i) => (
           <div
             key={`${item.name}-${i}`}
-            className="flex items-center gap-3 px-5 py-3 rounded-xl bg-card card-nuclear transition-all duration-300 hover:scale-[1.02] min-w-[220px]"
+            className="flex items-center gap-3 px-5 py-3 rounded-xl card-nuclear transition-all duration-300 hover:scale-[1.02] min-w-[220px]"
           >
             <img src={item.pfp} alt={item.name} className="w-10 h-10 rounded-full object-cover shrink-0" />
             <div>

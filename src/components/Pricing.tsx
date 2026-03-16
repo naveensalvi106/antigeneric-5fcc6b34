@@ -18,10 +18,10 @@ const Pricing = () => {
             return (
               <motion.div
                 key={plan.name}
-                className={`relative rounded-2xl overflow-hidden transition-all duration-300 hover:scale-[1.02] flex flex-col ${
+                className={`relative rounded-2xl overflow-hidden transition-all duration-300 hover:scale-[1.02] flex flex-col card-nuclear ${
                   plan.popular
-                    ? "bg-card glow-blue-strong border border-primary/30 lg:scale-105"
-                    : "bg-card card-nuclear"
+                    ? "glow-blue-strong border-primary/30 lg:scale-105"
+                    : ""
                 }`}
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -52,7 +52,7 @@ const Pricing = () => {
                 </div>
 
                 {/* Price block */}
-                <div className="px-6 py-4 border-y border-border/50 bg-secondary/30">
+                <div className="px-6 py-4 border-y border-white/10 bg-white/5">
                   <span className="font-display font-extrabold text-2xl text-foreground">{plan.price}</span>
                   <span className="text-xs text-muted-foreground ml-2">{plan.per}</span>
                 </div>
