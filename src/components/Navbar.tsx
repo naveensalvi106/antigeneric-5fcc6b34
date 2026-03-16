@@ -1,6 +1,6 @@
 import { useState, useEffect, type MouseEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Zap } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { NAV_LINKS, WHATSAPP_BASE } from "@/data/siteData";
 
@@ -44,7 +44,7 @@ const Navbar = () => {
         <div className="container mx-auto flex items-center justify-between h-16 px-4 md:px-6">
           {/* Logo */}
           <a href="#" className="flex items-center gap-2 group">
-            <Zap className="w-6 h-6 text-primary transition-transform duration-300 group-hover:scale-110" strokeWidth={1.5} />
+            <img src="/images/logo.png" alt="Nuclear Edits" className="w-8 h-8 object-contain transition-transform duration-300 group-hover:scale-110" />
             <span className="font-display font-bold text-lg text-foreground">
               Nuclear <span className="gradient-text">Edits</span>
             </span>

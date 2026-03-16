@@ -1,4 +1,4 @@
-import { Zap } from "lucide-react";
+// Footer component
 import { NAV_LINKS } from "@/data/siteData";
 
 const Footer = () => {
@@ -7,7 +7,7 @@ const Footer = () => {
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-2">
-            <Zap size={20} strokeWidth={1.5} className="text-primary" />
+            <img src="/images/logo.png" alt="Nuclear Edits" className="w-7 h-7 object-contain" />
             <span className="font-display font-bold text-foreground">Nuclear Edits</span>
           </div>
 
