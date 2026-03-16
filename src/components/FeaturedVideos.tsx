@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { Play, Pause } from "lucide-react";
+import { Play } from "lucide-react";
 import { SectionWrapper, SectionHeader } from "@/components/SectionWrapper";
 
 const VIDEO_FILES_ROW1 = [
