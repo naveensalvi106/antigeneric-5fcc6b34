@@ -1,4 +1,4 @@
-import { THUMBNAILS, THUMBNAILS_ROW1, THUMBNAILS_ROW2 } from "@/data/siteData";
+import { THUMBNAILS_ROW1, THUMBNAILS_ROW2, THUMBNAILS_ROW3 } from "@/data/siteData";
 import { SectionWrapper, SectionHeader } from "@/components/SectionWrapper";
 
 type ThumbnailItem = { label: string; image?: string };
@@ -34,17 +34,13 @@ const ThumbnailRow = ({ items, direction, speed }: { items: ThumbnailItem[]; dir
 };
 
 const ThumbnailShowcase = () => {
-  const third = Math.ceil(THUMBNAILS.length / 3);
-  const r2 = THUMBNAILS.slice(0, third + 1);
-  const r3 = THUMBNAILS.slice(third + 1, third * 2 + 1);
-
   return (
     <SectionWrapper id="thumbnails">
       <SectionHeader title="High-CTR Thumbnail Showcase" subtitle="Designed to stop the scroll and drive clicks." />
       <div className="space-y-3">
-        <ThumbnailRow items={THUMBNAILS_ROW1} direction="left" speed="27s" />
-        <ThumbnailRow items={THUMBNAILS_ROW2} direction="right" speed="23s" />
-        <ThumbnailRow items={[...r3, ...r2]} direction="left" speed="30s" />
+        <ThumbnailRow items={THUMBNAILS_ROW1} direction="left" speed="25s" />
+        <ThumbnailRow items={THUMBNAILS_ROW2} direction="right" speed="25s" />
+        <ThumbnailRow items={THUMBNAILS_ROW3} direction="left" speed="25s" />
       </div>
     </SectionWrapper>
   );
