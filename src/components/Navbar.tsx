@@ -75,7 +75,7 @@ const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-background/95 backdrop-blur-xl border-b border-border overflow-hidden"
+            className="md:hidden bg-background/95 backdrop-blur-xl border-b border-border overflow-hidden relative z-50"
           >
             <nav className="flex flex-col p-4 gap-1">
               {NAV_LINKS.map((link) => (
