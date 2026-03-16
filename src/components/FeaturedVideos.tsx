@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { SectionWrapper, SectionHeader } from "@/components/SectionWrapper";
 
-const VIDEO_FILES = [
+const VIDEO_FILES_ROW1 = [
   "/videos/video1.mp4",
   "/videos/video2.mp4",
   "/videos/video3.mp4",
@@ -11,6 +11,18 @@ const VIDEO_FILES = [
   "/videos/video7.mp4",
   "/videos/video8.mp4",
   "/videos/video9.mp4",
+];
+
+const VIDEO_FILES_ROW2 = [
+  "/videos/video10.mp4",
+  "/videos/video11.mp4",
+  "/videos/video12.mp4",
+  "/videos/video13.mp4",
+  "/videos/video14.mp4",
+  "/videos/video15.mp4",
+  "/videos/video16.mp4",
+  "/videos/video17.mp4",
+  "/videos/video18.mp4",
 ];
 
 const VideoCard = ({ src }: { src: string }) => (
