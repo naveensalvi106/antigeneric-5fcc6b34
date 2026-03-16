@@ -45,7 +45,7 @@ const Contact = () => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Button variant="nuclear" size="xl">Message Us on WhatsApp</Button>
+            <Button variant="nuclear" size="xl">Contact Us</Button>
           </a>
         </div>
       </div>

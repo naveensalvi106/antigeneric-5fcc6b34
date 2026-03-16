@@ -55,7 +55,7 @@ const Navbar = () => {
             rel="noopener noreferrer"
             className="hidden md:block"
           >
-            <Button variant="nuclear" size="sm">Book on WhatsApp</Button>
+            <Button variant="nuclear" size="sm">Let's Talk</Button>
           </a>
 
           {/* Mobile Menu Toggle */}
@@ -94,7 +94,7 @@ const Navbar = () => {
                 rel="noopener noreferrer"
                 className="mt-2"
               >
-                <Button variant="nuclear" className="w-full">Book on WhatsApp</Button>
+                <Button variant="nuclear" className="w-full">Let's Talk</Button>
               </a>
             </nav>
           </motion.div>
