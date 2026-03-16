@@ -34,6 +34,7 @@ const Index = () => {
       <Contact />
       <GlowSeparator />
       <Footer />
+      </div>
     </div>
   );
 };
