@@ -9,7 +9,7 @@ const MarqueeRow = ({ items, direction }: { items: ChannelItem[]; direction: "le
     <div className="overflow-hidden py-3 group">
       <div
         className={`flex gap-4 w-max ${direction === "left" ? "animate-marquee-left" : "animate-marquee-right"}`}
-        style={{ "--marquee-duration": "35s" } as React.CSSProperties}
+        style={{ "--marquee-duration": "17s" } as React.CSSProperties}
       >
         {doubled.map((item, i) => (
           <div

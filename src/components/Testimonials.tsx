@@ -26,7 +26,7 @@ const MarqueeRow = ({ items, direction }: { items: TestimonialItem[]; direction:
     <div className="overflow-hidden py-2">
       <div
         className={`flex gap-4 w-max ${direction === "left" ? "animate-marquee-left" : "animate-marquee-right"}`}
-        style={{ "--marquee-duration": "45s" } as React.CSSProperties}
+        style={{ "--marquee-duration": "17s" } as React.CSSProperties}
       >
         {doubled.map((item, i) => (
           <TestimonialCard key={`${item.name}-${i}`} item={item} />
