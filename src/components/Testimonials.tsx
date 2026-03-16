@@ -5,19 +5,18 @@ import { SectionWrapper, SectionHeader } from "@/components/SectionWrapper";
 type TestimonialItem = typeof TESTIMONIALS_ROW1[0];
 
 const TestimonialCard = ({ item }: { item: TestimonialItem }) => (
-  <div className="min-w-[300px] md:min-w-[360px] p-5 rounded-xl bg-card/50 backdrop-blur-sm card-nuclear transition-all duration-300 hover:scale-[1.02]">
-    <div className="flex items-center gap-3 mb-3">
-      <img src={item.pfp} alt={item.name} className="w-10 h-10 rounded-full object-cover" />
-      <div>
-        <p className="font-display font-semibold text-sm text-foreground">{item.name}</p>
-        <p className="text-xs text-muted-foreground font-mono tabular-nums">{item.subs} Subs</p>
-      </div>
-      <div className="ml-auto flex items-center gap-1">
-        <Star size={14} strokeWidth={1.5} className="text-yellow-400 fill-yellow-400" />
-        <span className="text-xs font-mono tabular-nums text-foreground">{item.rating}</span>
+  <div className="w-[200px] md:w-[220px] p-4 rounded-xl bg-card/50 backdrop-blur-sm card-nuclear transition-all duration-300 hover:scale-[1.02]">
+    <div className="flex items-center gap-2 mb-2.5">
+      <img src={item.pfp} alt={item.name} className="w-8 h-8 rounded-full object-cover" />
+      <div className="min-w-0">
+        <p className="font-display font-semibold text-xs text-foreground truncate">{item.name}</p>
+        <div className="flex items-center gap-1">
+          <Star size={10} strokeWidth={1.5} className="text-yellow-400 fill-yellow-400" />
+          <span className="text-[10px] font-mono tabular-nums text-muted-foreground">{item.rating}</span>
+        </div>
       </div>
     </div>
-    <p className="text-sm text-muted-foreground leading-relaxed">"{item.text}"</p>
+    <p className="text-xs text-muted-foreground leading-relaxed line-clamp-4">"{item.text}"</p>
   </div>
 );
 
