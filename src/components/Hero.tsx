@@ -84,7 +84,7 @@ const Hero = () => {
             {badges.map((badge) => (
               <div
                 key={badge.label}
-                className="flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/50 border border-border text-sm text-muted-foreground font-medium"
+                className="flex items-center gap-2 px-4 py-2 rounded-full card-nuclear text-sm text-muted-foreground font-medium"
               >
                 <badge.icon size={16} strokeWidth={1.5} className="text-primary" />
                 {badge.label}

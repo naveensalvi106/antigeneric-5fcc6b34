@@ -21,7 +21,7 @@ const Contact = () => {
                 href={c.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex flex-col items-center gap-3 p-6 rounded-xl bg-card card-nuclear text-center transition-all duration-300 hover:scale-[1.03]"
+                className="flex flex-col items-center gap-3 p-6 rounded-xl card-nuclear text-center transition-all duration-300 hover:scale-[1.03]"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
