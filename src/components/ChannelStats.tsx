@@ -15,9 +15,7 @@ const MarqueeRow = ({ items, direction }: { items: typeof CHANNEL_STATS; directi
             key={`${item.name}-${i}`}
             className="flex items-center gap-3 px-5 py-3 rounded-xl bg-card card-nuclear transition-all duration-300 hover:scale-[1.02] min-w-[220px]"
           >
-            <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center shrink-0">
-              <Users size={18} strokeWidth={1.5} className="text-primary" />
-            </div>
+            <img src={item.pfp} alt={item.name} className="w-10 h-10 rounded-full object-cover shrink-0" />
             <div>
               <p className="font-display font-semibold text-sm text-foreground">{item.name}</p>
               <div className="flex items-center gap-2 text-xs text-muted-foreground">

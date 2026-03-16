@@ -1,14 +1,14 @@
 export const WHATSAPP_BASE = "https://wa.me/919358795758";
 
 export const CHANNEL_STATS = [
-  { name: "Apex Plays", subs: "125K", niche: "Gaming" },
-  { name: "Money Forge", subs: "312K", niche: "Finance" },
-  { name: "Creator Pulse", subs: "89K", niche: "Vlogs" },
-  { name: "DarkLore", subs: "540K", niche: "Commentary" },
-  { name: "Pixel Vault", subs: "210K", niche: "Gaming" },
-  { name: "Hustle Hive", subs: "1.2M", niche: "Education" },
-  { name: "Clutch Arena", subs: "76K", niche: "Gaming" },
-  { name: "Growth Theory", subs: "430K", niche: "Finance" },
+  { name: "Alex Cattoni", subs: "312K", niche: "Marketing", pfp: "/pfps/alex-cattoni.jpg" },
+  { name: "USCSB", subs: "540K", niche: "Safety", pfp: "/pfps/uscsb.jpg" },
+  { name: "QiYoga With LuChin", subs: "89K", niche: "Wellness", pfp: "/pfps/qiyoga.jpg" },
+  { name: "Dr. Cliff Olson", subs: "1.2M", niche: "Health", pfp: "/pfps/dr-cliff.jpg" },
+  { name: "Heath Knuckles", subs: "125K", niche: "Lifestyle", pfp: "/pfps/heath-knuckles.jpg" },
+  { name: "Fortress Fine Woodworks", subs: "210K", niche: "DIY", pfp: "/pfps/fortress.jpg" },
+  { name: "Hybrid Views", subs: "430K", niche: "Tech", pfp: "/pfps/hybrid-views.jpg" },
+  { name: "Bhavini Purohit", subs: "76K", niche: "Vlogs", pfp: "/pfps/bhavini.jpg" },
 ];
 
 export const VIDEOS = [
@@ -59,12 +59,12 @@ export const THUMBNAILS_ROW3 = [
 ];
 
 export const TESTIMONIALS = [
-  { name: "Creator Boost", subs: "98K", rating: 4.9, text: "Retention instantly improved. The pacing and cuts feel way more professional." },
-  { name: "Echo Plays", subs: "220K", rating: 5.0, text: "Best editing team I've worked with. They understand the YouTube algorithm." },
-  { name: "Hustle Deck", subs: "410K", rating: 4.8, text: "Thumbnails are insane. CTR went up 40% in the first month." },
-  { name: "Pixel Rush", subs: "67K", rating: 4.9, text: "They handle everything. I just record and they do the magic." },
-  { name: "Money Decode", subs: "305K", rating: 5.0, text: "Professional, fast, and they actually care about your growth." },
-  { name: "StoryCraft", subs: "150K", rating: 4.7, text: "The storytelling edits transformed my content. Subscribers love the new style." },
+  { name: "Alex Cattoni", subs: "312K", rating: 4.9, text: "Retention instantly improved. The pacing and cuts feel way more professional.", pfp: "/pfps/alex-cattoni.jpg" },
+  { name: "Dr. Cliff Olson", subs: "1.2M", rating: 5.0, text: "Best editing team I've worked with. They understand the YouTube algorithm.", pfp: "/pfps/dr-cliff.jpg" },
+  { name: "Hybrid Views", subs: "430K", rating: 4.8, text: "Thumbnails are insane. CTR went up 40% in the first month.", pfp: "/pfps/hybrid-views.jpg" },
+  { name: "Heath Knuckles", subs: "125K", rating: 4.9, text: "They handle everything. I just record and they do the magic.", pfp: "/pfps/heath-knuckles.jpg" },
+  { name: "QiYoga With LuChin", subs: "89K", rating: 5.0, text: "Professional, fast, and they actually care about your growth.", pfp: "/pfps/qiyoga.jpg" },
+  { name: "Bhavini Purohit", subs: "76K", rating: 4.7, text: "The storytelling edits transformed my content. Subscribers love the new style.", pfp: "/pfps/bhavini.jpg" },
 ];
 
 export const PRICING = [
