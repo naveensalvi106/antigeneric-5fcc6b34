@@ -20,6 +20,19 @@ export const VIDEOS = [
   { title: "Building a 7-Figure Brand Online", creator: "Hustle Hive", type: "Premium Edit" },
 ];
 
+export const THUMBNAILS_ROW1 = [
+  { label: "Gaming", image: "/thumbnails/t1.avif" },
+  { label: "Finance", image: "/thumbnails/t2.avif" },
+  { label: "Commentary", image: "/thumbnails/t3.avif" },
+  { label: "Shorts", image: "/thumbnails/t4.avif" },
+  { label: "Documentary", image: "/thumbnails/t5.avif" },
+  { label: "Education", image: "/thumbnails/t6.avif" },
+  { label: "Vlogs", image: "/thumbnails/t7.avif" },
+  { label: "Tech", image: "/thumbnails/t8.avif" },
+  { label: "Lifestyle", image: "/thumbnails/t9.avif" },
+  { label: "Gaming", image: "/thumbnails/t10.avif" },
+];
+
 export const THUMBNAILS = [
   { label: "Gaming" },
   { label: "Finance" },
