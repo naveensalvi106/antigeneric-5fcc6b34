@@ -1,14 +1,14 @@
 export const WHATSAPP_BASE = "https://wa.me/919358795758";
 
 export const CHANNEL_STATS = [
-  { name: "Apex Plays", subs: "125K", niche: "Gaming" },
-  { name: "Money Forge", subs: "312K", niche: "Finance" },
-  { name: "Creator Pulse", subs: "89K", niche: "Vlogs" },
-  { name: "DarkLore", subs: "540K", niche: "Commentary" },
-  { name: "Pixel Vault", subs: "210K", niche: "Gaming" },
-  { name: "Hustle Hive", subs: "1.2M", niche: "Education" },
-  { name: "Clutch Arena", subs: "76K", niche: "Gaming" },
-  { name: "Growth Theory", subs: "430K", niche: "Finance" },
+  { name: "Alex Cattoni", subs: "312K", niche: "Marketing", pfp: "/pfps/alex-cattoni.jpg" },
+  { name: "USCSB", subs: "540K", niche: "Safety", pfp: "/pfps/uscsb.jpg" },
+  { name: "QiYoga With LuChin", subs: "89K", niche: "Wellness", pfp: "/pfps/qiyoga.jpg" },
+  { name: "Dr. Cliff Olson", subs: "1.2M", niche: "Health", pfp: "/pfps/dr-cliff.jpg" },
+  { name: "Heath Knuckles", subs: "125K", niche: "Lifestyle", pfp: "/pfps/heath-knuckles.jpg" },
+  { name: "Fortress Fine Woodworks", subs: "210K", niche: "DIY", pfp: "/pfps/fortress.jpg" },
+  { name: "Hybrid Views", subs: "430K", niche: "Tech", pfp: "/pfps/hybrid-views.jpg" },
+  { name: "Bhavini Purohit", subs: "76K", niche: "Vlogs", pfp: "/pfps/bhavini.jpg" },
 ];
 
 export const VIDEOS = [
