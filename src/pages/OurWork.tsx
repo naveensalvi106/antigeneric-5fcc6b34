@@ -20,6 +20,21 @@ const SECTIONS: VideoSection[] = [
       "/videos/mg6.mp4",
     ],
   },
+  {
+    title: "Long Form",
+    videos: [
+      "/videos/lf1.mp4",
+      "/videos/lf2.mp4",
+      "/videos/lf3.mp4",
+      "/videos/lf4.mp4",
+      "/videos/lf5.mp4",
+      "/videos/lf6.mp4",
+      "/videos/lf7.mp4",
+      "/videos/lf8.mp4",
+      "/videos/lf9.mp4",
+      "/videos/lf10.mp4",
+    ],
+  },
 ];
 
 const WorkVideoCard = ({ src }: { src: string }) => {
