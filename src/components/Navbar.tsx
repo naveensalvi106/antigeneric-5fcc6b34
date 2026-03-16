@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, type MouseEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -13,6 +13,21 @@ const Navbar = () => {
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  const handleNavClick = (href: string) => (e: MouseEvent<HTMLAnchorElement>) => {
+    if (!href.startsWith("#")) return;
+
+    e.preventDefault();
+    const target = document.querySelector(href);
+    if (!target) return;
+
+    const navbarOffset = 88;
+    const top = target.getBoundingClientRect().top + window.scrollY - navbarOffset;
+
+    window.history.replaceState(null, "", href);
+    window.scrollTo({ top, behavior: "smooth" });
+    setMobileOpen(false);
+  };
 
   return (
     <motion.header
@@ -41,6 +56,7 @@ const Navbar = () => {
               <a
                 key={link.href}
                 href={link.href}
+                onClick={handleNavClick(link.href)}
                 className="relative px-4 py-2 text-sm text-muted-foreground font-medium transition-colors duration-300 hover:text-foreground rounded-lg hover:bg-primary/5"
               >
                 {link.label}
@@ -82,7 +98,7 @@ const Navbar = () => {
                 <a
                   key={link.href}
                   href={link.href}
-                  onClick={() => setMobileOpen(false)}
+                  onClick={handleNavClick(link.href)}
                   className="px-4 py-3 text-sm text-muted-foreground font-medium rounded-lg hover:bg-primary/5 hover:text-foreground transition-colors"
                 >
                   {link.label}
