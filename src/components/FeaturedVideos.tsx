@@ -54,9 +54,9 @@ const VideoCard = ({ src }: { src: string }) => {
           className="w-full h-full object-cover"
           onEnded={() => setPlaying(false)}
         />
-        <div className={`absolute inset-0 flex items-center justify-center bg-background/30 transition-opacity duration-200 ${playing ? 'opacity-0 group-hover:opacity-100' : 'opacity-100'}`}>
-          <div className="w-12 h-12 rounded-full bg-primary/80 backdrop-blur-sm flex items-center justify-center shadow-lg shadow-primary/30">
-            {playing ? <Pause className="w-5 h-5 text-primary-foreground" /> : <Play className="w-5 h-5 text-primary-foreground ml-0.5" />}
+        <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${playing ? 'opacity-0' : 'opacity-100'}`}>
+          <div className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center shadow-lg">
+            <Play className="w-5 h-5 text-white ml-0.5" />
           </div>
         </div>
       </div>

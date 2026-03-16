@@ -67,7 +67,7 @@ const Hero = () => {
                 Get Started
               </Button>
             </a>
-            <a href="#videos">
+            <a href="/our-work">
               <Button variant="nuclear" size="xl" className="w-full sm:w-auto">
                 View Our Work
               </Button>
