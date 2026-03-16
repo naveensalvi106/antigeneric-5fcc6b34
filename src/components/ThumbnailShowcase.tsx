@@ -1,4 +1,4 @@
-import { THUMBNAILS, THUMBNAILS_ROW1 } from "@/data/siteData";
+import { THUMBNAILS, THUMBNAILS_ROW1, THUMBNAILS_ROW2 } from "@/data/siteData";
 import { SectionWrapper, SectionHeader } from "@/components/SectionWrapper";
 
 type ThumbnailItem = { label: string; image?: string };
