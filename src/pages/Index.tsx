@@ -12,7 +12,7 @@ import { GlowSeparator } from "@/components/SectionWrapper";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background overflow-x-hidden">
+    <div className="min-h-screen overflow-x-hidden" style={{ background: "url('/images/bg.jpg') center/cover fixed, hsl(222, 47%, 2%)" }}>
       <Navbar />
       <Hero />
       <GlowSeparator />

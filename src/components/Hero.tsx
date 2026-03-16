@@ -30,7 +30,7 @@ const Hero = () => {
           transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
         >
           <motion.p
-            className="text-primary font-display font-semibold text-sm md:text-base tracking-widest uppercase mb-6"
+            className="font-display font-semibold text-sm md:text-base tracking-widest uppercase mb-6 bg-gradient-to-r from-primary/60 via-accent/50 to-primary/60 bg-clip-text text-transparent"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
