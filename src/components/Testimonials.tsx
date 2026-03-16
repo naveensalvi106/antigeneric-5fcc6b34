@@ -1,8 +1,10 @@
-import { Star, Users } from "lucide-react";
-import { TESTIMONIALS } from "@/data/siteData";
+import { Star } from "lucide-react";
+import { TESTIMONIALS_ROW1, TESTIMONIALS_ROW2 } from "@/data/siteData";
 import { SectionWrapper, SectionHeader } from "@/components/SectionWrapper";
 
-const TestimonialCard = ({ item }: { item: typeof TESTIMONIALS[0] }) => (
+type TestimonialItem = typeof TESTIMONIALS_ROW1[0];
+
+const TestimonialCard = ({ item }: { item: TestimonialItem }) => (
   <div className="min-w-[300px] md:min-w-[360px] p-5 rounded-xl bg-card/50 backdrop-blur-sm card-nuclear transition-all duration-300 hover:scale-[1.02]">
     <div className="flex items-center gap-3 mb-3">
       <img src={item.pfp} alt={item.name} className="w-10 h-10 rounded-full object-cover" />
@@ -19,7 +21,7 @@ const TestimonialCard = ({ item }: { item: typeof TESTIMONIALS[0] }) => (
   </div>
 );
 
-const MarqueeRow = ({ items, direction }: { items: typeof TESTIMONIALS; direction: "left" | "right" }) => {
+const MarqueeRow = ({ items, direction }: { items: TestimonialItem[]; direction: "left" | "right" }) => {
   const doubled = [...items, ...items];
   return (
     <div className="overflow-hidden py-2">
@@ -36,13 +38,12 @@ const MarqueeRow = ({ items, direction }: { items: typeof TESTIMONIALS; directio
 };
 
 const Testimonials = () => {
-  const half = Math.ceil(TESTIMONIALS.length / 2);
   return (
     <SectionWrapper id="testimonials">
       <SectionHeader title="What Creators Say" subtitle="Real feedback from creators we've worked with." />
       <div className="space-y-3">
-        <MarqueeRow items={TESTIMONIALS.slice(0, half).concat(TESTIMONIALS.slice(half))} direction="left" />
-        <MarqueeRow items={TESTIMONIALS.slice(half).concat(TESTIMONIALS.slice(0, half))} direction="right" />
+        <MarqueeRow items={TESTIMONIALS_ROW1} direction="left" />
+        <MarqueeRow items={TESTIMONIALS_ROW2} direction="right" />
       </div>
     </SectionWrapper>
   );
