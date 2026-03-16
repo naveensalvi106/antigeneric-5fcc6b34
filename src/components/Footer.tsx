@@ -1,4 +1,4 @@
-import { Zap } from "lucide-react";
+// Footer component
 import { NAV_LINKS } from "@/data/siteData";
 
 const Footer = () => {
