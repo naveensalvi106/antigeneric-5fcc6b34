@@ -46,7 +46,8 @@ const VideoCard = ({ src }: { src: string }) => (
 );
 
 const FeaturedVideos = () => {
-  const duplicated = [...VIDEO_FILES, ...VIDEO_FILES];
+  const duplicatedRow1 = [...VIDEO_FILES_ROW1, ...VIDEO_FILES_ROW1];
+  const duplicatedRow2 = [...VIDEO_FILES_ROW2, ...VIDEO_FILES_ROW2];
 
   return (
     <SectionWrapper id="videos">
