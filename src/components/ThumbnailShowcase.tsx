@@ -1,0 +1,52 @@
+import { THUMBNAILS } from "@/data/siteData";
+import { SectionWrapper, SectionHeader } from "@/components/SectionWrapper";
+
+const ThumbnailRow = ({ items, direction, speed }: { items: typeof THUMBNAILS; direction: "left" | "right"; speed: string }) => {
+  const doubled = [...items, ...items];
+  return (
+    <div className="overflow-hidden py-2">
+      <div
+        className={`flex gap-4 w-max ${direction === "left" ? "animate-marquee-left" : "animate-marquee-right"}`}
+        style={{ "--marquee-duration": speed } as React.CSSProperties}
+      >
+        {doubled.map((item, i) => (
+          <div
+            key={`${item.label}-${i}`}
+            className="relative w-64 md:w-72 rounded-xl overflow-hidden group transition-all duration-300 hover:scale-105"
+          >
+            <div className="aspect-video bg-gradient-to-br from-muted to-secondary rounded-xl card-nuclear overflow-hidden">
+              <div className="absolute inset-0 flex items-center justify-center">
+                <span className="text-muted-foreground/40 font-display text-sm">Thumbnail</span>
+              </div>
+              {/* Hover glow */}
+              <div className="absolute inset-0 rounded-xl border border-transparent group-hover:border-primary/20 transition-colors duration-300" />
+            </div>
+            <span className="absolute bottom-2 left-2 text-xs font-medium px-2 py-0.5 rounded-md bg-card/80 backdrop-blur-sm text-muted-foreground border border-border">
+              {item.label}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const ThumbnailShowcase = () => {
+  const third = Math.ceil(THUMBNAILS.length / 3);
+  const r1 = THUMBNAILS.slice(0, third + 1);
+  const r2 = THUMBNAILS.slice(third + 1, third * 2 + 1);
+  const r3 = THUMBNAILS.slice(third * 2 + 1);
+
+  return (
+    <SectionWrapper id="thumbnails">
+      <SectionHeader title="High-CTR Thumbnail Showcase" subtitle="Designed to stop the scroll and drive clicks." />
+      <div className="space-y-3">
+        <ThumbnailRow items={[...r1, ...r2]} direction="left" speed="40s" />
+        <ThumbnailRow items={[...r2, ...r3]} direction="right" speed="35s" />
+        <ThumbnailRow items={[...r3, ...r1]} direction="left" speed="45s" />
+      </div>
+    </SectionWrapper>
+  );
+};
+
+export default ThumbnailShowcase;

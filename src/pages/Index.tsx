@@ -1,12 +1,36 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import Navbar from "@/components/Navbar";
+import Hero from "@/components/Hero";
+import ChannelStats from "@/components/ChannelStats";
+import FeaturedVideos from "@/components/FeaturedVideos";
+import ThumbnailShowcase from "@/components/ThumbnailShowcase";
+import Testimonials from "@/components/Testimonials";
+import Pricing from "@/components/Pricing";
+import FAQ from "@/components/FAQ";
+import Contact from "@/components/Contact";
+import Footer from "@/components/Footer";
+import { GlowSeparator } from "@/components/SectionWrapper";
 
 const Index = () => {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen bg-background overflow-x-hidden">
+      <Navbar />
+      <Hero />
+      <GlowSeparator />
+      <ChannelStats />
+      <GlowSeparator />
+      <FeaturedVideos />
+      <GlowSeparator />
+      <ThumbnailShowcase />
+      <GlowSeparator />
+      <Testimonials />
+      <GlowSeparator />
+      <Pricing />
+      <GlowSeparator />
+      <FAQ />
+      <GlowSeparator />
+      <Contact />
+      <GlowSeparator />
+      <Footer />
     </div>
   );
 };
