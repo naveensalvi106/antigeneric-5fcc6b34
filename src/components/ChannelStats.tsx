@@ -1,8 +1,9 @@
-import { CHANNEL_STATS } from "@/data/siteData";
+import { CHANNEL_STATS_ROW1, CHANNEL_STATS_ROW2 } from "@/data/siteData";
 import { SectionWrapper, SectionHeader } from "@/components/SectionWrapper";
-import { Users } from "lucide-react";
 
-const MarqueeRow = ({ items, direction }: { items: typeof CHANNEL_STATS; direction: "left" | "right" }) => {
+type ChannelItem = { name: string; subs: string; niche: string; pfp: string };
+
+const MarqueeRow = ({ items, direction }: { items: ChannelItem[]; direction: "left" | "right" }) => {
   const doubled = [...items, ...items];
   return (
     <div className="overflow-hidden py-3 group">
@@ -32,16 +33,12 @@ const MarqueeRow = ({ items, direction }: { items: typeof CHANNEL_STATS; directi
 };
 
 const ChannelStats = () => {
-  const half = Math.ceil(CHANNEL_STATS.length / 2);
-  const row1 = CHANNEL_STATS.slice(0, half);
-  const row2 = CHANNEL_STATS.slice(half);
-
   return (
     <SectionWrapper id="stats">
       <SectionHeader title="Trusted by Growing Creators" subtitle="Channels we've helped scale with premium editing and content operations." />
       <div className="space-y-2">
-        <MarqueeRow items={[...row1, ...row2]} direction="left" />
-        <MarqueeRow items={[...row2, ...row1]} direction="right" />
+        <MarqueeRow items={CHANNEL_STATS_ROW1} direction="left" />
+        <MarqueeRow items={CHANNEL_STATS_ROW2} direction="right" />
       </div>
     </SectionWrapper>
   );

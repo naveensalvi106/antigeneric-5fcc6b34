@@ -1,6 +1,6 @@
 export const WHATSAPP_BASE = "https://wa.me/919358795758";
 
-export const CHANNEL_STATS = [
+export const CHANNEL_STATS_ROW1 = [
   { name: "Alex Cattoni", subs: "312K", niche: "Marketing", pfp: "/pfps/alex-cattoni.jpg" },
   { name: "USCSB", subs: "540K", niche: "Safety", pfp: "/pfps/uscsb.jpg" },
   { name: "QiYoga With LuChin", subs: "89K", niche: "Wellness", pfp: "/pfps/qiyoga.jpg" },
@@ -9,6 +9,17 @@ export const CHANNEL_STATS = [
   { name: "Fortress Fine Woodworks", subs: "210K", niche: "DIY", pfp: "/pfps/fortress.jpg" },
   { name: "Hybrid Views", subs: "430K", niche: "Tech", pfp: "/pfps/hybrid-views.jpg" },
   { name: "Bhavini Purohit", subs: "76K", niche: "Vlogs", pfp: "/pfps/bhavini.jpg" },
+];
+
+export const CHANNEL_STATS_ROW2 = [
+  { name: "Abhayam Live", subs: "150K", niche: "Education", pfp: "/pfps/abhayam-live.jpg" },
+  { name: "Brett Malinowski", subs: "890K", niche: "Business", pfp: "/pfps/brett-malinowski.jpg" },
+  { name: "Justin Moore", subs: "95K", niche: "Creator Economy", pfp: "/pfps/justin-moore.jpg" },
+  { name: "Liam Ottley", subs: "320K", niche: "AI", pfp: "/pfps/liam-ottley.jpg" },
+  { name: "Skill Leap AI", subs: "410K", niche: "AI", pfp: "/pfps/skill-leap-ai.jpg" },
+  { name: "The AI Advantage", subs: "560K", niche: "AI", pfp: "/pfps/ai-advantage.jpg" },
+  { name: "Dave Birss", subs: "180K", niche: "Creativity", pfp: "/pfps/dave-birss.jpg" },
+  { name: "Wes Roth", subs: "270K", niche: "AI", pfp: "/pfps/wes-roth.jpg" },
 ];
 
 export const VIDEOS = [
