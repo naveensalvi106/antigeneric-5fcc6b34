@@ -94,7 +94,7 @@ const Navbar = () => {
                 rel="noopener noreferrer"
                 className="mt-2"
               >
-                <Button variant="nuclear" className="w-full">Book on WhatsApp</Button>
+                <Button variant="nuclear" className="w-full">Let's Talk</Button>
               </a>
             </nav>
           </motion.div>

@@ -53,7 +53,7 @@ const Pricing = () => {
                   variant={plan.popular ? "nuclear" : "nuclear-outline"}
                   className="w-full"
                 >
-                  Ask on WhatsApp
+                  Select
                 </Button>
               </a>
             </motion.div>
