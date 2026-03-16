@@ -1,6 +1,6 @@
 import { useState, useEffect, type MouseEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Zap } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { NAV_LINKS, WHATSAPP_BASE } from "@/data/siteData";
 
