@@ -9,10 +9,13 @@ import FAQ from "@/components/FAQ";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import { GlowSeparator } from "@/components/SectionWrapper";
+import ParticleBackground from "@/components/ParticleBackground";
 
 const Index = () => {
   return (
-    <div className="min-h-screen overflow-x-hidden" style={{ background: "url('/images/bg.jpg') center/cover fixed, hsl(222, 47%, 2%)" }}>
+    <div className="min-h-screen overflow-x-hidden relative">
+      <ParticleBackground />
+      <div className="relative z-10">
       <Navbar />
       <Hero />
       <GlowSeparator />
@@ -31,6 +34,7 @@ const Index = () => {
       <Contact />
       <GlowSeparator />
       <Footer />
+      </div>
     </div>
   );
 };
