@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { useState, useRef } from "react";
+import { Play, Pause } from "lucide-react";
 import { SectionWrapper, SectionHeader } from "@/components/SectionWrapper";
 
 const VIDEO_FILES_ROW1 = [
@@ -25,25 +26,81 @@ const VIDEO_FILES_ROW2 = [
   "/videos/video18.mp4",
 ];
 
-const VideoCard = ({ src }: { src: string }) => (
-  <div className="flex-shrink-0 w-[280px] md:w-[340px] rounded-xl overflow-hidden bg-card card-nuclear">
-    <div className="aspect-video">
-      <video
-        src={src}
-        muted
-        loop
-        playsInline
-        preload="metadata"
-        className="w-full h-full object-cover"
-        onMouseEnter={(e) => e.currentTarget.play()}
-        onMouseLeave={(e) => {
-          e.currentTarget.pause();
-          e.currentTarget.currentTime = 0;
-        }}
-      />
+const VideoCard = ({ src }: { src: string }) => {
+  const [playing, setPlaying] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const togglePlay = () => {
+    const vid = videoRef.current;
+    if (!vid) return;
+    if (playing) {
+      vid.pause();
+    } else {
+      vid.play();
+    }
+    setPlaying(!playing);
+  };
+
+  return (
+    <div className="flex-shrink-0 w-[280px] md:w-[340px] rounded-xl overflow-hidden bg-card card-nuclear relative group cursor-pointer" onClick={togglePlay}>
+      <div className="aspect-video relative">
+        <video
+          ref={videoRef}
+          src={src}
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          className="w-full h-full object-cover"
+          onEnded={() => setPlaying(false)}
+        />
+        <div className={`absolute inset-0 flex items-center justify-center bg-background/30 transition-opacity duration-200 ${playing ? 'opacity-0 group-hover:opacity-100' : 'opacity-100'}`}>
+          <div className="w-12 h-12 rounded-full bg-primary/80 backdrop-blur-sm flex items-center justify-center shadow-lg shadow-primary/30">
+            {playing ? <Pause className="w-5 h-5 text-primary-foreground" /> : <Play className="w-5 h-5 text-primary-foreground ml-0.5" />}
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-);
+  );
+};
+
+const ScrollableRow = ({ children, className, style }: { children: React.ReactNode; className?: string; style?: React.CSSProperties }) => {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const isDragging = useRef(false);
+  const startX = useRef(0);
+  const scrollLeft = useRef(0);
+
+  const onPointerDown = (e: React.PointerEvent) => {
+    isDragging.current = true;
+    startX.current = e.pageX - (scrollRef.current?.offsetLeft || 0);
+    scrollLeft.current = scrollRef.current?.scrollLeft || 0;
+    scrollRef.current?.setPointerCapture(e.pointerId);
+  };
+
+  const onPointerMove = (e: React.PointerEvent) => {
+    if (!isDragging.current || !scrollRef.current) return;
+    const x = e.pageX - scrollRef.current.offsetLeft;
+    scrollRef.current.scrollLeft = scrollLeft.current - (x - startX.current);
+  };
+
+  const onPointerUp = () => {
+    isDragging.current = false;
+  };
+
+  return (
+    <div
+      ref={scrollRef}
+      className={`overflow-x-auto scrollbar-hide cursor-grab active:cursor-grabbing ${className || ''}`}
+      style={style}
+      onPointerDown={onPointerDown}
+      onPointerMove={onPointerMove}
+      onPointerUp={onPointerUp}
+      onPointerLeave={onPointerUp}
+    >
+      {children}
+    </div>
+  );
+};
 
 const FeaturedVideos = () => {
   const duplicatedRow1 = [...VIDEO_FILES_ROW1, ...VIDEO_FILES_ROW1];
@@ -56,28 +113,28 @@ const FeaturedVideos = () => {
       </div>
 
       {/* Row 1: Left to Right */}
-      <div className="overflow-hidden mb-6">
+      <ScrollableRow className="mb-6">
         <div
           className="flex gap-4 animate-marquee-right"
-          style={{ "--marquee-duration": "40s", width: "max-content" } as React.CSSProperties}
+          style={{ "--marquee-duration": "20s", width: "max-content" } as React.CSSProperties}
         >
           {duplicatedRow1.map((src, i) => (
             <VideoCard key={`r1-${i}`} src={src} />
           ))}
         </div>
-      </div>
+      </ScrollableRow>
 
       {/* Row 2: Right to Left */}
-      <div className="overflow-hidden">
+      <ScrollableRow>
         <div
           className="flex gap-4 animate-marquee-left"
-          style={{ "--marquee-duration": "45s", width: "max-content" } as React.CSSProperties}
+          style={{ "--marquee-duration": "22.5s", width: "max-content" } as React.CSSProperties}
         >
           {duplicatedRow2.map((src, i) => (
             <VideoCard key={`r2-${i}`} src={src} />
           ))}
         </div>
-      </div>
+      </ScrollableRow>
     </SectionWrapper>
   );
 };
