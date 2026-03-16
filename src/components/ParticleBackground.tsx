@@ -24,11 +24,11 @@ const ParticleBackground = () => {
     });
     ro.observe(document.body);
 
-    // Particles
-    const PARTICLE_COUNT = 90;
+    // Particles – spread across full page height
+    const PARTICLE_COUNT = 150;
     const particles = Array.from({ length: PARTICLE_COUNT }, () => ({
       x: Math.random() * width,
-      y: Math.random() * 5000,
+      y: Math.random() * height,
       vx: (Math.random() - 0.5) * 0.3,
       vy: (Math.random() - 0.5) * 0.3,
       r: Math.random() * 2 + 0.5,
@@ -36,10 +36,10 @@ const ParticleBackground = () => {
       pulse: Math.random() * Math.PI * 2,
     }));
 
-    // Wind streams – bold glowing streaks that sweep across
-    const STREAM_COUNT = 18;
+    // Wind streams – spread evenly across full page height
+    const STREAM_COUNT = 35;
     const streams = Array.from({ length: STREAM_COUNT }, (_, i) => ({
-      yBase: (i / STREAM_COUNT) * 5000 + Math.random() * 300,
+      yBase: (i / STREAM_COUNT) * height + Math.random() * (height / STREAM_COUNT),
       speed: 0.3 + Math.random() * 0.6,
       direction: Math.random() > 0.5 ? 1 : -1,
       amplitude: 40 + Math.random() * 80,
@@ -50,14 +50,14 @@ const ParticleBackground = () => {
       glowSize: 20 + Math.random() * 40,
       glowAlpha: 0.15 + Math.random() * 0.2,
       offset: Math.random() * Math.PI * 2,
-      length: 0.4 + Math.random() * 0.5, // fraction of width
+      length: 0.4 + Math.random() * 0.5,
     }));
 
-    // Bright floating orbs
-    const ORB_COUNT = 6;
+    // Bright floating orbs – spread across full page height
+    const ORB_COUNT = 12;
     const orbs = Array.from({ length: ORB_COUNT }, () => ({
       x: Math.random() * width,
-      y: Math.random() * 4000,
+      y: Math.random() * height,
       vx: (Math.random() - 0.5) * 0.5,
       vy: (Math.random() - 0.5) * 0.4,
       r: 60 + Math.random() * 120,
@@ -86,8 +86,8 @@ const ParticleBackground = () => {
         orb.y += orb.vy;
         if (orb.x < -orb.r) orb.x = width + orb.r;
         if (orb.x > width + orb.r) orb.x = -orb.r;
-        if (orb.y < -orb.r) orb.y += 500;
-        if (orb.y > height + orb.r) orb.y -= 500;
+        if (orb.y < -orb.r) orb.y = height + orb.r;
+        if (orb.y > height + orb.r) orb.y = -orb.r;
 
         const pulse = 1 + 0.3 * Math.sin(t * orb.pulseSpeed);
         const r = orb.r * pulse;
@@ -106,14 +106,11 @@ const ParticleBackground = () => {
         const endX = s.direction === 1 ? width * (s.length + 0.1) : width * (1 - s.length - 0.1);
         const phase = t * s.speed * s.direction + s.offset;
 
-        // Glow layer
         ctx.beginPath();
         const step = 4;
         const xStart = Math.min(startX, endX);
         const xEnd = Math.max(startX, endX);
         for (let x = xStart; x <= xEnd; x += step) {
-          const progress = (x - xStart) / (xEnd - xStart);
-          const fadeEdge = Math.sin(progress * Math.PI); // fade at both ends
           const y =
             s.yBase +
             Math.sin(x * s.frequency + phase) * s.amplitude +
