@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, type MouseEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -13,6 +13,21 @@ const Navbar = () => {
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  const handleNavClick = (href: string) => (e: MouseEvent<HTMLAnchorElement>) => {
+    if (!href.startsWith("#")) return;
+
+    e.preventDefault();
+    const target = document.querySelector(href);
+    if (!target) return;
+
+    const navbarOffset = 88;
+    const top = target.getBoundingClientRect().top + window.scrollY - navbarOffset;
+
+    window.history.replaceState(null, "", href);
+    window.scrollTo({ top, behavior: "smooth" });
+    setMobileOpen(false);
+  };
 
   return (
     <motion.header
