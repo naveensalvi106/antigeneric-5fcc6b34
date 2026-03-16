@@ -35,7 +35,7 @@ const Hero = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
           >
-            Premium Content Operations Agency
+            Full-Service Content Growth Agency
           </motion.p>
 
           <h1 className="font-display text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.1] text-balance mb-6">
