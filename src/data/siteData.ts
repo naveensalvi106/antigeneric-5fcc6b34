@@ -30,7 +30,7 @@ export const THUMBNAILS_ROW1 = [
   { label: "Vlogs", image: "/thumbnails/t7.avif" },
   { label: "Tech", image: "/thumbnails/t8.avif" },
   { label: "Lifestyle", image: "/thumbnails/t9.avif" },
-  { label: "Gaming", image: "/thumbnails/t10.avif" },
+  
 ];
 
 export const THUMBNAILS_ROW2 = [
