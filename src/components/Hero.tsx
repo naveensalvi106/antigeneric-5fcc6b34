@@ -39,8 +39,8 @@ const Hero = () => {
           </motion.p>
 
           <h1 className="font-display text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.1] text-balance mb-6">
-            Premium Video Editing That{" "}
-            <span className="gradient-text">Grows Your Channel</span>
+            Your Content Has Potential.{" "}
+            <span className="gradient-text">We Unlock It.</span>
           </h1>
 
           <motion.p
@@ -64,11 +64,11 @@ const Hero = () => {
               rel="noopener noreferrer"
             >
               <Button variant="nuclear" size="xl" className="w-full sm:w-auto">
-                Get Started on WhatsApp
+                Get Started
               </Button>
             </a>
             <a href="#videos">
-              <Button variant="nuclear-outline" size="xl" className="w-full sm:w-auto">
+              <Button variant="nuclear" size="xl" className="w-full sm:w-auto">
                 View Our Work
               </Button>
             </a>
