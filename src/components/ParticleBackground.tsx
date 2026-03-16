@@ -199,7 +199,7 @@ const ParticleBackground = () => {
   return (
     <canvas
       ref={canvasRef}
-      className="absolute inset-0 w-full"
+      className="absolute inset-0 w-full pointer-events-none"
       style={{ zIndex: 0, height: "100%" }}
     />
   );
