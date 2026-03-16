@@ -26,9 +26,6 @@ const ThumbnailRow = ({ items, direction, speed }: { items: ThumbnailItem[]; dir
               )}
               <div className="absolute inset-0 rounded-xl border border-transparent group-hover:border-primary/20 transition-colors duration-300" />
             </div>
-            <span className="absolute bottom-2 left-2 text-xs font-medium px-2 py-0.5 rounded-md bg-card/80 backdrop-blur-sm text-muted-foreground border border-border">
-              {item.label}
-            </span>
           </div>
         ))}
       </div>
