@@ -33,6 +33,19 @@ export const THUMBNAILS_ROW1 = [
   { label: "Gaming", image: "/thumbnails/t10.avif" },
 ];
 
+export const THUMBNAILS_ROW2 = [
+  { label: "Gaming", image: "/thumbnails/r2-1.avif" },
+  { label: "Finance", image: "/thumbnails/r2-2.avif" },
+  { label: "Commentary", image: "/thumbnails/r2-3.avif" },
+  { label: "Shorts", image: "/thumbnails/r2-4.avif" },
+  { label: "Documentary", image: "/thumbnails/r2-5.avif" },
+  { label: "Education", image: "/thumbnails/r2-6.avif" },
+  { label: "Vlogs", image: "/thumbnails/r2-7.jpg" },
+  { label: "Tech", image: "/thumbnails/r2-8.avif" },
+  { label: "Lifestyle", image: "/thumbnails/r2-9.avif" },
+  { label: "Gaming", image: "/thumbnails/r2-10.jpg" },
+];
+
 export const THUMBNAILS = [
   { label: "Gaming" },
   { label: "Finance" },
