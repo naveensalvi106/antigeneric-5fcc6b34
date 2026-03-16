@@ -6,179 +6,175 @@ const ParticleBackground = () => {
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d", { alpha: false });
     if (!ctx) return;
 
     let animationId: number;
-    let width = (canvas.width = window.innerWidth);
-    let height = (canvas.height = document.documentElement.scrollHeight);
+    let dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+    let scrollY = window.scrollY;
+    let pageHeight = document.documentElement.scrollHeight;
 
-    const handleResize = () => {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = document.documentElement.scrollHeight;
+    const setSize = () => {
+      dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      ctx.scale(dpr, dpr);
+      pageHeight = document.documentElement.scrollHeight;
     };
+    setSize();
+
+    const handleResize = () => setSize();
+    const handleScroll = () => { scrollY = window.scrollY; };
     window.addEventListener("resize", handleResize);
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
-    const ro = new ResizeObserver(() => {
-      height = canvas.height = document.documentElement.scrollHeight;
-    });
-    ro.observe(document.body);
-
-    // Particles – spread across full page height
-    const PARTICLE_COUNT = 150;
+    // Particles – fewer, viewport-relative
+    const PARTICLE_COUNT = 60;
     const particles = Array.from({ length: PARTICLE_COUNT }, () => ({
       x: Math.random() * width,
-      y: Math.random() * height,
+      yRel: Math.random(), // 0-1 relative to page
       vx: (Math.random() - 0.5) * 0.3,
-      vy: (Math.random() - 0.5) * 0.3,
-      r: Math.random() * 2 + 0.5,
-      opacity: Math.random() * 0.5 + 0.2,
+      vy: (Math.random() - 0.5) * 0.2,
+      r: Math.random() * 1.5 + 0.5,
+      opacity: Math.random() * 0.4 + 0.15,
       pulse: Math.random() * Math.PI * 2,
     }));
 
-    // Wind streams – spread evenly across full page height
-    const STREAM_COUNT = 35;
+    // Streams – fewer, simpler
+    const STREAM_COUNT = 18;
     const streams = Array.from({ length: STREAM_COUNT }, (_, i) => ({
-      yBase: (i / STREAM_COUNT) * height + Math.random() * (height / STREAM_COUNT),
-      speed: 0.3 + Math.random() * 0.6,
+      yRelBase: i / STREAM_COUNT + Math.random() * (1 / STREAM_COUNT),
+      speed: 0.3 + Math.random() * 0.5,
       direction: Math.random() > 0.5 ? 1 : -1,
-      amplitude: 40 + Math.random() * 80,
+      amplitude: 30 + Math.random() * 60,
       frequency: 0.002 + Math.random() * 0.003,
-      thickness: 2 + Math.random() * 4,
+      thickness: 1.5 + Math.random() * 3,
       hue: 200 + Math.random() * 25,
       brightness: 55 + Math.random() * 20,
-      glowSize: 20 + Math.random() * 40,
-      glowAlpha: 0.15 + Math.random() * 0.2,
+      alpha: 0.12 + Math.random() * 0.15,
       offset: Math.random() * Math.PI * 2,
-      length: 0.4 + Math.random() * 0.5,
+      length: 0.4 + Math.random() * 0.4,
     }));
 
-    // Bright floating orbs – spread across full page height
-    const ORB_COUNT = 12;
+    // Orbs – fewer
+    const ORB_COUNT = 6;
     const orbs = Array.from({ length: ORB_COUNT }, () => ({
       x: Math.random() * width,
-      y: Math.random() * height,
-      vx: (Math.random() - 0.5) * 0.5,
-      vy: (Math.random() - 0.5) * 0.4,
-      r: 60 + Math.random() * 120,
+      yRel: Math.random(),
+      vx: (Math.random() - 0.5) * 0.4,
+      vy: (Math.random() - 0.5) * 0.0002,
+      r: 50 + Math.random() * 80,
       hue: 200 + Math.random() * 30,
-      alpha: 0.04 + Math.random() * 0.06,
-      pulseSpeed: 0.5 + Math.random() * 1,
+      alpha: 0.04 + Math.random() * 0.05,
+      pulseSpeed: 0.5 + Math.random() * 0.8,
     }));
 
-    const CONNECTION_DIST = 110;
+    const MARGIN = 200; // px above/below viewport to render
 
     const draw = (time: number) => {
       const t = time * 0.001;
+      const vpTop = scrollY - MARGIN;
+      const vpBottom = scrollY + height + MARGIN;
 
-      // Dark blue gradient
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      // Background gradient (viewport only)
       const grad = ctx.createLinearGradient(0, 0, 0, height);
       grad.addColorStop(0, "hsl(222, 47%, 3%)");
-      grad.addColorStop(0.3, "hsl(220, 50%, 5%)");
-      grad.addColorStop(0.7, "hsl(218, 55%, 4%)");
+      grad.addColorStop(0.5, "hsl(220, 50%, 5%)");
       grad.addColorStop(1, "hsl(225, 45%, 3%)");
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, width, height);
 
-      // Glowing orbs
+      // Orbs (no shadowBlur)
       for (const orb of orbs) {
         orb.x += orb.vx;
-        orb.y += orb.vy;
+        orb.yRel += orb.vy;
         if (orb.x < -orb.r) orb.x = width + orb.r;
         if (orb.x > width + orb.r) orb.x = -orb.r;
-        if (orb.y < -orb.r) orb.y = height + orb.r;
-        if (orb.y > height + orb.r) orb.y = -orb.r;
+        if (orb.yRel < 0) orb.yRel = 1;
+        if (orb.yRel > 1) orb.yRel = 0;
 
+        const worldY = orb.yRel * pageHeight;
+        if (worldY < vpTop - orb.r || worldY > vpBottom + orb.r) continue;
+
+        const screenY = worldY - scrollY;
         const pulse = 1 + 0.3 * Math.sin(t * orb.pulseSpeed);
         const r = orb.r * pulse;
-        const g = ctx.createRadialGradient(orb.x, orb.y, 0, orb.x, orb.y, r);
-        g.addColorStop(0, `hsla(${orb.hue}, 90%, 60%, ${orb.alpha * 1.5})`);
-        g.addColorStop(0.5, `hsla(${orb.hue}, 85%, 50%, ${orb.alpha * 0.7})`);
+        const g = ctx.createRadialGradient(orb.x, screenY, 0, orb.x, screenY, r);
+        g.addColorStop(0, `hsla(${orb.hue}, 90%, 60%, ${orb.alpha * 1.2})`);
+        g.addColorStop(0.6, `hsla(${orb.hue}, 85%, 50%, ${orb.alpha * 0.4})`);
         g.addColorStop(1, `hsla(${orb.hue}, 80%, 40%, 0)`);
         ctx.fillStyle = g;
-        ctx.fillRect(orb.x - r, orb.y - r, r * 2, r * 2);
+        ctx.fillRect(orb.x - r, screenY - r, r * 2, r * 2);
       }
 
-      // Wind streams – bold glowing sweeping lines
+      // Streams (no shadowBlur – use lineWidth layering instead)
       ctx.lineCap = "round";
       for (const s of streams) {
+        const worldYBase = s.yRelBase * pageHeight;
+        if (worldYBase < vpTop - s.amplitude * 2 || worldYBase > vpBottom + s.amplitude * 2) continue;
+
+        const screenYBase = worldYBase - scrollY;
         const startX = s.direction === 1 ? -width * 0.1 : width * 1.1;
         const endX = s.direction === 1 ? width * (s.length + 0.1) : width * (1 - s.length - 0.1);
         const phase = t * s.speed * s.direction + s.offset;
-
-        ctx.beginPath();
-        const step = 4;
         const xStart = Math.min(startX, endX);
         const xEnd = Math.max(startX, endX);
-        for (let x = xStart; x <= xEnd; x += step) {
-          const y =
-            s.yBase +
-            Math.sin(x * s.frequency + phase) * s.amplitude +
-            Math.sin(x * s.frequency * 2.3 + phase * 1.5) * s.amplitude * 0.3 +
-            Math.cos(x * s.frequency * 0.7 + phase * 0.8) * s.amplitude * 0.2;
+        const step = 6;
 
+        // Build path once
+        ctx.beginPath();
+        for (let x = xStart; x <= xEnd; x += step) {
+          const y = screenYBase +
+            Math.sin(x * s.frequency + phase) * s.amplitude +
+            Math.sin(x * s.frequency * 2.3 + phase * 1.5) * s.amplitude * 0.3;
           if (x === xStart) ctx.moveTo(x, y);
           else ctx.lineTo(x, y);
         }
 
-        // Outer glow
-        ctx.shadowColor = `hsla(${s.hue}, 100%, ${s.brightness}%, 0.8)`;
-        ctx.shadowBlur = s.glowSize;
-        ctx.strokeStyle = `hsla(${s.hue}, 95%, ${s.brightness}%, ${s.glowAlpha * 0.6})`;
-        ctx.lineWidth = s.thickness + 6;
+        // Outer glow (thick, low alpha)
+        ctx.strokeStyle = `hsla(${s.hue}, 95%, ${s.brightness}%, ${s.alpha * 0.3})`;
+        ctx.lineWidth = s.thickness + 8;
         ctx.stroke();
 
-        // Core bright line
-        ctx.shadowBlur = s.glowSize * 0.5;
-        ctx.strokeStyle = `hsla(${s.hue}, 100%, ${s.brightness + 15}%, ${s.glowAlpha})`;
+        // Core
+        ctx.strokeStyle = `hsla(${s.hue}, 100%, ${s.brightness + 10}%, ${s.alpha})`;
         ctx.lineWidth = s.thickness;
         ctx.stroke();
 
         // Hot center
-        ctx.shadowBlur = 0;
-        ctx.strokeStyle = `hsla(${s.hue}, 100%, 85%, ${s.glowAlpha * 0.5})`;
-        ctx.lineWidth = Math.max(1, s.thickness * 0.4);
+        ctx.strokeStyle = `hsla(${s.hue}, 100%, 85%, ${s.alpha * 0.4})`;
+        ctx.lineWidth = Math.max(0.8, s.thickness * 0.35);
         ctx.stroke();
       }
 
-      ctx.shadowBlur = 0;
-      ctx.shadowColor = "transparent";
-
-      // Particles
+      // Particles (no connections – O(n) only)
       for (const p of particles) {
         p.x += p.vx;
-        p.y += p.vy;
+        p.yRel += p.vy / pageHeight;
         if (p.x < 0) p.x = width;
         if (p.x > width) p.x = 0;
-        if (p.y < 0) p.y += height;
-        if (p.y > height) p.y -= height;
+        if (p.yRel < 0) p.yRel = 1;
+        if (p.yRel > 1) p.yRel = 0;
 
+        const worldY = p.yRel * pageHeight;
+        if (worldY < vpTop || worldY > vpBottom) continue;
+
+        const screenY = worldY - scrollY;
         const flicker = 0.5 + 0.5 * Math.sin(t * 2 + p.pulse);
         const alpha = p.opacity * (0.6 + 0.4 * flicker);
 
         ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.arc(p.x, screenY, p.r, 0, Math.PI * 2);
         ctx.fillStyle = `hsla(210, 80%, 80%, ${alpha})`;
         ctx.fill();
-      }
-
-      // Connections
-      ctx.lineWidth = 0.4;
-      ctx.shadowBlur = 0;
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < CONNECTION_DIST) {
-            const alpha = (1 - dist / CONNECTION_DIST) * 0.1;
-            ctx.strokeStyle = `hsla(217, 91%, 60%, ${alpha})`;
-            ctx.beginPath();
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.stroke();
-          }
-        }
       }
 
       animationId = requestAnimationFrame(draw);
@@ -189,15 +185,15 @@ const ParticleBackground = () => {
     return () => {
       cancelAnimationFrame(animationId);
       window.removeEventListener("resize", handleResize);
-      ro.disconnect();
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
   return (
     <canvas
       ref={canvasRef}
-      className="absolute inset-0 w-full pointer-events-none"
-      style={{ zIndex: 0, height: "100%" }}
+      className="fixed inset-0 pointer-events-none"
+      style={{ zIndex: 0 }}
     />
   );
 };
