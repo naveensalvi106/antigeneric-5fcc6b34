@@ -39,8 +39,8 @@ const Hero = () => {
           </motion.p>
 
           <h1 className="font-display text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.1] text-balance mb-6">
-            Premium Video Editing That{" "}
-            <span className="gradient-text">Grows Your Channel</span>
+            Your Content Has Potential.{" "}
+            <span className="gradient-text">We Unlock It.</span>
           </h1>
 
           <motion.p
