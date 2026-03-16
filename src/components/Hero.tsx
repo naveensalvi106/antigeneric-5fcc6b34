@@ -64,11 +64,11 @@ const Hero = () => {
               rel="noopener noreferrer"
             >
               <Button variant="nuclear" size="xl" className="w-full sm:w-auto">
-                Get Started on WhatsApp
+                Get Started
               </Button>
             </a>
             <a href="#videos">
-              <Button variant="nuclear-outline" size="xl" className="w-full sm:w-auto">
+              <Button variant="nuclear" size="xl" className="w-full sm:w-auto">
                 View Our Work
               </Button>
             </a>
