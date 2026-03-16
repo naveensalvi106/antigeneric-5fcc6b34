@@ -69,13 +69,26 @@ export const THUMBNAILS_ROW3 = [
   { label: "Gaming", image: "/thumbnails/r3-9.jpg" },
 ];
 
-export const TESTIMONIALS = [
+export const TESTIMONIALS_ROW1 = [
   { name: "Alex Cattoni", subs: "312K", rating: 4.9, text: "Retention instantly improved. The pacing and cuts feel way more professional.", pfp: "/pfps/alex-cattoni.jpg" },
-  { name: "Dr. Cliff Olson", subs: "1.2M", rating: 5.0, text: "Best editing team I've worked with. They understand the YouTube algorithm.", pfp: "/pfps/dr-cliff.jpg" },
-  { name: "Hybrid Views", subs: "430K", rating: 4.8, text: "Thumbnails are insane. CTR went up 40% in the first month.", pfp: "/pfps/hybrid-views.jpg" },
-  { name: "Heath Knuckles", subs: "125K", rating: 4.9, text: "They handle everything. I just record and they do the magic.", pfp: "/pfps/heath-knuckles.jpg" },
+  { name: "USCSB", subs: "540K", rating: 5.0, text: "Best editing team I've worked with. They understand the YouTube algorithm.", pfp: "/pfps/uscsb.jpg" },
   { name: "QiYoga With LuChin", subs: "89K", rating: 5.0, text: "Professional, fast, and they actually care about your growth.", pfp: "/pfps/qiyoga.jpg" },
-  { name: "Bhavini Purohit", subs: "76K", rating: 4.7, text: "The storytelling edits transformed my content. Subscribers love the new style.", pfp: "/pfps/bhavini.jpg" },
+  { name: "Dr. Cliff Olson", subs: "1.2M", rating: 4.9, text: "They handle everything. I just record and they do the magic.", pfp: "/pfps/dr-cliff.jpg" },
+  { name: "Heath Knuckles", subs: "125K", rating: 4.8, text: "Thumbnails are insane. CTR went up 40% in the first month.", pfp: "/pfps/heath-knuckles.jpg" },
+  { name: "Fortress Fine Woodworks", subs: "210K", rating: 4.9, text: "The storytelling edits transformed my content. Subscribers love the new style.", pfp: "/pfps/fortress.jpg" },
+  { name: "Hybrid Views", subs: "430K", rating: 5.0, text: "Quality is unmatched. Every video feels cinematic now.", pfp: "/pfps/hybrid-views.jpg" },
+  { name: "Bhavini Purohit", subs: "76K", rating: 4.7, text: "They truly understand what works on YouTube. Huge difference in my content.", pfp: "/pfps/bhavini.jpg" },
+];
+
+export const TESTIMONIALS_ROW2 = [
+  { name: "Abhayam Live", subs: "150K", rating: 4.9, text: "Incredible turnaround time and the edits are always on point.", pfp: "/pfps/abhayam-live.jpg" },
+  { name: "Brett Malinowski", subs: "890K", rating: 5.0, text: "These guys get YouTube. My watch time has never been higher.", pfp: "/pfps/brett-malinowski.jpg" },
+  { name: "Justin Moore", subs: "95K", rating: 4.8, text: "From raw footage to polished content — they make it effortless.", pfp: "/pfps/justin-moore.jpg" },
+  { name: "Liam Ottley", subs: "320K", rating: 4.9, text: "The motion graphics and pacing are next level. Highly recommend.", pfp: "/pfps/liam-ottley.jpg" },
+  { name: "Skill Leap AI", subs: "410K", rating: 5.0, text: "Consistent quality every single time. They never miss.", pfp: "/pfps/skill-leap-ai.jpg" },
+  { name: "The AI Advantage", subs: "560K", rating: 4.9, text: "My audience engagement skyrocketed after switching to Nuclear Edits.", pfp: "/pfps/ai-advantage.jpg" },
+  { name: "Dave Birss", subs: "180K", rating: 4.8, text: "Creative, reliable, and they genuinely care about your channel's growth.", pfp: "/pfps/dave-birss.jpg" },
+  { name: "Wes Roth", subs: "270K", rating: 5.0, text: "Best investment I've made for my channel. Period.", pfp: "/pfps/wes-roth.jpg" },
 ];
 
 export const PRICING = [
