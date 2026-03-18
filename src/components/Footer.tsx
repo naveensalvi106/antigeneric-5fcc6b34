@@ -7,8 +7,8 @@ const Footer = () => {
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-2">
-            <img src="/images/logo.png" alt="Nuclear Edits" className="w-7 h-7 object-contain" />
-            <span className="font-display font-bold text-foreground">Nuclear Edits</span>
+            <img src="/images/logo.png" alt="Nuclear Studio" className="w-7 h-7 object-contain" />
+            <span className="font-display font-bold text-foreground">Nuclear Studio</span>
           </div>
 
           <nav className="flex flex-wrap justify-center gap-4">
