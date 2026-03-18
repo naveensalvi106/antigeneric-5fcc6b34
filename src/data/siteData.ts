@@ -170,8 +170,8 @@ export const CONTACTS = [
   },
   {
     type: "Gmail",
-    display: "nuclearedithq@gmail.com",
-    link: "mailto:nuclearedithq@gmail.com",
+    display: "nuclearstudiohq@gmail.com",
+    link: "mailto:nuclearstudiohq@gmail.com",
     icon: "Mail" as const,
   },
   {
