@@ -165,7 +165,7 @@ export const CONTACTS = [
   {
     type: "WhatsApp",
     display: "+91 93587 95758",
-    link: `${WHATSAPP_BASE}?text=Hi%20Nuclear%20Edits,%20I%20want%20to%20talk%20about%20your%20services.`,
+    link: `${WHATSAPP_BASE}?text=Hi%20Nuclear%20Studio,%20I%20want%20to%20talk%20about%20your%20services.`,
     icon: "MessageCircle" as const,
   },
   {
