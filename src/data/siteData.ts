@@ -108,7 +108,7 @@ export const PRICING = [
     per: "per video",
     features: ["Dynamic transitions", "Music sync & SFX", "Subtitles & captions", "Minor motion graphics", "Free intermediate thumbnail"],
     popular: true,
-    waLink: `${WHATSAPP_BASE}?text=Hi%20Nuclear%20Edits,%20I%20am%20interested%20in%20the%20Creative%20Editing%20plan.%20Can%20you%20tell%20me%20the%20work%20process%3F`,
+    waLink: `${WHATSAPP_BASE}?text=Hi%20Nuclear%20Studio,%20I%20am%20interested%20in%20the%20Creative%20Editing%20plan.%20Can%20you%20tell%20me%20the%20work%20process%3F`,
   },
   {
     name: "Premium / Cinematic",
