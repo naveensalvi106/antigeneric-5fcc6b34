@@ -117,7 +117,7 @@ export const PRICING = [
     per: "per project",
     features: ["Cinematic storytelling", "Color grading", "Advanced motion graphics", "Sound design", "Free viral thumbnail"],
     popular: false,
-    waLink: `${WHATSAPP_BASE}?text=Hi%20Nuclear%20Edits,%20I%20am%20interested%20in%20the%20Premium%20%2F%20Cinematic%20plan.%20Can%20you%20tell%20me%20the%20work%20process%3F`,
+    waLink: `${WHATSAPP_BASE}?text=Hi%20Nuclear%20Studio,%20I%20am%20interested%20in%20the%20Premium%20%2F%20Cinematic%20plan.%20Can%20you%20tell%20me%20the%20work%20process%3F`,
   },
   {
     name: "Social Media / Shorts",
