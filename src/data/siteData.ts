@@ -86,7 +86,7 @@ export const TESTIMONIALS_ROW2 = [
   { name: "Justin Moore", subs: "95K", rating: 4.8, text: "From raw footage to polished content — they make it effortless.", pfp: "/pfps/justin-moore.jpg" },
   { name: "Liam Ottley", subs: "320K", rating: 4.9, text: "The motion graphics and pacing are next level. Highly recommend.", pfp: "/pfps/liam-ottley.jpg" },
   { name: "Skill Leap AI", subs: "410K", rating: 5.0, text: "Consistent quality every single time. They never miss.", pfp: "/pfps/skill-leap-ai.jpg" },
-  { name: "The AI Advantage", subs: "560K", rating: 4.9, text: "My audience engagement skyrocketed after switching to Nuclear Edits.", pfp: "/pfps/ai-advantage.jpg" },
+  { name: "The AI Advantage", subs: "560K", rating: 4.9, text: "My audience engagement skyrocketed after switching to Nuclear Studio.", pfp: "/pfps/ai-advantage.jpg" },
   { name: "Dave Birss", subs: "180K", rating: 4.8, text: "Creative, reliable, and they genuinely care about your channel's growth.", pfp: "/pfps/dave-birss.jpg" },
   { name: "Wes Roth", subs: "270K", rating: 5.0, text: "Best investment I've made for my channel. Period.", pfp: "/pfps/wes-roth.jpg" },
 ];
