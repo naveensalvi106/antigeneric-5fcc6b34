@@ -24,7 +24,7 @@ const Footer = () => {
           </nav>
 
           <p className="text-xs text-muted-foreground">
-            © 2026 Nuclear Edits. All rights reserved.
+            © 2026 Nuclear Studio. All rights reserved.
           </p>
         </div>
         <p className="text-center text-xs text-muted-foreground/50 mt-6">

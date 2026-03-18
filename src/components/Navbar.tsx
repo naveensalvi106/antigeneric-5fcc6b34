@@ -44,9 +44,9 @@ const Navbar = () => {
         <div className="container mx-auto flex items-center justify-between h-16 px-4 md:px-6">
           {/* Logo */}
           <a href="#" className="flex items-center gap-2 group">
-            <img src="/images/logo.png" alt="Nuclear Edits" className="w-8 h-8 object-contain transition-transform duration-300 group-hover:scale-110" />
+            <img src="/images/logo.png" alt="Nuclear Studio" className="w-8 h-8 object-contain transition-transform duration-300 group-hover:scale-110" />
             <span className="font-display font-bold text-lg text-foreground">
-              Nuclear <span className="gradient-text">Edits</span>
+              Nuclear <span className="gradient-text">Studio</span>
             </span>
           </a>
 

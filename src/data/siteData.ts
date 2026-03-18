@@ -176,7 +176,7 @@ export const CONTACTS = [
   },
   {
     type: "Discord",
-    display: "nuclearedits",
+    display: "nuclearstudio",
     link: "https://discord.com/",
     icon: "Gamepad2" as const,
   },
