@@ -99,7 +99,7 @@ export const PRICING = [
     per: "per video",
     features: ["Clean cuts & trims", "Audio cleanup", "Basic transitions", "Free basic thumbnail"],
     popular: false,
-    waLink: `${WHATSAPP_BASE}?text=Hi%20Nuclear%20Edits,%20I%20am%20interested%20in%20the%20Basic%20Editing%20plan.%20Can%20you%20tell%20me%20the%20work%20process%3F`,
+    waLink: `${WHATSAPP_BASE}?text=Hi%20Nuclear%20Studio,%20I%20am%20interested%20in%20the%20Basic%20Editing%20plan.%20Can%20you%20tell%20me%20the%20work%20process%3F`,
   },
   {
     name: "Creative Editing",
