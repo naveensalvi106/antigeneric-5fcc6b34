@@ -126,7 +126,7 @@ export const PRICING = [
     per: "each / bundles from $300",
     features: ["Motion graphics shorts", "Vertical format optimization", "Trending audio sync", "10-video bundle option"],
     popular: false,
-    waLink: `${WHATSAPP_BASE}?text=Hi%20Nuclear%20Edits,%20I%20am%20interested%20in%20the%20Social%20Media%20%2F%20Shorts%20plan.%20Can%20you%20tell%20me%20the%20work%20process%3F`,
+    waLink: `${WHATSAPP_BASE}?text=Hi%20Nuclear%20Studio,%20I%20am%20interested%20in%20the%20Social%20Media%20%2F%20Shorts%20plan.%20Can%20you%20tell%20me%20the%20work%20process%3F`,
   },
 ];
 
