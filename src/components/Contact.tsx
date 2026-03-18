@@ -10,7 +10,7 @@ const Contact = () => {
   return (
     <SectionWrapper id="contact">
       <div className="container mx-auto px-4">
-        <SectionHeader title="Contact Nuclear Edits" subtitle="Let's build content that performs." />
+        <SectionHeader title="Contact Nuclear Studio" subtitle="Let's build content that performs." />
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-4xl mx-auto mb-10">
           {CONTACTS.map((c, i) => {

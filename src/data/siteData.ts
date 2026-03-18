@@ -86,7 +86,7 @@ export const TESTIMONIALS_ROW2 = [
   { name: "Justin Moore", subs: "95K", rating: 4.8, text: "From raw footage to polished content — they make it effortless.", pfp: "/pfps/justin-moore.jpg" },
   { name: "Liam Ottley", subs: "320K", rating: 4.9, text: "The motion graphics and pacing are next level. Highly recommend.", pfp: "/pfps/liam-ottley.jpg" },
   { name: "Skill Leap AI", subs: "410K", rating: 5.0, text: "Consistent quality every single time. They never miss.", pfp: "/pfps/skill-leap-ai.jpg" },
-  { name: "The AI Advantage", subs: "560K", rating: 4.9, text: "My audience engagement skyrocketed after switching to Nuclear Edits.", pfp: "/pfps/ai-advantage.jpg" },
+  { name: "The AI Advantage", subs: "560K", rating: 4.9, text: "My audience engagement skyrocketed after switching to Nuclear Studio.", pfp: "/pfps/ai-advantage.jpg" },
   { name: "Dave Birss", subs: "180K", rating: 4.8, text: "Creative, reliable, and they genuinely care about your channel's growth.", pfp: "/pfps/dave-birss.jpg" },
   { name: "Wes Roth", subs: "270K", rating: 5.0, text: "Best investment I've made for my channel. Period.", pfp: "/pfps/wes-roth.jpg" },
 ];
@@ -99,7 +99,7 @@ export const PRICING = [
     per: "per video",
     features: ["Clean cuts & trims", "Audio cleanup", "Basic transitions", "Free basic thumbnail"],
     popular: false,
-    waLink: `${WHATSAPP_BASE}?text=Hi%20Nuclear%20Edits,%20I%20am%20interested%20in%20the%20Basic%20Editing%20plan.%20Can%20you%20tell%20me%20the%20work%20process%3F`,
+    waLink: `${WHATSAPP_BASE}?text=Hi%20Nuclear%20Studio,%20I%20am%20interested%20in%20the%20Basic%20Editing%20plan.%20Can%20you%20tell%20me%20the%20work%20process%3F`,
   },
   {
     name: "Creative Editing",
@@ -108,7 +108,7 @@ export const PRICING = [
     per: "per video",
     features: ["Dynamic transitions", "Music sync & SFX", "Subtitles & captions", "Minor motion graphics", "Free intermediate thumbnail"],
     popular: true,
-    waLink: `${WHATSAPP_BASE}?text=Hi%20Nuclear%20Edits,%20I%20am%20interested%20in%20the%20Creative%20Editing%20plan.%20Can%20you%20tell%20me%20the%20work%20process%3F`,
+    waLink: `${WHATSAPP_BASE}?text=Hi%20Nuclear%20Studio,%20I%20am%20interested%20in%20the%20Creative%20Editing%20plan.%20Can%20you%20tell%20me%20the%20work%20process%3F`,
   },
   {
     name: "Premium / Cinematic",
@@ -117,7 +117,7 @@ export const PRICING = [
     per: "per project",
     features: ["Cinematic storytelling", "Color grading", "Advanced motion graphics", "Sound design", "Free viral thumbnail"],
     popular: false,
-    waLink: `${WHATSAPP_BASE}?text=Hi%20Nuclear%20Edits,%20I%20am%20interested%20in%20the%20Premium%20%2F%20Cinematic%20plan.%20Can%20you%20tell%20me%20the%20work%20process%3F`,
+    waLink: `${WHATSAPP_BASE}?text=Hi%20Nuclear%20Studio,%20I%20am%20interested%20in%20the%20Premium%20%2F%20Cinematic%20plan.%20Can%20you%20tell%20me%20the%20work%20process%3F`,
   },
   {
     name: "Social Media / Shorts",
@@ -126,7 +126,7 @@ export const PRICING = [
     per: "each / bundles from $300",
     features: ["Motion graphics shorts", "Vertical format optimization", "Trending audio sync", "10-video bundle option"],
     popular: false,
-    waLink: `${WHATSAPP_BASE}?text=Hi%20Nuclear%20Edits,%20I%20am%20interested%20in%20the%20Social%20Media%20%2F%20Shorts%20plan.%20Can%20you%20tell%20me%20the%20work%20process%3F`,
+    waLink: `${WHATSAPP_BASE}?text=Hi%20Nuclear%20Studio,%20I%20am%20interested%20in%20the%20Social%20Media%20%2F%20Shorts%20plan.%20Can%20you%20tell%20me%20the%20work%20process%3F`,
   },
 ];
 
@@ -165,18 +165,18 @@ export const CONTACTS = [
   {
     type: "WhatsApp",
     display: "+91 93587 95758",
-    link: `${WHATSAPP_BASE}?text=Hi%20Nuclear%20Edits,%20I%20want%20to%20talk%20about%20your%20services.`,
+    link: `${WHATSAPP_BASE}?text=Hi%20Nuclear%20Studio,%20I%20want%20to%20talk%20about%20your%20services.`,
     icon: "MessageCircle" as const,
   },
   {
     type: "Gmail",
-    display: "nuclearedithq@gmail.com",
-    link: "mailto:nuclearedithq@gmail.com",
+    display: "nuclearstudiohq@gmail.com",
+    link: "mailto:nuclearstudiohq@gmail.com",
     icon: "Mail" as const,
   },
   {
     type: "Discord",
-    display: "nuclearedits",
+    display: "nuclearstudio",
     link: "https://discord.com/",
     icon: "Gamepad2" as const,
   },
