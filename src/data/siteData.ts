@@ -182,8 +182,8 @@ export const CONTACTS = [
   },
   {
     type: "Instagram",
-    display: "@nuclear.editshq",
-    link: "https://instagram.com/nuclear.editshq",
+    display: "@nuclearstudiohq",
+    link: "https://instagram.com/nuclearstudiohq",
     icon: "Instagram" as const,
   },
 ];
