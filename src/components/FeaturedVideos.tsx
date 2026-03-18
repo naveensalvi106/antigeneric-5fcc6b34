@@ -36,6 +36,7 @@ const VideoCard = ({ src }: { src: string }) => {
     if (playing) {
       vid.pause();
     } else {
+      vid.muted = false;
       vid.play();
     }
     setPlaying(!playing);
