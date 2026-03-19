@@ -30,20 +30,29 @@ const VideoCard = ({ src }: { src: string }) => {
   const [playing, setPlaying] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  const togglePlay = () => {
+  const togglePlay = async () => {
     const vid = videoRef.current;
     if (!vid) return;
-    if (playing) {
+
+    if (!vid.paused) {
       vid.pause();
-    } else {
-      vid.muted = false;
-      vid.play();
+      return;
     }
-    setPlaying(!playing);
+
+    try {
+      vid.muted = false;
+      await vid.play();
+    } catch {
+      vid.muted = true;
+      await vid.play();
+    }
   };
 
   return (
-    <div className="flex-shrink-0 w-[280px] md:w-[340px] rounded-xl overflow-hidden bg-card card-nuclear relative group cursor-pointer" onClick={togglePlay}>
+    <div
+      className="flex-shrink-0 w-[280px] md:w-[340px] rounded-xl overflow-hidden bg-card card-nuclear relative group cursor-pointer"
+      onClick={() => void togglePlay()}
+    >
       <div className="aspect-video relative">
         <video
           ref={videoRef}
@@ -53,6 +62,8 @@ const VideoCard = ({ src }: { src: string }) => {
           playsInline
           preload="metadata"
           className="w-full h-full object-cover"
+          onPlay={() => setPlaying(true)}
+          onPause={() => setPlaying(false)}
           onEnded={() => setPlaying(false)}
         />
         <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${playing ? 'opacity-0' : 'opacity-100'}`}>
@@ -66,49 +77,10 @@ const VideoCard = ({ src }: { src: string }) => {
 };
 
 const ScrollableRow = ({ children, className, style }: { children: React.ReactNode; className?: string; style?: React.CSSProperties }) => {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const isDragging = useRef(false);
-  const hasDragged = useRef(false);
-  const startX = useRef(0);
-  const scrollLeft = useRef(0);
-
-  const onPointerDown = (e: React.PointerEvent) => {
-    isDragging.current = true;
-    hasDragged.current = false;
-    startX.current = e.pageX - (scrollRef.current?.offsetLeft || 0);
-    scrollLeft.current = scrollRef.current?.scrollLeft || 0;
-    scrollRef.current?.setPointerCapture(e.pointerId);
-  };
-
-  const onPointerMove = (e: React.PointerEvent) => {
-    if (!isDragging.current || !scrollRef.current) return;
-    const x = e.pageX - scrollRef.current.offsetLeft;
-    const diff = Math.abs(x - startX.current);
-    if (diff > 5) hasDragged.current = true;
-    scrollRef.current.scrollLeft = scrollLeft.current - (x - startX.current);
-  };
-
-  const onPointerUp = () => {
-    isDragging.current = false;
-  };
-
-  const onClickCapture = (e: React.MouseEvent) => {
-    if (hasDragged.current) {
-      e.stopPropagation();
-      e.preventDefault();
-    }
-  };
-
   return (
     <div
-      ref={scrollRef}
-      className={`overflow-x-auto scrollbar-hide cursor-grab active:cursor-grabbing ${className || ''}`}
+      className={`overflow-x-auto scrollbar-hide hover:[&_.marquee-track]:[animation-play-state:paused] ${className || ''}`}
       style={style}
-      onPointerDown={onPointerDown}
-      onPointerMove={onPointerMove}
-      onPointerUp={onPointerUp}
-      onPointerLeave={onPointerUp}
-      onClickCapture={onClickCapture}
     >
       {children}
     </div>
@@ -128,7 +100,7 @@ const FeaturedVideos = () => {
       {/* Row 1: Left to Right */}
       <ScrollableRow className="mb-6">
         <div
-          className="flex gap-4 animate-marquee-right"
+          className="marquee-track flex gap-4 animate-marquee-right"
           style={{ "--marquee-duration": "20s", width: "max-content" } as React.CSSProperties}
         >
           {duplicatedRow1.map((src, i) => (
@@ -140,7 +112,7 @@ const FeaturedVideos = () => {
       {/* Row 2: Right to Left */}
       <ScrollableRow>
         <div
-          className="flex gap-4 animate-marquee-left"
+          className="marquee-track flex gap-4 animate-marquee-left"
           style={{ "--marquee-duration": "22.5s", width: "max-content" } as React.CSSProperties}
         >
           {duplicatedRow2.map((src, i) => (
