@@ -68,11 +68,13 @@ const VideoCard = ({ src }: { src: string }) => {
 const ScrollableRow = ({ children, className, style }: { children: React.ReactNode; className?: string; style?: React.CSSProperties }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const isDragging = useRef(false);
+  const hasDragged = useRef(false);
   const startX = useRef(0);
   const scrollLeft = useRef(0);
 
   const onPointerDown = (e: React.PointerEvent) => {
     isDragging.current = true;
+    hasDragged.current = false;
     startX.current = e.pageX - (scrollRef.current?.offsetLeft || 0);
     scrollLeft.current = scrollRef.current?.scrollLeft || 0;
     scrollRef.current?.setPointerCapture(e.pointerId);
@@ -81,11 +83,20 @@ const ScrollableRow = ({ children, className, style }: { children: React.ReactNo
   const onPointerMove = (e: React.PointerEvent) => {
     if (!isDragging.current || !scrollRef.current) return;
     const x = e.pageX - scrollRef.current.offsetLeft;
+    const diff = Math.abs(x - startX.current);
+    if (diff > 5) hasDragged.current = true;
     scrollRef.current.scrollLeft = scrollLeft.current - (x - startX.current);
   };
 
   const onPointerUp = () => {
     isDragging.current = false;
+  };
+
+  const onClickCapture = (e: React.MouseEvent) => {
+    if (hasDragged.current) {
+      e.stopPropagation();
+      e.preventDefault();
+    }
   };
 
   return (
@@ -97,6 +108,7 @@ const ScrollableRow = ({ children, className, style }: { children: React.ReactNo
       onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}
       onPointerLeave={onPointerUp}
+      onClickCapture={onClickCapture}
     >
       {children}
     </div>
