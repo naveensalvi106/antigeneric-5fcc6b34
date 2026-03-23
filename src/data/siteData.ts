@@ -180,12 +180,6 @@ export const CONTACTS = [
     link: "https://discord.com/",
     icon: "Gamepad2" as const,
   },
-  {
-    type: "Instagram",
-    display: "@nuclearstudiohq",
-    link: "https://instagram.com/nuclearstudiohq",
-    icon: "Instagram" as const,
-  },
 ];
 
 export const NAV_LINKS = [
