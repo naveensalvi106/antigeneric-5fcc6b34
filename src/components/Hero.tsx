@@ -1,13 +1,12 @@
 import { motion } from "framer-motion";
-import { Play, Film, Image, TrendingUp } from "lucide-react";
+import { Sparkles, Image, Zap, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { WHATSAPP_BASE } from "@/data/siteData";
 
 const badges = [
-  { icon: Film, label: "Long-form Editing" },
-  { icon: Play, label: "Shorts / Reels" },
-  { icon: Image, label: "Thumbnails" },
-  { icon: TrendingUp, label: "Creator Growth" },
+  { icon: Sparkles, label: "AI-Powered" },
+  { icon: Image, label: "4K Thumbnails" },
+  { icon: Zap, label: "Instant Generation" },
+  { icon: Download, label: "Download & Use" },
 ];
 
 const Hero = () => {
@@ -18,7 +17,6 @@ const Hero = () => {
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-blob" />
         <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-accent/8 rounded-full blur-3xl animate-blob-delay-2" />
         <div className="absolute bottom-1/4 left-1/3 w-72 h-72 bg-primary/6 rounded-full blur-3xl animate-blob-delay-4" />
-        {/* Radar pulse */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full border border-primary/10 animate-radar" />
       </div>
 
@@ -35,12 +33,12 @@ const Hero = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
           >
-            Full-Service Content Growth Agency
+            AI Thumbnail Generator
           </motion.p>
 
           <h1 className="font-display text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.1] text-balance mb-6">
-            Your Content Has Potential.{" "}
-            <span className="gradient-text">We Unlock It.</span>
+            Stop Being Generic.{" "}
+            <span className="gradient-text">Start Getting Clicks.</span>
           </h1>
 
           <motion.p
@@ -49,7 +47,7 @@ const Hero = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
           >
-            We help creators scale with engaging edits, clickable thumbnails, shorts, and full content operations.
+            Generate scroll-stopping, 4K thumbnails in seconds. Upload a face, add your title, and let AI do the rest.
           </motion.p>
 
           <motion.div
@@ -58,18 +56,14 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
           >
-            <a
-              href={`${WHATSAPP_BASE}?text=Hi%20Nuclear%20Edits,%20I%20want%20to%20get%20started%20with%20video%20editing.`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <a href="#pricing">
               <Button variant="nuclear" size="xl" className="w-full sm:w-auto">
-                Get Started
+                Generate Your First Thumbnail
               </Button>
             </a>
-            <a href="/our-work">
+            <a href="#thumbnails">
               <Button variant="nuclear" size="xl" className="w-full sm:w-auto">
-                View Our Work
+                See Examples
               </Button>
             </a>
           </motion.div>

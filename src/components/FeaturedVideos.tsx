@@ -33,19 +33,8 @@ const VideoCard = ({ src }: { src: string }) => {
   const togglePlay = async () => {
     const vid = videoRef.current;
     if (!vid) return;
-
-    if (!vid.paused) {
-      vid.pause();
-      return;
-    }
-
-    try {
-      vid.muted = false;
-      await vid.play();
-    } catch {
-      vid.muted = true;
-      await vid.play();
-    }
+    if (!vid.paused) { vid.pause(); return; }
+    try { vid.muted = false; await vid.play(); } catch { vid.muted = true; await vid.play(); }
   };
 
   return (
@@ -54,18 +43,8 @@ const VideoCard = ({ src }: { src: string }) => {
       onClick={() => void togglePlay()}
     >
       <div className="aspect-video relative">
-        <video
-          ref={videoRef}
-          src={src}
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          className="w-full h-full object-cover"
-          onPlay={() => setPlaying(true)}
-          onPause={() => setPlaying(false)}
-          onEnded={() => setPlaying(false)}
-        />
+        <video ref={videoRef} src={src} muted loop playsInline preload="metadata" className="w-full h-full object-cover"
+          onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onEnded={() => setPlaying(false)} />
         <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${playing ? 'opacity-0' : 'opacity-100'}`}>
           <div className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center shadow-lg">
             <Play className="w-5 h-5 text-white ml-0.5" />
@@ -76,16 +55,11 @@ const VideoCard = ({ src }: { src: string }) => {
   );
 };
 
-const ScrollableRow = ({ children, className, style }: { children: React.ReactNode; className?: string; style?: React.CSSProperties }) => {
-  return (
-    <div
-      className={`overflow-x-auto scrollbar-hide hover:[&_.marquee-track]:[animation-play-state:paused] ${className || ''}`}
-      style={style}
-    >
-      {children}
-    </div>
-  );
-};
+const ScrollableRow = ({ children, className, style }: { children: React.ReactNode; className?: string; style?: React.CSSProperties }) => (
+  <div className={`overflow-x-auto scrollbar-hide hover:[&_.marquee-track]:[animation-play-state:paused] ${className || ''}`} style={style}>
+    {children}
+  </div>
+);
 
 const FeaturedVideos = () => {
   const duplicatedRow1 = [...VIDEO_FILES_ROW1, ...VIDEO_FILES_ROW1];
@@ -94,30 +68,18 @@ const FeaturedVideos = () => {
   return (
     <SectionWrapper id="videos">
       <div className="container mx-auto px-4">
-        <SectionHeader title="Featured Videos" subtitle="A glimpse of the content we help creators produce." />
+        <SectionHeader title="See It In Action" subtitle="Watch how creators use AntiGeneric AI to level up their content." />
       </div>
 
-      {/* Row 1: Left to Right */}
       <ScrollableRow className="mb-6">
-        <div
-          className="marquee-track flex gap-4 animate-marquee-right"
-          style={{ "--marquee-duration": "20s", width: "max-content" } as React.CSSProperties}
-        >
-          {duplicatedRow1.map((src, i) => (
-            <VideoCard key={`r1-${i}`} src={src} />
-          ))}
+        <div className="marquee-track flex gap-4 animate-marquee-right" style={{ "--marquee-duration": "20s", width: "max-content" } as React.CSSProperties}>
+          {duplicatedRow1.map((src, i) => (<VideoCard key={`r1-${i}`} src={src} />))}
         </div>
       </ScrollableRow>
 
-      {/* Row 2: Right to Left */}
       <ScrollableRow>
-        <div
-          className="marquee-track flex gap-4 animate-marquee-left"
-          style={{ "--marquee-duration": "22.5s", width: "max-content" } as React.CSSProperties}
-        >
-          {duplicatedRow2.map((src, i) => (
-            <VideoCard key={`r2-${i}`} src={src} />
-          ))}
+        <div className="marquee-track flex gap-4 animate-marquee-left" style={{ "--marquee-duration": "22.5s", width: "max-content" } as React.CSSProperties}>
+          {duplicatedRow2.map((src, i) => (<VideoCard key={`r2-${i}`} src={src} />))}
         </div>
       </ScrollableRow>
     </SectionWrapper>

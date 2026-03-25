@@ -35,7 +35,7 @@ const MarqueeRow = ({ items, direction }: { items: ChannelItem[]; direction: "le
 const ChannelStats = () => {
   return (
     <SectionWrapper id="stats">
-      <SectionHeader title="Trusted by Growing Creators" subtitle="Channels we've helped scale with premium editing and content operations." />
+      <SectionHeader title="Trusted by Top Creators" subtitle="Creators across every niche use AntiGeneric AI to boost their CTR." />
       <div className="space-y-2">
         <MarqueeRow items={CHANNEL_STATS_ROW1} direction="left" />
         <MarqueeRow items={CHANNEL_STATS_ROW2} direction="right" />
