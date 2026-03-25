@@ -26,7 +26,7 @@ export const SectionWrapper = ({ id, children, className = "" }: SectionWrapperP
 };
 
 export const SectionHeader = ({ title, subtitle }: { title: string; subtitle: string }) => (
-  <div className="text-center mb-16">
+  <div className="text-center mb-10">
     <h2 className="font-display text-3xl md:text-5xl font-bold tracking-tight text-balance gradient-text mb-4">
       {title}
     </h2>
