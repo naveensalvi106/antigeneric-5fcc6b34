@@ -1,7 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import ChannelStats from "@/components/ChannelStats";
-import FeaturedVideos from "@/components/FeaturedVideos";
+
 import ThumbnailShowcase from "@/components/ThumbnailShowcase";
 import Testimonials from "@/components/Testimonials";
 import Pricing from "@/components/Pricing";
