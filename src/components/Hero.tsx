@@ -1,5 +1,6 @@
+import { useState, useRef } from "react";
 import { motion } from "framer-motion";
-import { Sparkles, Image, Zap, Download } from "lucide-react";
+import { Sparkles, Image, Zap, Download, Upload, User, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const badges = [
@@ -10,6 +11,20 @@ const badges = [
 ];
 
 const Hero = () => {
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [thumbnailImage, setThumbnailImage] = useState<File | null>(null);
+  const [faceImage, setFaceImage] = useState<File | null>(null);
+  const imageInputRef = useRef<HTMLInputElement>(null);
+  const faceInputRef = useRef<HTMLInputElement>(null);
+
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>, type: "thumbnail" | "face") => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (type === "thumbnail") setThumbnailImage(file);
+    else setFaceImage(file);
+  };
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
       {/* Animated background blobs */}
@@ -50,20 +65,93 @@ const Hero = () => {
             Generate scroll-stopping, 4K thumbnails in seconds. Upload a face, add your title, and let AI do the rest.
           </motion.p>
 
+          {/* Thumbnail Generator Form */}
           <motion.div
-            className="flex flex-col sm:flex-row gap-4 justify-center mb-14"
-            initial={{ opacity: 0, y: 10 }}
+            className="max-w-2xl mx-auto mb-8 p-6 rounded-2xl card-nuclear border border-primary/10"
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6 }}
+            transition={{ delay: 0.5 }}
           >
-            <a href="#pricing">
-              <Button variant="nuclear" size="xl" className="w-full sm:w-auto">
+            <div className="space-y-4">
+              {/* Title Input */}
+              <div className="relative">
+                <FileText size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+                <input
+                  type="text"
+                  placeholder="Thumbnail title..."
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-background/50 border border-border text-foreground placeholder:text-muted-foreground/50 text-sm focus:outline-none focus:border-primary/40 transition-colors"
+                />
+              </div>
+
+              {/* Upload Row */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {/* Image Upload */}
+                <button
+                  type="button"
+                  onClick={() => imageInputRef.current?.click()}
+                  className="flex items-center gap-3 px-4 py-3 rounded-xl bg-background/50 border border-border hover:border-primary/30 transition-colors text-left"
+                >
+                  <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                    <Upload size={16} className="text-primary" />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-xs font-medium text-foreground truncate">
+                      {thumbnailImage ? thumbnailImage.name : "Upload Image"}
+                    </p>
+                    <p className="text-[10px] text-muted-foreground">Optional</p>
+                  </div>
+                </button>
+                <input ref={imageInputRef} type="file" accept="image/*" className="hidden" onChange={(e) => handleImageUpload(e, "thumbnail")} />
+
+                {/* Face Upload */}
+                <button
+                  type="button"
+                  onClick={() => faceInputRef.current?.click()}
+                  className="flex items-center gap-3 px-4 py-3 rounded-xl bg-background/50 border border-border hover:border-primary/30 transition-colors text-left"
+                >
+                  <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                    <User size={16} className="text-primary" />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-xs font-medium text-foreground truncate">
+                      {faceImage ? faceImage.name : "Face Reaction"}
+                    </p>
+                    <p className="text-[10px] text-muted-foreground">Optional</p>
+                  </div>
+                </button>
+                <input ref={faceInputRef} type="file" accept="image/*" className="hidden" onChange={(e) => handleImageUpload(e, "face")} />
+              </div>
+
+              {/* Description */}
+              <textarea
+                placeholder="Describe how you want the thumbnail to look..."
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                rows={3}
+                className="w-full px-4 py-3 rounded-xl bg-background/50 border border-border text-foreground placeholder:text-muted-foreground/50 text-sm focus:outline-none focus:border-primary/40 transition-colors resize-none"
+              />
+            </div>
+
+            {/* Generate Button */}
+            <div className="mt-5">
+              <Button variant="nuclear" size="xl" className="w-full">
                 Generate Your First Thumbnail
               </Button>
-            </a>
+            </div>
+          </motion.div>
+
+          {/* See Examples */}
+          <motion.div
+            className="mb-14"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.7 }}
+          >
             <a href="#thumbnails">
-              <Button variant="nuclear" size="xl" className="w-full sm:w-auto">
-                See Examples
+              <Button variant="ghost" size="lg" className="text-muted-foreground hover:text-foreground">
+                See Examples ↓
               </Button>
             </a>
           </motion.div>

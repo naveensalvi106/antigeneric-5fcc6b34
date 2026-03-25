@@ -1,6 +1,6 @@
 import { useState, useEffect, type MouseEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Coins } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { NAV_LINKS } from "@/data/siteData";
 
@@ -39,12 +39,18 @@ const Navbar = () => {
         borderImage: "linear-gradient(to right, transparent, hsl(217 91% 60% / 0.2), transparent) 1"
       }}>
         <div className="container mx-auto flex items-center justify-between h-16 px-4 md:px-6">
-          <a href="#" className="flex items-center gap-2 group">
-            <img src="/images/logo.png" alt="AntiGeneric AI" className="w-8 h-8 object-contain transition-transform duration-300 group-hover:scale-110" />
-            <span className="font-display font-bold text-lg text-foreground">
-              AntiGeneric <span className="gradient-text">AI</span>
-            </span>
-          </a>
+          <div className="flex items-center gap-3">
+            <a href="#" className="flex items-center gap-2 group">
+              <img src="/images/logo.png" alt="AntiGeneric AI" className="w-8 h-8 object-contain transition-transform duration-300 group-hover:scale-110" />
+              <span className="font-display font-bold text-lg text-foreground">
+                AntiGeneric <span className="gradient-text">AI</span>
+              </span>
+            </a>
+            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20">
+              <Coins size={14} className="text-primary" />
+              <span className="text-xs font-mono font-semibold text-primary">1 Credit</span>
+            </div>
+          </div>
 
           <nav className="hidden md:flex items-center gap-1">
             {NAV_LINKS.map((link) => (
