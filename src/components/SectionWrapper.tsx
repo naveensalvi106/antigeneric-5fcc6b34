@@ -12,7 +12,7 @@ export const SectionWrapper = ({ id, children, className = "" }: SectionWrapperP
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id={id} className={`relative py-20 md:py-28 ${className}`}>
+    <section id={id} className={`relative py-10 md:py-14 ${className}`}>
       <motion.div
         ref={ref}
         initial={{ opacity: 0, y: 20 }}
@@ -26,7 +26,7 @@ export const SectionWrapper = ({ id, children, className = "" }: SectionWrapperP
 };
 
 export const SectionHeader = ({ title, subtitle }: { title: string; subtitle: string }) => (
-  <div className="text-center mb-16">
+  <div className="text-center mb-10">
     <h2 className="font-display text-3xl md:text-5xl font-bold tracking-tight text-balance gradient-text mb-4">
       {title}
     </h2>

@@ -137,7 +137,7 @@ const Hero = () => {
             {/* Generate Button */}
             <div className="mt-5">
               <Button variant="nuclear" size="xl" className="w-full">
-                Generate Your First Thumbnail
+                Generate Thumbnail
               </Button>
             </div>
           </motion.div>
