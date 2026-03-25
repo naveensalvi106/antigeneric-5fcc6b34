@@ -19,11 +19,9 @@ const Index = () => {
       <Navbar />
       <Hero />
       <GlowSeparator />
-      <ChannelStats />
-      <GlowSeparator />
-      <FeaturedVideos />
-      <GlowSeparator />
       <ThumbnailShowcase />
+      <GlowSeparator />
+      <ChannelStats />
       <GlowSeparator />
       <Testimonials />
       <GlowSeparator />
