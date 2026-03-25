@@ -1,4 +1,5 @@
-export const WHATSAPP_BASE = "https://wa.me/919358795758";
+export const SITE_NAME = "AntiGeneric AI";
+export const SITE_EMAIL = "support@antigenericai.com";
 
 export const CHANNEL_STATS_ROW1 = [
   { name: "Alex Cattoni", subs: "312K", niche: "Marketing", pfp: "/pfps/alex-cattoni.jpg" },
@@ -41,7 +42,6 @@ export const THUMBNAILS_ROW1 = [
   { label: "Vlogs", image: "/thumbnails/t7.avif" },
   { label: "Tech", image: "/thumbnails/t8.avif" },
   { label: "Lifestyle", image: "/thumbnails/t9.avif" },
-  
 ];
 
 export const THUMBNAILS_ROW2 = [
@@ -70,123 +70,107 @@ export const THUMBNAILS_ROW3 = [
 ];
 
 export const TESTIMONIALS_ROW1 = [
-  { name: "Alex Cattoni", subs: "312K", rating: 4.9, text: "Retention instantly improved. The pacing and cuts feel way more professional.", pfp: "/pfps/alex-cattoni.jpg" },
-  { name: "USCSB", subs: "540K", rating: 5.0, text: "Best editing team I've worked with. They understand the YouTube algorithm.", pfp: "/pfps/uscsb.jpg" },
-  { name: "QiYoga With LuChin", subs: "89K", rating: 5.0, text: "Professional, fast, and they actually care about your growth.", pfp: "/pfps/qiyoga.jpg" },
-  { name: "Dr. Cliff Olson", subs: "1.2M", rating: 4.9, text: "They handle everything. I just record and they do the magic.", pfp: "/pfps/dr-cliff.jpg" },
-  { name: "Heath Knuckles", subs: "125K", rating: 4.8, text: "Thumbnails are insane. CTR went up 40% in the first month.", pfp: "/pfps/heath-knuckles.jpg" },
-  { name: "Fortress Fine Woodworks", subs: "210K", rating: 4.9, text: "The storytelling edits transformed my content. Subscribers love the new style.", pfp: "/pfps/fortress.jpg" },
-  { name: "Hybrid Views", subs: "430K", rating: 5.0, text: "Quality is unmatched. Every video feels cinematic now.", pfp: "/pfps/hybrid-views.jpg" },
-  { name: "Bhavini Purohit", subs: "76K", rating: 4.7, text: "They truly understand what works on YouTube. Huge difference in my content.", pfp: "/pfps/bhavini.jpg" },
+  { name: "Alex Cattoni", subs: "312K", rating: 4.9, text: "CTR went up 45% the first week. The AI thumbnails are insanely accurate.", pfp: "/pfps/alex-cattoni.jpg" },
+  { name: "USCSB", subs: "540K", rating: 5.0, text: "Best thumbnail tool I've ever used. Saves hours of design work every week.", pfp: "/pfps/uscsb.jpg" },
+  { name: "QiYoga With LuChin", subs: "89K", rating: 5.0, text: "The topic research feature is a game changer. Thumbnails actually feel viral.", pfp: "/pfps/qiyoga.jpg" },
+  { name: "Dr. Cliff Olson", subs: "1.2M", rating: 4.9, text: "I just type my title and get a scroll-stopping thumbnail in seconds.", pfp: "/pfps/dr-cliff.jpg" },
+  { name: "Heath Knuckles", subs: "125K", rating: 4.8, text: "4K quality is no joke. These look better than what my designer made.", pfp: "/pfps/heath-knuckles.jpg" },
+  { name: "Fortress Fine Woodworks", subs: "210K", rating: 4.9, text: "The face reaction feature makes every thumbnail feel authentic and clickable.", pfp: "/pfps/fortress.jpg" },
+  { name: "Hybrid Views", subs: "430K", rating: 5.0, text: "Replaced my entire thumbnail workflow. Fast, sharp, and always on-brand.", pfp: "/pfps/hybrid-views.jpg" },
+  { name: "Bhavini Purohit", subs: "76K", rating: 4.7, text: "Even the free plan gave me a better thumbnail than I could design myself.", pfp: "/pfps/bhavini.jpg" },
 ];
 
 export const TESTIMONIALS_ROW2 = [
-  { name: "Abhayam Live", subs: "150K", rating: 4.9, text: "Incredible turnaround time and the edits are always on point.", pfp: "/pfps/abhayam-live.jpg" },
-  { name: "Brett Malinowski", subs: "890K", rating: 5.0, text: "These guys get YouTube. My watch time has never been higher.", pfp: "/pfps/brett-malinowski.jpg" },
-  { name: "Justin Moore", subs: "95K", rating: 4.8, text: "From raw footage to polished content — they make it effortless.", pfp: "/pfps/justin-moore.jpg" },
-  { name: "Liam Ottley", subs: "320K", rating: 4.9, text: "The motion graphics and pacing are next level. Highly recommend.", pfp: "/pfps/liam-ottley.jpg" },
-  { name: "Skill Leap AI", subs: "410K", rating: 5.0, text: "Consistent quality every single time. They never miss.", pfp: "/pfps/skill-leap-ai.jpg" },
-  { name: "The AI Advantage", subs: "560K", rating: 4.9, text: "My audience engagement skyrocketed after switching to Nuclear Studio.", pfp: "/pfps/ai-advantage.jpg" },
-  { name: "Dave Birss", subs: "180K", rating: 4.8, text: "Creative, reliable, and they genuinely care about your channel's growth.", pfp: "/pfps/dave-birss.jpg" },
-  { name: "Wes Roth", subs: "270K", rating: 5.0, text: "Best investment I've made for my channel. Period.", pfp: "/pfps/wes-roth.jpg" },
+  { name: "Abhayam Live", subs: "150K", rating: 4.9, text: "Incredible quality for the price. The AI understands what gets clicks.", pfp: "/pfps/abhayam-live.jpg" },
+  { name: "Brett Malinowski", subs: "890K", rating: 5.0, text: "I upload a face, add a title, and boom — viral thumbnail in 10 seconds.", pfp: "/pfps/brett-malinowski.jpg" },
+  { name: "Justin Moore", subs: "95K", rating: 4.8, text: "The research-backed thumbnails outperform everything I've tried before.", pfp: "/pfps/justin-moore.jpg" },
+  { name: "Liam Ottley", subs: "320K", rating: 4.9, text: "This is the future of YouTube content creation. No more Canva struggles.", pfp: "/pfps/liam-ottley.jpg" },
+  { name: "Skill Leap AI", subs: "410K", rating: 5.0, text: "Consistent quality every single time. My go-to thumbnail generator now.", pfp: "/pfps/skill-leap-ai.jpg" },
+  { name: "The AI Advantage", subs: "560K", rating: 4.9, text: "AntiGeneric AI lives up to its name. Every thumbnail feels unique and bold.", pfp: "/pfps/ai-advantage.jpg" },
+  { name: "Dave Birss", subs: "180K", rating: 4.8, text: "Finally an AI tool that actually understands YouTube thumbnail psychology.", pfp: "/pfps/dave-birss.jpg" },
+  { name: "Wes Roth", subs: "270K", rating: 5.0, text: "Best investment for my channel. The Agency plan pays for itself in a week.", pfp: "/pfps/wes-roth.jpg" },
 ];
 
 export const PRICING = [
   {
-    name: "Basic Editing",
-    description: "Simple cuts, trims, audio fix (1–10 min)",
-    price: "$40 – $120",
-    per: "per video",
-    features: ["Clean cuts & trims", "Audio cleanup", "Basic transitions", "Free basic thumbnail"],
+    name: "Free",
+    description: "Try it out — generate your first AI thumbnail for free.",
+    price: "$0",
+    per: "forever",
+    features: ["1 credit included", "High quality 4K thumbnail", "Topic research for viral design", "Watermark on thumbnail"],
     popular: false,
-    waLink: `${WHATSAPP_BASE}?text=Hi%20Nuclear%20Studio,%20I%20am%20interested%20in%20the%20Basic%20Editing%20plan.%20Can%20you%20tell%20me%20the%20work%20process%3F`,
+    ctaLabel: "Get Started Free",
   },
   {
-    name: "Creative Editing",
-    description: "Transitions, music sync, subtitles, minor graphics (5–20 min)",
-    price: "$150 – $300",
-    per: "per video",
-    features: ["Dynamic transitions", "Music sync & SFX", "Subtitles & captions", "Minor motion graphics", "Free intermediate thumbnail"],
+    name: "Pro",
+    description: "For creators who need consistent, high-quality thumbnails.",
+    price: "$20",
+    per: "one-time",
+    features: ["10 credits", "High quality 4K thumbnails", "Topic research for viral design", "No watermark", "Face reaction support", "Download in full resolution"],
     popular: true,
-    waLink: `${WHATSAPP_BASE}?text=Hi%20Nuclear%20Studio,%20I%20am%20interested%20in%20the%20Creative%20Editing%20plan.%20Can%20you%20tell%20me%20the%20work%20process%3F`,
+    ctaLabel: "Go Pro",
   },
   {
-    name: "Premium / Cinematic",
-    description: "Storytelling, color grading, advanced motion graphics",
-    price: "$200 – $400+",
-    per: "per project",
-    features: ["Cinematic storytelling", "Color grading", "Advanced motion graphics", "Sound design", "Free viral thumbnail"],
+    name: "Agency",
+    description: "For teams and agencies managing multiple channels.",
+    price: "$50",
+    per: "one-time",
+    features: ["25 credits", "High quality 4K thumbnails", "Topic research for viral design", "No watermark", "Face reaction support", "Download in full resolution", "Priority generation"],
     popular: false,
-    waLink: `${WHATSAPP_BASE}?text=Hi%20Nuclear%20Studio,%20I%20am%20interested%20in%20the%20Premium%20%2F%20Cinematic%20plan.%20Can%20you%20tell%20me%20the%20work%20process%3F`,
-  },
-  {
-    name: "Social Media / Shorts",
-    description: "Short edits with motion graphics, bundles available",
-    price: "$40 – $80",
-    per: "each / bundles from $300",
-    features: ["Motion graphics shorts", "Vertical format optimization", "Trending audio sync", "10-video bundle option"],
-    popular: false,
-    waLink: `${WHATSAPP_BASE}?text=Hi%20Nuclear%20Studio,%20I%20am%20interested%20in%20the%20Social%20Media%20%2F%20Shorts%20plan.%20Can%20you%20tell%20me%20the%20work%20process%3F`,
+    ctaLabel: "Get Agency",
   },
 ];
 
 export const FAQS = [
   {
-    q: "How does the work process start?",
-    a: "Once you contact us on WhatsApp, we discuss your content style, editing needs, video type, turnaround time, and goals. Then we guide you through the complete workflow.",
+    q: "How does AntiGeneric AI generate thumbnails?",
+    a: "You provide a title and optionally upload a face reaction or background image. Our AI researches viral trends in your topic and generates a scroll-stopping, 4K thumbnail designed to maximize CTR.",
   },
   {
-    q: "Do you provide thumbnails too?",
-    a: "Yes. Every plan includes a thumbnail level depending on the package — from basic to premium viral-style thumbnails.",
+    q: "What are credits?",
+    a: "Each credit lets you generate one thumbnail. Free plan includes 1 credit, Pro gives you 10, and Agency gives you 25. Credits are one-time purchases — no subscriptions.",
   },
   {
-    q: "How do I send my footage?",
-    a: "We will guide you after contact. Usually creators share footage via Google Drive, Dropbox, or similar cloud storage.",
+    q: "Will my thumbnail have a watermark?",
+    a: "Only the Free plan includes a small watermark. Pro and Agency plans generate clean, watermark-free thumbnails ready to upload directly.",
   },
   {
-    q: "What niches do you work with?",
-    a: "We work with creators across gaming, commentary, finance, education, vlogs, short-form content, and more.",
+    q: "Can I upload my own face or image?",
+    a: "Yes! You can optionally upload a face reaction photo and/or a background image. The AI will blend them into a professional thumbnail layout.",
   },
   {
-    q: "How long does delivery take?",
-    a: "Delivery depends on project complexity and volume, but turnaround time is discussed clearly before starting.",
+    q: "What resolution are the thumbnails?",
+    a: "All thumbnails are generated in 4K resolution (3840×2160), ensuring they look crisp on every device and platform.",
   },
   {
-    q: "Can I order shorts in bulk?",
-    a: "Yes. We offer single short edits and bundle pricing for creators who need consistent short-form content.",
+    q: "Can I see my previously generated thumbnails?",
+    a: "Yes. Your generation history is saved so you can revisit, re-download, or reference past thumbnails anytime.",
   },
   {
-    q: "Can I ask for revisions?",
-    a: "Yes. Revisions can be discussed depending on the plan and project scope.",
+    q: "What makes AntiGeneric AI different from other tools?",
+    a: "We combine AI image generation with topic research to create thumbnails that aren't just pretty — they're engineered to get clicks. No generic templates, every thumbnail is unique.",
   },
 ];
 
 export const CONTACTS = [
   {
-    type: "WhatsApp",
-    display: "+91 93587 95758",
-    link: `${WHATSAPP_BASE}?text=Hi%20Nuclear%20Studio,%20I%20want%20to%20talk%20about%20your%20services.`,
-    icon: "MessageCircle" as const,
-  },
-  {
-    type: "Gmail",
-    display: "nuclearstudiohq@gmail.com",
-    link: "mailto:nuclearstudiohq@gmail.com",
+    type: "Email",
+    display: "support@antigenericai.com",
+    link: "mailto:support@antigenericai.com",
     icon: "Mail" as const,
   },
   {
     type: "Discord",
-    display: "nuclearstudio",
+    display: "antigenericai",
     link: "https://discord.com/",
     icon: "Gamepad2" as const,
   },
 ];
 
 export const NAV_LINKS = [
-  { label: "Videos", href: "#videos" },
-  { label: "Thumbnails", href: "#thumbnails" },
+  { label: "Examples", href: "#thumbnails" },
   { label: "Feedback", href: "#testimonials" },
-  { label: "Plans", href: "#pricing" },
+  { label: "Pricing", href: "#pricing" },
   { label: "FAQ", href: "#faq" },
   { label: "Contact", href: "#contact" },
 ];

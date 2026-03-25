@@ -39,7 +39,7 @@ const MarqueeRow = ({ items, direction }: { items: TestimonialItem[]; direction:
 const Testimonials = () => {
   return (
     <SectionWrapper id="testimonials">
-      <SectionHeader title="What Creators Say" subtitle="Real feedback from creators we've worked with." />
+      <SectionHeader title="What Creators Say" subtitle="Real feedback from creators using AntiGeneric AI." />
       <div className="space-y-3">
         <MarqueeRow items={TESTIMONIALS_ROW1} direction="left" />
         <MarqueeRow items={TESTIMONIALS_ROW2} direction="right" />

@@ -1,18 +1,18 @@
 import { motion } from "framer-motion";
-import { Check, Crown, Scissors, Sparkles, Film, Smartphone } from "lucide-react";
+import { Check, Crown, Zap, Rocket, Gift } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PRICING } from "@/data/siteData";
 import { SectionWrapper, SectionHeader } from "@/components/SectionWrapper";
 
-const planIcons = [Scissors, Sparkles, Film, Smartphone];
+const planIcons = [Gift, Zap, Rocket];
 
 const Pricing = () => {
   return (
     <SectionWrapper id="pricing">
       <div className="container mx-auto px-4">
-        <SectionHeader title="Editing Plans" subtitle="Flexible options for creators at every level." />
+        <SectionHeader title="Simple Pricing" subtitle="No subscriptions. Buy credits, generate thumbnails." />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-4xl mx-auto">
           {PRICING.map((plan, i) => {
             const Icon = planIcons[i];
             return (
@@ -32,7 +32,6 @@ const Pricing = () => {
                   <div className="absolute -top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary to-accent" />
                 )}
 
-                {/* Header block */}
                 <div className={`px-6 pt-7 pb-5 ${plan.popular ? "mt-1" : ""}`}>
                   {plan.popular && (
                     <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/15 text-primary text-xs font-semibold font-display mb-4">
@@ -51,13 +50,11 @@ const Pricing = () => {
                   <p className="text-xs text-muted-foreground leading-relaxed">{plan.description}</p>
                 </div>
 
-                {/* Price block */}
                 <div className="px-6 py-4 border-y border-white/10 bg-white/5">
                   <span className="font-display font-extrabold text-2xl text-foreground">{plan.price}</span>
                   <span className="text-xs text-muted-foreground ml-2">{plan.per}</span>
                 </div>
 
-                {/* Features block */}
                 <div className="px-6 py-5 flex-1">
                   <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-3">What's included</p>
                   <ul className="space-y-3">
@@ -72,16 +69,13 @@ const Pricing = () => {
                   </ul>
                 </div>
 
-                {/* CTA */}
                 <div className="px-6 pb-6 pt-2">
-                  <a href={plan.waLink} target="_blank" rel="noopener noreferrer">
-                    <Button
-                      variant={plan.popular ? "nuclear" : "nuclear-outline"}
-                      className="w-full"
-                    >
-                      Select
-                    </Button>
-                  </a>
+                  <Button
+                    variant={plan.popular ? "nuclear" : "nuclear-outline"}
+                    className="w-full"
+                  >
+                    {plan.ctaLabel}
+                  </Button>
                 </div>
               </motion.div>
             );

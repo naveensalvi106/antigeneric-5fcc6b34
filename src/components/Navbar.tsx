@@ -2,7 +2,7 @@ import { useState, useEffect, type MouseEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { NAV_LINKS, WHATSAPP_BASE } from "@/data/siteData";
+import { NAV_LINKS } from "@/data/siteData";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -16,14 +16,11 @@ const Navbar = () => {
 
   const handleNavClick = (href: string) => (e: MouseEvent<HTMLAnchorElement>) => {
     if (!href.startsWith("#")) return;
-
     e.preventDefault();
     const target = document.querySelector(href);
     if (!target) return;
-
     const navbarOffset = 88;
     const top = target.getBoundingClientRect().top + window.scrollY - navbarOffset;
-
     window.history.replaceState(null, "", href);
     window.scrollTo({ top, behavior: "smooth" });
     setMobileOpen(false);
@@ -42,15 +39,13 @@ const Navbar = () => {
         borderImage: "linear-gradient(to right, transparent, hsl(217 91% 60% / 0.2), transparent) 1"
       }}>
         <div className="container mx-auto flex items-center justify-between h-16 px-4 md:px-6">
-          {/* Logo */}
           <a href="#" className="flex items-center gap-2 group">
-            <img src="/images/logo.png" alt="Nuclear Studio" className="w-8 h-8 object-contain transition-transform duration-300 group-hover:scale-110" />
+            <img src="/images/logo.png" alt="AntiGeneric AI" className="w-8 h-8 object-contain transition-transform duration-300 group-hover:scale-110" />
             <span className="font-display font-bold text-lg text-foreground">
-              Nuclear <span className="gradient-text">Studio</span>
+              AntiGeneric <span className="gradient-text">AI</span>
             </span>
           </a>
 
-          {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-1">
             {NAV_LINKS.map((link) => (
               <a
@@ -64,17 +59,10 @@ const Navbar = () => {
             ))}
           </nav>
 
-          {/* Desktop CTA */}
-          <a
-            href={`${WHATSAPP_BASE}?text=Hi%20Nuclear%20Edits,%20I%20want%20to%20book%20your%20services.`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden md:block"
-          >
-            <Button variant="nuclear" size="sm">Let's Talk</Button>
+          <a href="#pricing" className="hidden md:block">
+            <Button variant="nuclear" size="sm">Try Free</Button>
           </a>
 
-          {/* Mobile Menu Toggle */}
           <button
             className="md:hidden text-foreground p-2"
             onClick={() => setMobileOpen(!mobileOpen)}
@@ -84,7 +72,6 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Menu */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
@@ -104,13 +91,8 @@ const Navbar = () => {
                   {link.label}
                 </a>
               ))}
-              <a
-                href={`${WHATSAPP_BASE}?text=Hi%20Nuclear%20Edits,%20I%20want%20to%20book%20your%20services.`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-2"
-              >
-                <Button variant="nuclear" className="w-full">Let's Talk</Button>
+              <a href="#pricing" className="mt-2">
+                <Button variant="nuclear" className="w-full">Try Free</Button>
               </a>
             </nav>
           </motion.div>
