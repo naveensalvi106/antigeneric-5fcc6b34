@@ -75,6 +75,13 @@ const Pricing = () => {
                 <div className="px-6 py-4 border-y border-white/10 bg-white/5">
                   <span className="font-display font-extrabold text-2xl text-foreground">{plan.price}</span>
                   <span className="text-xs text-muted-foreground ml-2">{plan.per}</span>
+                  {/* Credit highlight */}
+                  <div className="mt-3 inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-primary/20 to-primary/5 border border-primary/30">
+                    <span className="font-display font-extrabold text-xl gradient-text">
+                      {plan.name === "Free" ? "1" : plan.name === "Pro" ? "10" : "25"}
+                    </span>
+                    <span className="text-sm font-semibold text-foreground">Credits</span>
+                  </div>
                 </div>
 
                 <div className="px-6 py-5 flex-1">
