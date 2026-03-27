@@ -10,11 +10,13 @@ interface PaymentDialogProps {
   paypalLink: string;
 }
 
-const UPI_ID = "9358935758@axl";
+const UPI_AMOUNTS: Record<string, string> = {
+  Pro: "400",
+  Agency: "999",
+};
 
 const PaymentDialog = ({ open, onOpenChange, planName, price, paypalLink }: PaymentDialogProps) => {
-  // Extract numeric amount for UPI
-  const amount = price.replace("$", "");
+  const upiAmount = UPI_AMOUNTS[planName] || "0";
 
   const handlePaypal = () => {
     window.open(paypalLink, "_blank");
