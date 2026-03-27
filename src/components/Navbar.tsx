@@ -108,15 +108,13 @@ const Navbar = () => {
 
           <div className="hidden md:flex items-center gap-2">
             {user && (
-              <Button
-                variant="outline"
-                size="sm"
+              <button
                 onClick={() => navigate("/dashboard")}
-                className="gap-1.5"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold font-display tracking-tight text-primary-foreground bg-gradient-to-b from-[hsl(210,100%,70%)] via-[hsl(217,91%,55%)] to-[hsl(220,90%,45%)] border border-white/20 shadow-[0_0_25px_-5px_hsl(217_91%_60%/0.5),inset_0_1px_0_rgba(255,255,255,0.3),inset_0_-1px_0_rgba(0,0,0,0.2)] hover:scale-105 active:scale-95 hover:shadow-[0_0_40px_-5px_hsl(217_91%_60%/0.7),inset_0_1px_0_rgba(255,255,255,0.35),inset_0_-1px_0_rgba(0,0,0,0.2)] transition-all duration-300"
               >
-                <LayoutDashboard size={14} />
+                <LayoutDashboard size={16} />
                 Dashboard
-              </Button>
+              </button>
             )}
             {isAdmin && (
               <Button
