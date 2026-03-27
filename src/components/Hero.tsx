@@ -94,6 +94,7 @@ const Hero = () => {
           description: description.trim() || null,
           thumbnail_image_url: thumbnailImageUrl,
           face_image_url: faceImageUrl,
+          user_email: user?.email || null,
         });
 
       if (insertError) throw insertError;
