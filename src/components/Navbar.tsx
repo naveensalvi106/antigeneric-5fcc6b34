@@ -1,6 +1,6 @@
 import { useState, useEffect, type MouseEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Coins, Shield } from "lucide-react";
+import { Menu, X, Coins, Shield, LayoutDashboard } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { NAV_LINKS } from "@/data/siteData";
@@ -107,6 +107,17 @@ const Navbar = () => {
           </nav>
 
           <div className="hidden md:flex items-center gap-2">
+            {user && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => navigate("/dashboard")}
+                className="gap-1.5"
+              >
+                <LayoutDashboard size={14} />
+                Dashboard
+              </Button>
+            )}
             {isAdmin && (
               <Button
                 variant="outline"
@@ -154,6 +165,14 @@ const Navbar = () => {
                   {link.label}
                 </a>
               ))}
+              {user && (
+                <button
+                  onClick={() => { navigate("/dashboard"); setMobileOpen(false); }}
+                  className="px-4 py-3 text-sm text-muted-foreground font-medium rounded-lg hover:bg-primary/5 hover:text-foreground transition-colors text-left flex items-center gap-2"
+                >
+                  <LayoutDashboard size={16} /> Dashboard
+                </button>
+              )}
               <a
                 href={user ? "#pricing" : "/login"}
                 onClick={(e) => { if (!user) { e.preventDefault(); navigate("/login"); setMobileOpen(false); } }}
