@@ -40,7 +40,7 @@ const Index = () => {
       <GlowSeparator />
       <FAQ />
       <GlowSeparator />
-      <Contact />
+      <HowItWorks />
       <GlowSeparator />
       <Footer />
       </div>
