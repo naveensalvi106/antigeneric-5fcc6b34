@@ -159,5 +159,5 @@ export const NAV_LINKS = [
   { label: "Feedback", href: "#testimonials" },
   { label: "Pricing", href: "#pricing" },
   { label: "FAQ", href: "#faq" },
-  { label: "Contact", href: "#contact" },
+  { label: "How It Works", href: "#how-it-works" },
 ];
