@@ -50,6 +50,15 @@ const Navbar = () => {
     setIsAdmin(!!(data && data.length > 0));
   };
 
+  const loadCredits = async (userId: string) => {
+    const { data } = await supabase
+      .from("user_credits")
+      .select("credits")
+      .eq("user_id", userId)
+      .single();
+    setCredits(data?.credits ?? 0);
+  };
+
   const handleNavClick = (href: string) => (e: MouseEvent<HTMLAnchorElement>) => {
     if (!href.startsWith("#")) return;
     e.preventDefault();
