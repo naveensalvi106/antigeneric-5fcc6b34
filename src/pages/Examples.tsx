@@ -44,23 +44,23 @@ interface ThumbnailSection {
   thumbnails: { src: string; alt: string }[];
 }
 
-const categoryNames = ["IRL", "Gaming", "Business", "Reaction", "Self Improvement", "Tech", "Documentary"];
+const categoryNames = ["Business", "Gaming", "IRL", "Reaction", "Self Improvement", "Tech", "Documentary"];
 
 const sections: ThumbnailSection[] = [
   {
-    id: "irl",
-    title: "IRL",
+    id: "business",
+    title: "Business",
     thumbnails: [
-      { src: irl1, alt: "School Locker Prank" },
-      { src: irl2, alt: "Magnet Fishing Gold" },
-      { src: irl3, alt: "Mario Kart Cosplay" },
-      { src: irl4, alt: "Red Button Challenge" },
-      { src: irl5, alt: "Strongman Concrete" },
-      { src: irl6, alt: "Gunther Rich Dog" },
-      { src: irl7, alt: "Waterpark Sneak In" },
-      { src: irl8, alt: "Sword Watermelon" },
-      { src: irl9, alt: "Car Crash Escape" },
-      { src: irl10, alt: "Prison Break FBI" },
+      { src: business1, alt: "Copy Me - Business Growth" },
+      { src: business2, alt: "Email Marketing Strategy" },
+      { src: business3, alt: "Photoshop Skills" },
+      { src: business4, alt: "10X More Clients" },
+      { src: business5, alt: "Money Strategies" },
+      { src: business6, alt: "Multiple Income Streams" },
+      { src: business7, alt: "Best AI Tools 2025" },
+      { src: business8, alt: "$0 to $10M Journey" },
+      { src: business9, alt: "Trading Profit" },
+      { src: business10, alt: "AI Workshop Revenue" },
     ],
   },
   {
@@ -80,19 +80,19 @@ const sections: ThumbnailSection[] = [
     ],
   },
   {
-    id: "business",
-    title: "Business",
+    id: "irl",
+    title: "IRL",
     thumbnails: [
-      { src: business1, alt: "Copy Me - Business Growth" },
-      { src: business2, alt: "Email Marketing Strategy" },
-      { src: business3, alt: "Photoshop Skills" },
-      { src: business4, alt: "10X More Clients" },
-      { src: business5, alt: "Money Strategies" },
-      { src: business6, alt: "Multiple Income Streams" },
-      { src: business7, alt: "Best AI Tools 2025" },
-      { src: business8, alt: "$0 to $10M Journey" },
-      { src: business9, alt: "Trading Profit" },
-      { src: business10, alt: "AI Workshop Revenue" },
+      { src: irl1, alt: "School Locker Prank" },
+      { src: irl2, alt: "Magnet Fishing Gold" },
+      { src: irl3, alt: "Mario Kart Cosplay" },
+      { src: irl4, alt: "Red Button Challenge" },
+      { src: irl5, alt: "Strongman Concrete" },
+      { src: irl6, alt: "Gunther Rich Dog" },
+      { src: irl7, alt: "Waterpark Sneak In" },
+      { src: irl8, alt: "Sword Watermelon" },
+      { src: irl9, alt: "Car Crash Escape" },
+      { src: irl10, alt: "Prison Break FBI" },
     ],
   },
   { id: "reaction", title: "Reaction", thumbnails: [] },
