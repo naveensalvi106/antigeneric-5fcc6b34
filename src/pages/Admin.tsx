@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { LogOut, Eye, Calendar, Loader2, Image as ImageIcon, User, FileText, ExternalLink } from "lucide-react";
+import { LogOut, Eye, Calendar, Loader2, Image as ImageIcon, User, FileText, ExternalLink, Upload, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
@@ -12,6 +12,8 @@ interface Submission {
   description: string | null;
   thumbnail_image_url: string | null;
   face_image_url: string | null;
+  result_image_url: string | null;
+  user_email: string | null;
   status: string;
   created_at: string | null;
 }
@@ -21,6 +23,8 @@ const Admin = () => {
   const [loading, setLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
   const [selectedSubmission, setSelectedSubmission] = useState<Submission | null>(null);
+  const [uploadingId, setUploadingId] = useState<string | null>(null);
+  const uploadRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -29,18 +33,14 @@ const Admin = () => {
 
   const checkAdminAndLoad = async () => {
     const { data: { user } } = await supabase.auth.getUser();
-    if (!user) {
-      navigate("/login");
-      return;
-    }
+    if (!user) { navigate("/login"); return; }
 
     const { data: roles } = await supabase
       .from("user_roles")
       .select("role")
       .eq("user_id", user.id);
 
-    const hasAdmin = roles?.some((r) => r.role === "admin");
-    if (!hasAdmin) {
+    if (!roles?.some((r) => r.role === "admin")) {
       toast.error("You don't have admin access");
       navigate("/");
       return;
@@ -57,17 +57,59 @@ const Admin = () => {
       .select("*")
       .order("created_at", { ascending: false });
 
-    if (error) {
-      toast.error("Failed to load submissions");
-    } else {
-      setSubmissions(data || []);
-    }
+    if (error) toast.error("Failed to load submissions");
+    else setSubmissions((data as Submission[]) || []);
     setLoading(false);
   };
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
     navigate("/login");
+  };
+
+  const handleUploadResult = async (submissionId: string, file: File) => {
+    setUploadingId(submissionId);
+    try {
+      const fileExt = file.name.split('.').pop();
+      const fileName = `results/${submissionId}.${fileExt}`;
+      
+      const { error: uploadError } = await supabase.storage
+        .from('thumbnail-uploads')
+        .upload(fileName, file, { upsert: true });
+
+      if (uploadError) throw uploadError;
+
+      const { data: urlData } = supabase.storage
+        .from('thumbnail-uploads')
+        .getPublicUrl(fileName);
+
+      const { error: updateError } = await supabase
+        .from('thumbnail_submissions')
+        .update({ result_image_url: urlData.publicUrl, status: 'completed' })
+        .eq('id', submissionId);
+
+      if (updateError) throw updateError;
+
+      toast.success("Thumbnail uploaded & marked as completed!");
+      await loadSubmissions();
+    } catch (err: any) {
+      toast.error("Upload failed: " + (err.message || "Unknown error"));
+    } finally {
+      setUploadingId(null);
+    }
+  };
+
+  const triggerUpload = (submissionId: string) => {
+    setUploadingId(submissionId);
+    uploadRef.current?.click();
+  };
+
+  const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file && uploadingId) {
+      handleUploadResult(uploadingId, file);
+    }
+    e.target.value = "";
   };
 
   if (!isAdmin) {
@@ -80,7 +122,8 @@ const Admin = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
+      <input ref={uploadRef} type="file" accept="image/*" className="hidden" onChange={onFileChange} />
+
       <header className="border-b border-border/50 bg-card/50 backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <h1 className="font-display text-xl font-bold text-foreground">
@@ -90,9 +133,7 @@ const Admin = () => {
             <span className="text-xs text-muted-foreground hidden sm:block">
               {submissions.length} submissions
             </span>
-            <Button variant="outline" size="sm" onClick={loadSubmissions}>
-              Refresh
-            </Button>
+            <Button variant="outline" size="sm" onClick={loadSubmissions}>Refresh</Button>
             <Button variant="ghost" size="sm" onClick={handleLogout}>
               <LogOut size={16} className="mr-1" /> Logout
             </Button>
@@ -123,11 +164,11 @@ const Admin = () => {
               >
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-1">
+                    <div className="flex items-center gap-2 mb-1 flex-wrap">
                       <h3 className="font-semibold text-foreground truncate">{sub.title}</h3>
                       <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium ${
-                        sub.status === 'pending' 
-                          ? 'bg-yellow-500/10 text-yellow-400' 
+                        sub.status === 'pending'
+                          ? 'bg-yellow-500/10 text-yellow-400'
                           : sub.status === 'completed'
                           ? 'bg-green-500/10 text-green-400'
                           : 'bg-muted text-muted-foreground'
@@ -138,19 +179,29 @@ const Admin = () => {
                     {sub.description && (
                       <p className="text-sm text-muted-foreground line-clamp-2">{sub.description}</p>
                     )}
-                    <div className="flex items-center gap-4 mt-2 text-xs text-muted-foreground/60">
+                    <div className="flex items-center gap-4 mt-2 text-xs text-muted-foreground/60 flex-wrap">
                       <span className="flex items-center gap-1">
                         <Calendar size={12} />
                         {sub.created_at ? new Date(sub.created_at).toLocaleDateString() : 'N/A'}
                       </span>
+                      {sub.user_email && (
+                        <span className="flex items-center gap-1">
+                          <Mail size={12} /> {sub.user_email}
+                        </span>
+                      )}
                       {sub.thumbnail_image_url && (
                         <span className="flex items-center gap-1">
-                          <ImageIcon size={12} /> Image attached
+                          <ImageIcon size={12} /> Image
                         </span>
                       )}
                       {sub.face_image_url && (
                         <span className="flex items-center gap-1">
-                          <User size={12} /> Face attached
+                          <User size={12} /> Face
+                        </span>
+                      )}
+                      {sub.result_image_url && (
+                        <span className="flex items-center gap-1 text-green-400">
+                          <ImageIcon size={12} /> Result uploaded
                         </span>
                       )}
                     </div>
@@ -171,19 +222,14 @@ const Admin = () => {
                       <p className="text-xs font-medium text-muted-foreground mb-1">Description</p>
                       <p className="text-sm text-foreground">{sub.description || "No description provided"}</p>
                     </div>
+
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       {sub.thumbnail_image_url && (
                         <div>
                           <p className="text-xs font-medium text-muted-foreground mb-1">Reference Image</p>
                           <a href={sub.thumbnail_image_url} target="_blank" rel="noopener noreferrer" className="block">
-                            <img
-                              src={sub.thumbnail_image_url}
-                              alt="Reference"
-                              className="w-full h-40 object-cover rounded-lg border border-border"
-                            />
-                            <span className="text-xs text-primary flex items-center gap-1 mt-1">
-                              <ExternalLink size={10} /> Open full size
-                            </span>
+                            <img src={sub.thumbnail_image_url} alt="Reference" className="w-full h-40 object-cover rounded-lg border border-border" />
+                            <span className="text-xs text-primary flex items-center gap-1 mt-1"><ExternalLink size={10} /> Open full size</span>
                           </a>
                         </div>
                       )}
@@ -191,22 +237,37 @@ const Admin = () => {
                         <div>
                           <p className="text-xs font-medium text-muted-foreground mb-1">Face Image</p>
                           <a href={sub.face_image_url} target="_blank" rel="noopener noreferrer" className="block">
-                            <img
-                              src={sub.face_image_url}
-                              alt="Face"
-                              className="w-full h-40 object-cover rounded-lg border border-border"
-                            />
-                            <span className="text-xs text-primary flex items-center gap-1 mt-1">
-                              <ExternalLink size={10} /> Open full size
-                            </span>
+                            <img src={sub.face_image_url} alt="Face" className="w-full h-40 object-cover rounded-lg border border-border" />
+                            <span className="text-xs text-primary flex items-center gap-1 mt-1"><ExternalLink size={10} /> Open full size</span>
+                          </a>
+                        </div>
+                      )}
+                      {sub.result_image_url && (
+                        <div>
+                          <p className="text-xs font-medium text-muted-foreground mb-1">Result Thumbnail</p>
+                          <a href={sub.result_image_url} target="_blank" rel="noopener noreferrer" className="block">
+                            <img src={sub.result_image_url} alt="Result" className="w-full h-40 object-cover rounded-lg border border-green-500/30" />
+                            <span className="text-xs text-green-400 flex items-center gap-1 mt-1"><ExternalLink size={10} /> Open full size</span>
                           </a>
                         </div>
                       )}
                     </div>
-                    <div className="flex items-center gap-2">
-                      <p className="text-xs text-muted-foreground/60">
-                        ID: {sub.id}
-                      </p>
+
+                    {/* Upload result button */}
+                    <div className="flex items-center gap-3">
+                      <Button
+                        variant="nuclear"
+                        size="sm"
+                        onClick={(e) => { e.stopPropagation(); triggerUpload(sub.id); }}
+                        disabled={uploadingId === sub.id}
+                      >
+                        {uploadingId === sub.id ? (
+                          <><Loader2 size={14} className="mr-1 animate-spin" /> Uploading...</>
+                        ) : (
+                          <><Upload size={14} className="mr-1" /> {sub.result_image_url ? "Replace Result" : "Upload Result"}</>
+                        )}
+                      </Button>
+                      <p className="text-xs text-muted-foreground/60">ID: {sub.id}</p>
                     </div>
                   </motion.div>
                 )}
