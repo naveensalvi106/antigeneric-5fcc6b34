@@ -88,10 +88,10 @@ const Pricing = () => {
 
                 <div className="px-6 py-4 border-y border-white/10 bg-white/5 space-y-4">
                   <div>
-                    <span className="font-display font-extrabold text-2xl text-foreground">{plan.price}</span>
+                    <span className="font-display font-extrabold text-2xl gradient-text">{plan.price}</span>
                     <span className="text-xs text-muted-foreground ml-2">{plan.per}</span>
                     {plan.name !== "Free" && (
-                      <div className="text-sm font-semibold text-muted-foreground mt-0.5">
+                      <div className="font-display font-bold text-lg gradient-text mt-0.5">
                         ₹{plan.name === "Pro" ? "400" : "900"} INR
                       </div>
                     )}
