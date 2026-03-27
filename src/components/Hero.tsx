@@ -62,7 +62,7 @@ const Hero = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
           >
-            Generate scroll-stopping, 4K thumbnails in seconds. Upload a face, add your title, and let AI do the rest.
+            Generate scroll-stopping, 4K thumbnails in minutes. Upload a face, add your title, and let AI do the rest.
           </motion.p>
 
           {/* Thumbnail Generator Form */}
@@ -149,9 +149,9 @@ const Hero = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.7 }}
           >
-            <a href="#thumbnails">
-              <Button variant="ghost" size="lg" className="text-muted-foreground hover:text-foreground">
-                See Examples ↓
+            <a href="/examples">
+              <Button variant="nuclear" size="xl" className="w-full max-w-2xl">
+                See Examples
               </Button>
             </a>
           </motion.div>
