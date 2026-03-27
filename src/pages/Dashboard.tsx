@@ -390,7 +390,7 @@ const Dashboard = () => {
                     </div>
                     <div className="p-3 rounded-lg bg-secondary/50">
                       <p className="text-xs text-muted-foreground">Credits Left</p>
-                      <p className="text-xl font-bold text-primary">1</p>
+                      <p className="text-xl font-bold text-primary">{credits}</p>
                     </div>
                   </div>
                 </div>
