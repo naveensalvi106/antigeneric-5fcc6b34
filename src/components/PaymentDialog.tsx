@@ -29,7 +29,7 @@ const PaymentDialog = ({ open, onOpenChange, planName, price, paypalLink }: Paym
   };
 
   const handleUPI = () => {
-    const upiLink = `upi://pay?pa=9358935758@axl&pn=AntiGeneric&am=${upiAmount}&cu=INR&tn=${planName}%20Plan%20Purchase`;
+    const upiLink = `upi://pay?pa=9358935758@axl&am=${upiAmount}&cu=INR&tn=${planName}%20Plan%20Purchase`;
     window.location.href = upiLink;
     setPaymentStarted(true);
   };
