@@ -67,6 +67,7 @@ const Hero = () => {
 
           {/* Thumbnail Generator Form */}
           <motion.div
+            id="thumbnail-form"
             className="max-w-2xl mx-auto mb-8 p-6 rounded-2xl card-nuclear border border-primary/10"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

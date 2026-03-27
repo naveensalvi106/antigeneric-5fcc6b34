@@ -306,7 +306,7 @@ const Examples = () => {
             <Button
               variant="nuclear"
               size="lg"
-              onClick={() => navigate("/#hero")}
+              onClick={() => navigate("/#thumbnail-form")}
             >
               Generate Thumbnail
             </Button>
