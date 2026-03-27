@@ -104,20 +104,20 @@ const Login = () => {
                 Signing you in with Google
               </h2>
               <p className="text-sm text-muted-foreground">
-                Please complete the sign-in in the popup window…
+                This may take a moment…
               </p>
             </div>
           </div>
         </motion.div>
       )}
 
-      <div className="min-h-screen flex items-center justify-center bg-background relative overflow-hidden px-4">
+      <div className="min-h-screen flex flex-col items-center justify-center bg-background relative overflow-hidden px-4">
         {/* Background effects */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-blob" />
           <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-accent/8 rounded-full blur-3xl animate-blob-delay-2" />
         </div>
-        <div className="text-center mb-8">
+        <div className="text-center mb-12">
           <h1 className="font-display text-3xl font-extrabold tracking-tight text-foreground mb-2">
             AntiGeneric <span className="gradient-text">AI</span>
           </h1>
