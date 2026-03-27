@@ -94,7 +94,7 @@ const PaymentDialog = ({ open, onOpenChange, planName, price, paypalLink }: Paym
           </Button>
 
           <Button
-            variant="nuclear-outline"
+            variant="nuclear"
             size="lg"
             className="w-full justify-center gap-3"
             onClick={handleUPI}
