@@ -6,12 +6,14 @@ import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable/index";
 import { toast } from "sonner";
+import EmailVerificationDialog from "@/components/EmailVerificationDialog";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [isSignUp, setIsSignUp] = useState(false);
+  const [showVerification, setShowVerification] = useState(false);
   const navigate = useNavigate();
 
   const handleEmailAuth = async (e: React.FormEvent) => {
@@ -29,7 +31,7 @@ const Login = () => {
           options: { emailRedirectTo: window.location.origin },
         });
         if (error) throw error;
-        toast.success("Check your email to confirm your account!");
+        setShowVerification(true);
       } else {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
@@ -153,6 +155,12 @@ const Login = () => {
           </p>
         </div>
       </motion.div>
+
+      <EmailVerificationDialog
+        isOpen={showVerification}
+        onClose={() => setShowVerification(false)}
+        email={email}
+      />
     </div>
   );
 };

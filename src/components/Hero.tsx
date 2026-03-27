@@ -1,10 +1,11 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { Sparkles, Image, Zap, Download, Upload, User, FileText, Loader2, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import GeneratingOverlay from "@/components/GeneratingOverlay";
 
 const badges = [
   { icon: Sparkles, label: "AI-Powered" },
@@ -20,6 +21,7 @@ const Hero = () => {
   const [faceImage, setFaceImage] = useState<File | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [showGenerating, setShowGenerating] = useState(false);
   const [user, setUser] = useState<any>(null);
   const imageInputRef = useRef<HTMLInputElement>(null);
   const faceInputRef = useRef<HTMLInputElement>(null);
@@ -92,6 +94,7 @@ const Hero = () => {
           description: description.trim() || null,
           thumbnail_image_url: thumbnailImageUrl,
           face_image_url: faceImageUrl,
+          user_email: user?.email || null,
         });
 
       if (insertError) throw insertError;
@@ -108,18 +111,7 @@ const Hero = () => {
       });
 
       setIsSubmitted(true);
-      toast.success("Thumbnail request submitted! We'll get back to you soon.");
-      
-      // Reset form after delay
-      setTimeout(() => {
-        setTitle("");
-        setDescription("");
-        setThumbnailImage(null);
-        setFaceImage(null);
-        setIsSubmitted(false);
-        if (imageInputRef.current) imageInputRef.current.value = "";
-        if (faceInputRef.current) faceInputRef.current.value = "";
-      }, 3000);
+      setShowGenerating(true);
     } catch (error) {
       console.error('Submission error:', error);
       toast.error("Something went wrong. Please try again.");
@@ -127,6 +119,19 @@ const Hero = () => {
       setIsSubmitting(false);
     }
   };
+
+  const handleGeneratingComplete = useCallback(() => {
+    setShowGenerating(false);
+    toast.success("Your thumbnail is being crafted! We'll notify you when it's ready.");
+    // Reset form
+    setTitle("");
+    setDescription("");
+    setThumbnailImage(null);
+    setFaceImage(null);
+    setIsSubmitted(false);
+    if (imageInputRef.current) imageInputRef.current.value = "";
+    if (faceInputRef.current) faceInputRef.current.value = "";
+  }, []);
 
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
@@ -301,6 +306,8 @@ const Hero = () => {
           </motion.div>
         </motion.div>
       </div>
+
+      <GeneratingOverlay isVisible={showGenerating} onComplete={handleGeneratingComplete} />
     </section>
   );
 };

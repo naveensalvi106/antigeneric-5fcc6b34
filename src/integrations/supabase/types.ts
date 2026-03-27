@@ -20,27 +20,33 @@ export type Database = {
           description: string | null
           face_image_url: string | null
           id: string
+          result_image_url: string | null
           status: string
           thumbnail_image_url: string | null
           title: string
+          user_email: string | null
         }
         Insert: {
           created_at?: string | null
           description?: string | null
           face_image_url?: string | null
           id?: string
+          result_image_url?: string | null
           status?: string
           thumbnail_image_url?: string | null
           title: string
+          user_email?: string | null
         }
         Update: {
           created_at?: string | null
           description?: string | null
           face_image_url?: string | null
           id?: string
+          result_image_url?: string | null
           status?: string
           thumbnail_image_url?: string | null
           title?: string
+          user_email?: string | null
         }
         Relationships: []
       }
