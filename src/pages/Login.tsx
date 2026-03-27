@@ -155,6 +155,12 @@ const Login = () => {
           </p>
         </div>
       </motion.div>
+
+      <EmailVerificationDialog
+        isOpen={showVerification}
+        onClose={() => setShowVerification(false)}
+        email={email}
+      />
     </div>
   );
 };
