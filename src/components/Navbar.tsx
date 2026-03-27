@@ -46,10 +46,14 @@ const Navbar = () => {
                 AntiGeneric <span className="gradient-text">AI</span>
               </span>
             </a>
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20">
-              <Coins size={14} className="text-primary" />
-              <span className="text-xs font-mono font-semibold text-primary">1 Credit</span>
-            </div>
+            <a
+              href="#pricing"
+              onClick={handleNavClick("#pricing")}
+              className="relative px-4 py-2 text-sm text-muted-foreground font-medium transition-colors duration-300 hover:text-foreground rounded-lg hover:bg-primary/5 flex items-center gap-1.5"
+            >
+              <Coins size={14} />
+              1 Credit
+            </a>
           </div>
 
           <nav className="hidden md:flex items-center gap-1">
