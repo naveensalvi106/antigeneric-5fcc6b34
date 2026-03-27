@@ -7,13 +7,14 @@ import { Button } from "@/components/ui/button";
 import { PRICING } from "@/data/siteData";
 import { SectionWrapper, SectionHeader } from "@/components/SectionWrapper";
 import { supabase } from "@/integrations/supabase/client";
+import PaymentDialog from "@/components/PaymentDialog";
 
 const planIcons = [Gift, Zap, Rocket];
 
 const Pricing = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState<any>(null);
-
+  const [paymentPlan, setPaymentPlan] = useState<typeof PRICING[0] | null>(null);
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null);
