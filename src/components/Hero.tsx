@@ -306,6 +306,8 @@ const Hero = () => {
           </motion.div>
         </motion.div>
       </div>
+
+      <GeneratingOverlay isVisible={showGenerating} onComplete={handleGeneratingComplete} />
     </section>
   );
 };
