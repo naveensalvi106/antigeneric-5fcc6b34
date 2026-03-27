@@ -97,6 +97,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      add_credits_by_email: {
+        Args: { p_credits: number; p_email: string }
+        Returns: boolean
+      }
       get_user_email: { Args: { _user_id: string }; Returns: string }
       has_role: {
         Args: {
