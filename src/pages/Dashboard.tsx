@@ -38,6 +38,7 @@ const Dashboard = () => {
       }
       setUser(session.user);
       loadSubmissions();
+      loadCredits(session.user.id);
     });
   }, []);
 
