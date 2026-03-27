@@ -7,13 +7,14 @@ import { Button } from "@/components/ui/button";
 import { PRICING } from "@/data/siteData";
 import { SectionWrapper, SectionHeader } from "@/components/SectionWrapper";
 import { supabase } from "@/integrations/supabase/client";
+import PaymentDialog from "@/components/PaymentDialog";
 
 const planIcons = [Gift, Zap, Rocket];
 
 const Pricing = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState<any>(null);
-
+  const [paymentPlan, setPaymentPlan] = useState<typeof PRICING[0] | null>(null);
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null);
@@ -36,10 +37,11 @@ const Pricing = () => {
       window.scrollTo({ top: 0, behavior: "smooth" });
       return;
     }
-    const link = plan.name === "Pro" ? PAYPAL_PRO : PAYPAL_AGENCY;
-    window.open(link, "_blank");
-    toast.info("After payment, your credits will be added within a few hours.");
+    setPaymentPlan(plan);
   };
+
+  const getPaypalLink = (planName: string) =>
+    planName === "Pro" ? PAYPAL_PRO : PAYPAL_AGENCY;
 
   return (
     <SectionWrapper id="pricing">
@@ -126,6 +128,16 @@ const Pricing = () => {
           })}
         </div>
       </div>
+
+      {paymentPlan && (
+        <PaymentDialog
+          open={!!paymentPlan}
+          onOpenChange={(open) => !open && setPaymentPlan(null)}
+          planName={paymentPlan.name}
+          price={paymentPlan.price}
+          paypalLink={getPaypalLink(paymentPlan.name)}
+        />
+      )}
     </SectionWrapper>
   );
 };
