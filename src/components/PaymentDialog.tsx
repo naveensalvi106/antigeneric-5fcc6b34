@@ -10,11 +10,13 @@ interface PaymentDialogProps {
   paypalLink: string;
 }
 
-const UPI_ID = "9358935758@axl";
+const UPI_AMOUNTS: Record<string, string> = {
+  Pro: "400",
+  Agency: "999",
+};
 
 const PaymentDialog = ({ open, onOpenChange, planName, price, paypalLink }: PaymentDialogProps) => {
-  // Extract numeric amount for UPI
-  const amount = price.replace("$", "");
+  const upiAmount = UPI_AMOUNTS[planName] || "0";
 
   const handlePaypal = () => {
     window.open(paypalLink, "_blank");
@@ -22,7 +24,7 @@ const PaymentDialog = ({ open, onOpenChange, planName, price, paypalLink }: Paym
   };
 
   const handleUPI = () => {
-    const upiLink = `upi://pay?pa=${UPI_ID}&pn=AntiGeneric&am=${amount}&cu=INR&tn=${planName}%20Plan%20Purchase`;
+    const upiLink = `upi://pay?pa=9358935758@axl&pn=AntiGeneric&am=${upiAmount}&cu=INR&tn=${planName}%20Plan%20Purchase`;
     window.location.href = upiLink;
   };
 
@@ -34,7 +36,7 @@ const PaymentDialog = ({ open, onOpenChange, planName, price, paypalLink }: Paym
             Pay for {planName} Plan
           </DialogTitle>
           <DialogDescription className="text-muted-foreground">
-            Choose your preferred payment method — {price}
+            Choose your preferred payment method — {price} / ₹{upiAmount}
           </DialogDescription>
         </DialogHeader>
 
