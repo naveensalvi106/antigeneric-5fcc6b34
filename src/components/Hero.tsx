@@ -59,6 +59,10 @@ const Hero = () => {
   };
 
   const handleSubmit = async () => {
+    if (!user) {
+      navigate("/login");
+      return;
+    }
     if (!title.trim()) {
       toast.error("Please enter a thumbnail title");
       return;
