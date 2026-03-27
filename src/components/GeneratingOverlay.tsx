@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Loader2, Sparkles, Clock, Mail, Bell } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
+import { Button } from "@/components/ui/button";
 
 interface GeneratingOverlayProps {
   isVisible: boolean;
@@ -46,7 +47,6 @@ const GeneratingOverlay = ({ isVisible, onComplete }: GeneratingOverlayProps) =>
       if (pct >= 95) {
         clearInterval(timer);
         setShowNotification(true);
-        setTimeout(onComplete, 2000);
       }
     }, interval);
 
@@ -134,6 +134,14 @@ const GeneratingOverlay = ({ isVisible, onComplete }: GeneratingOverlayProps) =>
                 </p>
               </div>
             </div>
+
+            <Button
+              variant="nuclear"
+              className="w-full mt-6"
+              onClick={onComplete}
+            >
+              OK
+            </Button>
           </motion.div>
         )}
       </motion.div>
