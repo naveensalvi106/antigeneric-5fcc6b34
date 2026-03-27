@@ -8,7 +8,7 @@ const ThumbnailRow = ({ items, direction, speed }: { items: ThumbnailItem[]; dir
   return (
     <div className="overflow-hidden">
       <div
-        className={`flex gap-4 w-max ${direction === "left" ? "animate-marquee-left" : "animate-marquee-right"}`}
+        className={`flex gap-0 w-max ${direction === "left" ? "animate-marquee-left" : "animate-marquee-right"}`}
         style={{ "--marquee-duration": speed } as React.CSSProperties}
       >
         {doubled.map((item, i) => (
