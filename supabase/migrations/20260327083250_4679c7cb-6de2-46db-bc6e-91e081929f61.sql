@@ -1,0 +1,1 @@
+CREATE POLICY "Users can view own submissions" ON public.thumbnail_submissions FOR SELECT TO authenticated USING (user_email = (SELECT email FROM auth.users WHERE id = auth.uid()));
