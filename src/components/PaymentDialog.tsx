@@ -36,7 +36,7 @@ const PaymentDialog = ({ open, onOpenChange, planName, price, paypalLink }: Paym
             Pay for {planName} Plan
           </DialogTitle>
           <DialogDescription className="text-muted-foreground">
-            Choose your preferred payment method — {price}
+            Choose your preferred payment method — {price} / ₹{upiAmount}
           </DialogDescription>
         </DialogHeader>
 
