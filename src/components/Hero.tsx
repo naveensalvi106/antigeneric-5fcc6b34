@@ -113,6 +113,9 @@ const Hero = () => {
 
       if (insertError) throw insertError;
 
+      // Deduct credit
+      await supabase.rpc("use_credit", { p_user_id: user.id });
+
       // Notify admin
       await supabase.functions.invoke('notify-submission', {
         body: {

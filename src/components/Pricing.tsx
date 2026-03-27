@@ -116,7 +116,7 @@ const Pricing = () => {
                   <Button
                     variant="nuclear"
                     className="w-full"
-                    onClick={handlePlanClick}
+                    onClick={() => handlePlanClick(plan)}
                   >
                     {plan.ctaLabel}
                   </Button>
