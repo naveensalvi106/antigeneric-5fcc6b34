@@ -38,6 +38,16 @@ import irl8 from "@/assets/thumbnails/irl-8.jpg";
 import irl9 from "@/assets/thumbnails/irl-9.jpg";
 import irl10 from "@/assets/thumbnails/irl-10.jpg";
 
+import reaction1 from "@/assets/thumbnails/reaction-1.jpg";
+import reaction2 from "@/assets/thumbnails/reaction-2.jpg";
+import reaction3 from "@/assets/thumbnails/reaction-3.jpg";
+import reaction4 from "@/assets/thumbnails/reaction-4.jpg";
+import reaction5 from "@/assets/thumbnails/reaction-5.jpg";
+import reaction6 from "@/assets/thumbnails/reaction-6.jpg";
+import reaction7 from "@/assets/thumbnails/reaction-7.jpg";
+import reaction8 from "@/assets/thumbnails/reaction-8.jpg";
+import reaction9 from "@/assets/thumbnails/reaction-9.jpg";
+import reaction10 from "@/assets/thumbnails/reaction-10.jpg";
 interface ThumbnailSection {
   id: string;
   title: string;
