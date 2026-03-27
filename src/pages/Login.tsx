@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Mail, Lock, Loader2 } from "lucide-react";
@@ -15,6 +15,21 @@ const Login = () => {
   const [isSignUp, setIsSignUp] = useState(false);
   const [showVerification, setShowVerification] = useState(false);
   const navigate = useNavigate();
+
+  // Redirect if already logged in (handles post-OAuth return)
+  useEffect(() => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (session?.user) {
+        navigate("/", { replace: true });
+      }
+    });
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session?.user) {
+        navigate("/", { replace: true });
+      }
+    });
+    return () => subscription.unsubscribe();
+  }, [navigate]);
 
   const handleEmailAuth = async (e: React.FormEvent) => {
     e.preventDefault();
