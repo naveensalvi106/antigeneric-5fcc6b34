@@ -160,7 +160,22 @@ const sections: ThumbnailSection[] = [
       { src: si10, alt: "YouTube Shorts Growth" },
     ],
   },
-  { id: "tech", title: "Tech", thumbnails: [] },
+  {
+    id: "tech",
+    title: "Tech",
+    thumbnails: [
+      { src: tech1, alt: "iOS 18.6 Update" },
+      { src: tech2, alt: "Mac Neo First Look" },
+      { src: tech3, alt: "I Was Right" },
+      { src: tech4, alt: "AI Suitcase" },
+      { src: tech5, alt: "This Hurts" },
+      { src: tech6, alt: "Watches 2023 vs 2026" },
+      { src: tech7, alt: "Buy Or Skip" },
+      { src: tech8, alt: "Good or Bad" },
+      { src: tech9, alt: "Can You Afford" },
+      { src: tech10, alt: "Nothing Phone Closeup" },
+    ],
+  },
   { id: "documentary", title: "Documentary", thumbnails: [] },
 ];
 
