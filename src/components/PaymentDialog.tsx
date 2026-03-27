@@ -162,16 +162,6 @@ const PaymentDialog = ({ open, onOpenChange, planName, price, paypalLink }: Paym
                 variant="nuclear"
                 size="lg"
                 className="w-full justify-center gap-3 mt-2"
-                onClick={() => setStep("upi")}
-              >
-                <QrCode size={20} />
-                Pay with UPI (QR Code)
-              </Button>
-
-              <Button
-                variant="nuclear"
-                size="lg"
-                className="w-full justify-center gap-3"
                 onClick={handlePaypal}
               >
                 <img
@@ -180,6 +170,16 @@ const PaymentDialog = ({ open, onOpenChange, planName, price, paypalLink }: Paym
                   className="w-6 h-6 rounded"
                 />
                 Pay with PayPal
+              </Button>
+
+              <Button
+                variant="nuclear"
+                size="lg"
+                className="w-full justify-center gap-3"
+                onClick={() => setStep("upi")}
+              >
+                <QrCode size={20} />
+                Pay with UPI (QR Code)
               </Button>
 
               <p className="text-[11px] text-muted-foreground text-center mt-1">
