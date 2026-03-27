@@ -7,6 +7,7 @@ import Index from "./pages/Index.tsx";
 import OurWork from "./pages/OurWork.tsx";
 import Examples from "./pages/Examples.tsx";
 import Login from "./pages/Login.tsx";
+import OAuthCallback from "./pages/OAuthCallback.tsx";
 import Admin from "./pages/Admin.tsx";
 import Dashboard from "./pages/Dashboard.tsx";
 import NotFound from "./pages/NotFound.tsx";
@@ -24,6 +25,7 @@ const App = () => (
           <Route path="/our-work" element={<OurWork />} />
           <Route path="/examples" element={<Examples />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/~oauth" element={<OAuthCallback />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/dashboard" element={<Dashboard />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
