@@ -12,7 +12,7 @@ interface PaymentDialogProps {
 
 const UPI_AMOUNTS: Record<string, string> = {
   Pro: "400",
-  Agency: "999",
+  Agency: "900",
 };
 
 const PaymentDialog = ({ open, onOpenChange, planName, price, paypalLink }: PaymentDialogProps) => {
