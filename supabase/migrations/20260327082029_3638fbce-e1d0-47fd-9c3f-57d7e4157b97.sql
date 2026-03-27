@@ -1,0 +1,1 @@
+CREATE POLICY "Allow authenticated inserts" ON public.thumbnail_submissions FOR INSERT TO authenticated WITH CHECK (true);
