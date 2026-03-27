@@ -32,7 +32,7 @@ const Pricing = () => {
   return (
     <SectionWrapper id="pricing">
       <div className="container mx-auto px-4">
-        <SectionHeader title="Simple Pricing" subtitle="No subscriptions. Buy credits, generate thumbnails." />
+        <SectionHeader title="Pick Your Plan" subtitle="No subscriptions. Buy credits, generate thumbnails." />
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-4xl mx-auto">
           {PRICING.map((plan, i) => {
