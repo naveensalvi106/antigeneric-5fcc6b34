@@ -8,7 +8,7 @@ import ThumbnailShowcase from "@/components/ThumbnailShowcase";
 import Testimonials from "@/components/Testimonials";
 import Pricing from "@/components/Pricing";
 import FAQ from "@/components/FAQ";
-import Contact from "@/components/Contact";
+import HowItWorks from "@/components/HowItWorks";
 import Footer from "@/components/Footer";
 import { GlowSeparator } from "@/components/SectionWrapper";
 import ParticleBackground from "@/components/ParticleBackground";
