@@ -5,50 +5,54 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
-const ADMIN_EMAIL = "naveensalvi213@gmail.com";
-
 serve(async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
   }
 
   try {
-    const { title, description, thumbnailImageUrl, faceImageUrl, submissionId } = await req.json();
+    const { title, description, thumbnailImageUrl, faceImageUrl, submissionId, userEmail } = await req.json();
 
-    // Build email body
-    const emailLines = [
-      `<h2>New Thumbnail Request</h2>`,
-      `<p><strong>Submission ID:</strong> ${submissionId}</p>`,
-      `<p><strong>Title:</strong> ${title || 'Not provided'}</p>`,
-      `<p><strong>Description:</strong> ${description || 'Not provided'}</p>`,
-    ];
+    const DISCORD_WEBHOOK_URL = Deno.env.get('DISCORD_WEBHOOK_URL');
 
-    if (thumbnailImageUrl) {
-      emailLines.push(`<p><strong>Reference Image:</strong> <a href="${thumbnailImageUrl}">View Image</a></p>`);
+    if (DISCORD_WEBHOOK_URL) {
+      const fields = [
+        { name: "📝 Title", value: title || "Not provided", inline: true },
+        { name: "📧 Email", value: userEmail || "Anonymous", inline: true },
+        { name: "🆔 Submission ID", value: submissionId || "N/A", inline: false },
+        { name: "📄 Description", value: description || "Not provided", inline: false },
+      ];
+
+      if (thumbnailImageUrl) {
+        fields.push({ name: "🖼️ Reference Image", value: `[View Image](${thumbnailImageUrl})`, inline: true });
+      }
+      if (faceImageUrl) {
+        fields.push({ name: "🧑 Face Image", value: `[View Image](${faceImageUrl})`, inline: true });
+      }
+
+      const embed = {
+        title: "🎨 New Thumbnail Request!",
+        color: 0x00ff88,
+        fields,
+        timestamp: new Date().toISOString(),
+        footer: { text: "AntiGeneric AI" },
+      };
+
+      const discordRes = await fetch(DISCORD_WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ embeds: [embed] }),
+      });
+
+      if (!discordRes.ok) {
+        console.error('Discord webhook failed:', discordRes.status, await discordRes.text());
+      }
+    } else {
+      console.warn('DISCORD_WEBHOOK_URL not configured');
     }
-    if (faceImageUrl) {
-      emailLines.push(`<p><strong>Face Image:</strong> <a href="${faceImageUrl}">View Image</a></p>`);
-    }
-
-    const emailHtml = emailLines.join('\n');
-
-    // Use Supabase's built-in email via the Auth Admin API is not available for custom emails.
-    // Instead, we'll log the submission and the admin can check the dashboard.
-    // For now, store notification data that can be checked.
-    console.log(`New submission notification for ${ADMIN_EMAIL}:`, {
-      title,
-      description,
-      thumbnailImageUrl,
-      faceImageUrl,
-      submissionId,
-    });
 
     return new Response(
-      JSON.stringify({ 
-        success: true, 
-        message: 'Submission recorded successfully. Admin will be notified.',
-        submissionId 
-      }),
+      JSON.stringify({ success: true, message: 'Submission recorded and notification sent.', submissionId }),
       { status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
   } catch (error) {

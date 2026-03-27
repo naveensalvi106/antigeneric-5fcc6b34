@@ -124,6 +124,7 @@ const Hero = () => {
           thumbnailImageUrl,
           faceImageUrl,
           submissionId,
+          userEmail: user.email,
         },
       });
 
