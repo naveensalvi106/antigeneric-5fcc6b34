@@ -1,0 +1,1 @@
+DROP POLICY IF EXISTS "Admins can select all submissions" ON public.thumbnail_submissions;
