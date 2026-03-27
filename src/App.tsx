@@ -8,6 +8,7 @@ import OurWork from "./pages/OurWork.tsx";
 import Examples from "./pages/Examples.tsx";
 import Login from "./pages/Login.tsx";
 import Admin from "./pages/Admin.tsx";
+import Dashboard from "./pages/Dashboard.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
