@@ -106,13 +106,25 @@ const Navbar = () => {
             ))}
           </nav>
 
-          <a
-            href={user ? "#pricing" : "/login"}
-            onClick={(e) => { if (!user) { e.preventDefault(); navigate("/login"); } }}
-            className="hidden md:block"
-          >
-            <Button variant="nuclear" size="sm">Try Free</Button>
-          </a>
+          <div className="hidden md:flex items-center gap-2">
+            {isAdmin && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => navigate("/admin")}
+                className="gap-1.5"
+              >
+                <Shield size={14} />
+                Admin
+              </Button>
+            )}
+            <a
+              href={user ? "#pricing" : "/login"}
+              onClick={(e) => { if (!user) { e.preventDefault(); navigate("/login"); } }}
+            >
+              <Button variant="nuclear" size="sm">{user ? "Try Free" : "Login"}</Button>
+            </a>
+          </div>
 
           <button
             className="md:hidden text-foreground p-2"
