@@ -117,7 +117,7 @@ const Login = () => {
           <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-blob" />
           <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-accent/8 rounded-full blur-3xl animate-blob-delay-2" />
         </div>
-        <div className="text-center mb-8">
+        <div className="text-center mb-12">
           <h1 className="font-display text-3xl font-extrabold tracking-tight text-foreground mb-2">
             AntiGeneric <span className="gradient-text">AI</span>
           </h1>
