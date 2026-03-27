@@ -12,6 +12,8 @@ import business6 from "@/assets/thumbnails/business-6.jpg";
 import business7 from "@/assets/thumbnails/business-7.jpg";
 import business8 from "@/assets/thumbnails/business-8.jpg";
 import business9 from "@/assets/thumbnails/business-9.jpg";
+import business10 from "@/assets/thumbnails/business-10.jpg";
+import business11 from "@/assets/thumbnails/business-11.jpg";
 
 interface ThumbnailSection {
   title: string;
@@ -31,6 +33,8 @@ const sections: ThumbnailSection[] = [
       { src: business7, alt: "Best AI Tools 2025" },
       { src: business8, alt: "$0 to $10M Journey" },
       { src: business9, alt: "Trading Profit" },
+      { src: business10, alt: "Email Marketing" },
+      { src: business11, alt: "AI Workshop Revenue" },
     ],
   },
 ];
