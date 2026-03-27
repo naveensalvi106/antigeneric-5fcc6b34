@@ -25,8 +25,10 @@ const Navbar = () => {
       setUser(session?.user ?? null);
       if (session?.user) {
         checkAdmin(session.user.id);
+        loadCredits(session.user.id);
       } else {
         setIsAdmin(false);
+        setCredits(null);
       }
     });
     supabase.auth.getSession().then(({ data: { session } }) => {
