@@ -27,6 +27,17 @@ import gaming8 from "@/assets/thumbnails/gaming-8.jpg";
 import gaming9 from "@/assets/thumbnails/gaming-9.jpg";
 import gaming10 from "@/assets/thumbnails/gaming-10.jpg";
 
+import irl1 from "@/assets/thumbnails/irl-1.jpg";
+import irl2 from "@/assets/thumbnails/irl-2.jpg";
+import irl3 from "@/assets/thumbnails/irl-3.jpg";
+import irl4 from "@/assets/thumbnails/irl-4.jpg";
+import irl5 from "@/assets/thumbnails/irl-5.jpg";
+import irl6 from "@/assets/thumbnails/irl-6.jpg";
+import irl7 from "@/assets/thumbnails/irl-7.jpg";
+import irl8 from "@/assets/thumbnails/irl-8.jpg";
+import irl9 from "@/assets/thumbnails/irl-9.jpg";
+import irl10 from "@/assets/thumbnails/irl-10.jpg";
+
 interface ThumbnailSection {
   id: string;
   title: string;
@@ -68,7 +79,22 @@ const sections: ThumbnailSection[] = [
       { src: gaming10, alt: "Stickman Battle" },
     ],
   },
-  { id: "irl", title: "IRL", thumbnails: [] },
+  {
+    id: "irl",
+    title: "IRL",
+    thumbnails: [
+      { src: irl1, alt: "School Locker Prank" },
+      { src: irl2, alt: "Magnet Fishing Gold" },
+      { src: irl3, alt: "Mario Kart Cosplay" },
+      { src: irl4, alt: "Red Button Challenge" },
+      { src: irl5, alt: "Strongman Concrete" },
+      { src: irl6, alt: "Gunther Rich Dog" },
+      { src: irl7, alt: "Waterpark Sneak In" },
+      { src: irl8, alt: "Sword Watermelon" },
+      { src: irl9, alt: "Car Crash Escape" },
+      { src: irl10, alt: "Prison Break FBI" },
+    ],
+  },
   { id: "reaction", title: "Reaction", thumbnails: [] },
   { id: "self-improvement", title: "Self Improvement", thumbnails: [] },
   { id: "tech", title: "Tech", thumbnails: [] },
