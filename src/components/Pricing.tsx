@@ -128,6 +128,16 @@ const Pricing = () => {
           })}
         </div>
       </div>
+
+      {paymentPlan && (
+        <PaymentDialog
+          open={!!paymentPlan}
+          onOpenChange={(open) => !open && setPaymentPlan(null)}
+          planName={paymentPlan.name}
+          price={paymentPlan.price}
+          paypalLink={getPaypalLink(paymentPlan.name)}
+        />
+      )}
     </SectionWrapper>
   );
 };
