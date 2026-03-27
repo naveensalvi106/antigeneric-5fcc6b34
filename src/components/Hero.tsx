@@ -1,5 +1,6 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import { Sparkles, Image, Zap, Download, Upload, User, FileText, Loader2, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
@@ -19,8 +20,20 @@ const Hero = () => {
   const [faceImage, setFaceImage] = useState<File | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [user, setUser] = useState<any>(null);
   const imageInputRef = useRef<HTMLInputElement>(null);
   const faceInputRef = useRef<HTMLInputElement>(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+    });
+    return () => subscription.unsubscribe();
+  }, []);
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>, type: "thumbnail" | "face") => {
     const file = e.target.files?.[0];
@@ -46,6 +59,10 @@ const Hero = () => {
   };
 
   const handleSubmit = async () => {
+    if (!user) {
+      navigate("/login");
+      return;
+    }
     if (!title.trim()) {
       toast.error("Please enter a thumbnail title");
       return;

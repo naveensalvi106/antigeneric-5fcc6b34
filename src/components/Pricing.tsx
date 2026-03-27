@@ -1,12 +1,34 @@
 import { motion } from "framer-motion";
 import { Check, Crown, Zap, Rocket, Gift } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { PRICING } from "@/data/siteData";
 import { SectionWrapper, SectionHeader } from "@/components/SectionWrapper";
+import { supabase } from "@/integrations/supabase/client";
 
 const planIcons = [Gift, Zap, Rocket];
 
 const Pricing = () => {
+  const navigate = useNavigate();
+  const [user, setUser] = useState<any>(null);
+
+  useEffect(() => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+    });
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const handlePlanClick = () => {
+    if (!user) {
+      navigate("/login");
+    }
+  };
+
   return (
     <SectionWrapper id="pricing">
       <div className="container mx-auto px-4">
@@ -73,6 +95,7 @@ const Pricing = () => {
                   <Button
                     variant={plan.popular ? "nuclear" : "nuclear-outline"}
                     className="w-full"
+                    onClick={handlePlanClick}
                   >
                     {plan.ctaLabel}
                   </Button>
