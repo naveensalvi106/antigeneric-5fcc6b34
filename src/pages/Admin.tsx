@@ -199,7 +199,7 @@ const Admin = () => {
                   try {
                     // Find user by email via get_user_email function - we need to search submissions for user_email
                     // Since we can't query auth.users directly, we use an edge function or RPC
-                    const { data, error } = await supabase.rpc("add_credits_by_email", {
+                    const { data, error } = await supabase.rpc("add_credits_by_email" as any, {
                       p_email: creditEmail.trim(),
                       p_credits: parseInt(creditAmount) || 10,
                     });
