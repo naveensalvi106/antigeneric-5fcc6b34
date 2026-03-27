@@ -1,7 +1,9 @@
 import { useState, useRef } from "react";
 import { motion } from "framer-motion";
-import { Sparkles, Image, Zap, Download, Upload, User, FileText } from "lucide-react";
+import { Sparkles, Image, Zap, Download, Upload, User, FileText, Loader2, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 const badges = [
   { icon: Sparkles, label: "AI-Powered" },
@@ -15,6 +17,8 @@ const Hero = () => {
   const [description, setDescription] = useState("");
   const [thumbnailImage, setThumbnailImage] = useState<File | null>(null);
   const [faceImage, setFaceImage] = useState<File | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const imageInputRef = useRef<HTMLInputElement>(null);
   const faceInputRef = useRef<HTMLInputElement>(null);
 
@@ -23,6 +27,88 @@ const Hero = () => {
     if (!file) return;
     if (type === "thumbnail") setThumbnailImage(file);
     else setFaceImage(file);
+  };
+
+  const uploadFile = async (file: File, folder: string): Promise<string | null> => {
+    const fileExt = file.name.split('.').pop();
+    const fileName = `${folder}/${crypto.randomUUID()}.${fileExt}`;
+    const { error } = await supabase.storage
+      .from('thumbnail-uploads')
+      .upload(fileName, file);
+    if (error) {
+      console.error('Upload error:', error);
+      return null;
+    }
+    const { data: urlData } = supabase.storage
+      .from('thumbnail-uploads')
+      .getPublicUrl(fileName);
+    return urlData.publicUrl;
+  };
+
+  const handleSubmit = async () => {
+    if (!title.trim()) {
+      toast.error("Please enter a thumbnail title");
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      // Upload images if provided
+      let thumbnailImageUrl: string | null = null;
+      let faceImageUrl: string | null = null;
+
+      if (thumbnailImage) {
+        thumbnailImageUrl = await uploadFile(thumbnailImage, 'references');
+      }
+      if (faceImage) {
+        faceImageUrl = await uploadFile(faceImage, 'faces');
+      }
+
+      // Insert submission into database
+      const submissionId = crypto.randomUUID();
+      const { error: insertError } = await supabase
+        .from('thumbnail_submissions')
+        .insert({
+          id: submissionId,
+          title: title.trim(),
+          description: description.trim() || null,
+          thumbnail_image_url: thumbnailImageUrl,
+          face_image_url: faceImageUrl,
+        });
+
+      if (insertError) throw insertError;
+
+      // Notify admin
+      await supabase.functions.invoke('notify-submission', {
+        body: {
+          title: title.trim(),
+          description: description.trim(),
+          thumbnailImageUrl,
+          faceImageUrl,
+          submissionId,
+        },
+      });
+
+      setIsSubmitted(true);
+      toast.success("Thumbnail request submitted! We'll get back to you soon.");
+      
+      // Reset form after delay
+      setTimeout(() => {
+        setTitle("");
+        setDescription("");
+        setThumbnailImage(null);
+        setFaceImage(null);
+        setIsSubmitted(false);
+        if (imageInputRef.current) imageInputRef.current.value = "";
+        if (faceInputRef.current) faceInputRef.current.value = "";
+      }, 3000);
+    } catch (error) {
+      console.error('Submission error:', error);
+      toast.error("Something went wrong. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -82,7 +168,8 @@ const Hero = () => {
                   placeholder="Thumbnail title..."
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-background/50 border border-border text-foreground placeholder:text-muted-foreground/50 text-sm focus:outline-none focus:border-primary/40 transition-colors"
+                  disabled={isSubmitting}
+                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-background/50 border border-border text-foreground placeholder:text-muted-foreground/50 text-sm focus:outline-none focus:border-primary/40 transition-colors disabled:opacity-50"
                 />
               </div>
 
@@ -92,7 +179,8 @@ const Hero = () => {
                 <button
                   type="button"
                   onClick={() => imageInputRef.current?.click()}
-                  className="flex items-center gap-3 px-4 py-3 rounded-xl bg-background/50 border border-border hover:border-primary/30 transition-colors text-left"
+                  disabled={isSubmitting}
+                  className="flex items-center gap-3 px-4 py-3 rounded-xl bg-background/50 border border-border hover:border-primary/30 transition-colors text-left disabled:opacity-50"
                 >
                   <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
                     <Upload size={16} className="text-primary" />
@@ -110,7 +198,8 @@ const Hero = () => {
                 <button
                   type="button"
                   onClick={() => faceInputRef.current?.click()}
-                  className="flex items-center gap-3 px-4 py-3 rounded-xl bg-background/50 border border-border hover:border-primary/30 transition-colors text-left"
+                  disabled={isSubmitting}
+                  className="flex items-center gap-3 px-4 py-3 rounded-xl bg-background/50 border border-border hover:border-primary/30 transition-colors text-left disabled:opacity-50"
                 >
                   <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
                     <User size={16} className="text-primary" />
@@ -131,14 +220,33 @@ const Hero = () => {
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 rows={3}
-                className="w-full px-4 py-3 rounded-xl bg-background/50 border border-border text-foreground placeholder:text-muted-foreground/50 text-sm focus:outline-none focus:border-primary/40 transition-colors resize-none"
+                disabled={isSubmitting}
+                className="w-full px-4 py-3 rounded-xl bg-background/50 border border-border text-foreground placeholder:text-muted-foreground/50 text-sm focus:outline-none focus:border-primary/40 transition-colors resize-none disabled:opacity-50"
               />
             </div>
 
             {/* Generate Button */}
             <div className="mt-5">
-              <Button variant="nuclear" size="xl" className="w-full">
-                Generate Thumbnail
+              <Button
+                variant="nuclear"
+                size="xl"
+                className="w-full"
+                onClick={handleSubmit}
+                disabled={isSubmitting || isSubmitted}
+              >
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                    Submitting...
+                  </>
+                ) : isSubmitted ? (
+                  <>
+                    <CheckCircle className="mr-2 h-5 w-5" />
+                    Request Submitted!
+                  </>
+                ) : (
+                  "Generate Thumbnail"
+                )}
               </Button>
             </div>
           </motion.div>
