@@ -111,18 +111,7 @@ const Hero = () => {
       });
 
       setIsSubmitted(true);
-      toast.success("Thumbnail request submitted! We'll get back to you soon.");
-      
-      // Reset form after delay
-      setTimeout(() => {
-        setTitle("");
-        setDescription("");
-        setThumbnailImage(null);
-        setFaceImage(null);
-        setIsSubmitted(false);
-        if (imageInputRef.current) imageInputRef.current.value = "";
-        if (faceInputRef.current) faceInputRef.current.value = "";
-      }, 3000);
+      setShowGenerating(true);
     } catch (error) {
       console.error('Submission error:', error);
       toast.error("Something went wrong. Please try again.");
@@ -130,6 +119,19 @@ const Hero = () => {
       setIsSubmitting(false);
     }
   };
+
+  const handleGeneratingComplete = useCallback(() => {
+    setShowGenerating(false);
+    toast.success("Your thumbnail is being crafted! We'll notify you when it's ready.");
+    // Reset form
+    setTitle("");
+    setDescription("");
+    setThumbnailImage(null);
+    setFaceImage(null);
+    setIsSubmitted(false);
+    if (imageInputRef.current) imageInputRef.current.value = "";
+    if (faceInputRef.current) faceInputRef.current.value = "";
+  }, []);
 
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
