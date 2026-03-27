@@ -17,11 +17,25 @@ const Index = () => {
   const location = useLocation();
 
   useEffect(() => {
-    if (location.hash) {
-      const el = document.querySelector(location.hash);
-      if (el) el.scrollIntoView({ behavior: "smooth" });
+    const hash = location.hash?.trim();
+
+    if (
+      !hash ||
+      hash === "#" ||
+      hash.includes("access_token") ||
+      hash.includes("refresh_token") ||
+      hash.includes("error=")
+    ) {
+      return;
     }
-  }, [location]);
+
+    try {
+      const el = document.querySelector(hash);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    } catch {
+      // Ignore invalid auth callback hashes.
+    }
+  }, [location.hash]);
 
   return (
     <div className="min-h-screen overflow-x-hidden relative">
