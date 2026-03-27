@@ -152,20 +152,7 @@ export const FAQS = [
   },
 ];
 
-export const CONTACTS = [
-  {
-    type: "Email",
-    display: "support@antigenericai.com",
-    link: "mailto:support@antigenericai.com",
-    icon: "Mail" as const,
-  },
-  {
-    type: "Discord",
-    display: "antigenericai",
-    link: "https://discord.com/",
-    icon: "Gamepad2" as const,
-  },
-];
+export const CONTACTS = [];
 
 export const NAV_LINKS = [
   { label: "Examples", href: "#thumbnails" },
