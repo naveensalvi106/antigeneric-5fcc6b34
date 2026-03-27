@@ -6,12 +6,14 @@ import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable/index";
 import { toast } from "sonner";
+import EmailVerificationDialog from "@/components/EmailVerificationDialog";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [isSignUp, setIsSignUp] = useState(false);
+  const [showVerification, setShowVerification] = useState(false);
   const navigate = useNavigate();
 
   const handleEmailAuth = async (e: React.FormEvent) => {
