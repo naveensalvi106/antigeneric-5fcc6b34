@@ -33,6 +33,8 @@ const sections: ThumbnailSection[] = [
       { src: business7, alt: "Best AI Tools 2025" },
       { src: business8, alt: "$0 to $10M Journey" },
       { src: business9, alt: "Trading Profit" },
+      { src: business10, alt: "Email Marketing" },
+      { src: business11, alt: "AI Workshop Revenue" },
     ],
   },
 ];
