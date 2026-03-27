@@ -78,12 +78,12 @@ const PaymentDialog = ({ open, onOpenChange, planName, price, paypalLink }: Paym
       const fileName = `payment-proofs/${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
       
       const { data: uploadData, error: uploadError } = await supabase.storage
-        .from('thumbnails')
+        .from('thumbnail-uploads')
         .upload(fileName, screenshot, { contentType: screenshot.type });
 
       let screenshotUrl = "";
       if (!uploadError && uploadData) {
-        const { data: urlData } = supabase.storage.from('thumbnails').getPublicUrl(uploadData.path);
+        const { data: urlData } = supabase.storage.from('thumbnail-uploads').getPublicUrl(uploadData.path);
         screenshotUrl = urlData.publicUrl;
       }
 
