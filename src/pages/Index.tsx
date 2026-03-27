@@ -30,8 +30,6 @@ const Index = () => {
       <Navbar />
       <Hero />
       <GlowSeparator />
-      <ThumbnailShowcase />
-      <GlowSeparator />
       <ChannelStats />
       <GlowSeparator />
       <Testimonials />
