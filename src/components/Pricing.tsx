@@ -100,7 +100,7 @@ const Pricing = () => {
 
                 <div className="px-6 pb-6 pt-2">
                   <Button
-                    variant={plan.popular ? "nuclear" : "nuclear-outline"}
+                    variant="nuclear"
                     className="w-full"
                     onClick={handlePlanClick}
                   >

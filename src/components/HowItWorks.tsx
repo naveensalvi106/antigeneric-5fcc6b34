@@ -1,96 +1,107 @@
 import { motion } from "framer-motion";
 import { Upload, Search, Sparkles, LayoutGrid, UserCheck, ArrowUpCircle, CheckCircle, Send } from "lucide-react";
 import { SectionWrapper, SectionHeader } from "@/components/SectionWrapper";
+import { Button } from "@/components/ui/button";
 
 const STEPS = [
   {
     icon: Upload,
-    title: "You Share the Details",
-    description: "Provide your video title, topic, and any reference images or face shots you'd like included.",
+    title: "Share Details",
+    description: "Provide your video title, topic, and reference images.",
   },
   {
     icon: Search,
-    title: "We Research What Works",
-    description: "Our AI scans top-performing thumbnails in your niche to identify winning visual patterns.",
+    title: "AI Research",
+    description: "Our AI scans top thumbnails in your niche for winning patterns.",
   },
   {
     icon: Sparkles,
-    title: "Scenes & Elements Are Generated",
-    description: "Using Nano Banana and Seedreams, we create custom scenes, backgrounds, and graphic elements.",
+    title: "Generate Scenes",
+    description: "Custom scenes, backgrounds, and elements are created with AI.",
   },
   {
     icon: LayoutGrid,
     title: "Smart Composition",
-    description: "Every element is placed and aligned for maximum visual impact and click-through rate.",
+    description: "Elements placed for maximum visual impact and CTR.",
   },
   {
     icon: UserCheck,
-    title: "Face & Element Retouching",
-    description: "Faces and key elements are enhanced to look sharp, natural, and attention-grabbing.",
+    title: "Face Retouching",
+    description: "Faces enhanced to look sharp and attention-grabbing.",
   },
   {
     icon: ArrowUpCircle,
-    title: "4K Upscale with Kling AI",
-    description: "Your thumbnail is upscaled to crystal-clear 4K resolution for every screen size.",
+    title: "4K Upscale",
+    description: "Upscaled to crystal-clear 4K resolution.",
   },
   {
     icon: CheckCircle,
     title: "Final Polish",
-    description: "A final retouch pass ensures every detail is pixel-perfect before delivery.",
+    description: "Every detail is pixel-perfect before delivery.",
   },
   {
     icon: Send,
-    title: "Delivered to You",
-    description: "Your finished thumbnail is sent to your email and available in your AntiGeneric AI dashboard.",
+    title: "Delivered",
+    description: "Sent to your email and AntiGeneric AI dashboard.",
   },
 ];
 
 const HowItWorks = () => {
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
     <SectionWrapper id="how-it-works">
       <div className="container mx-auto px-4">
         <SectionHeader
           title="How Our AI Works"
-          subtitle="From your idea to a scroll-stopping thumbnail — fully automated, no design skills needed."
+          subtitle="From idea to scroll-stopping thumbnail — fully automated."
         />
 
-        <div className="max-w-3xl mx-auto relative">
-          {/* Vertical line */}
-          <div className="absolute left-6 md:left-8 top-0 bottom-0 w-px bg-gradient-to-b from-primary/40 via-primary/20 to-transparent hidden sm:block" />
-
-          <div className="flex flex-col gap-4">
+        <div className="max-w-4xl mx-auto">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 md:gap-4">
             {STEPS.map((step, i) => {
               const Icon = step.icon;
               return (
                 <motion.div
                   key={step.title}
-                  className="flex items-start gap-4 md:gap-6 group"
-                  initial={{ opacity: 0, x: -16 }}
-                  whileInView={{ opacity: 1, x: 0 }}
+                  className="p-4 rounded-xl card-nuclear border border-primary/10 hover:border-primary/20 transition-all duration-300 text-center group"
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: i * 0.07, duration: 0.4 }}
+                  transition={{ delay: i * 0.06, duration: 0.4 }}
                 >
-                  {/* Step number + icon */}
-                  <div className="relative z-10 flex-shrink-0 w-12 h-12 md:w-16 md:h-16 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center group-hover:bg-primary/20 transition-colors duration-300">
-                    <Icon size={20} strokeWidth={1.5} className="text-primary" />
-                    <span className="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-primary text-primary-foreground text-[10px] font-bold flex items-center justify-center">
+                  <div className="relative mx-auto w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-3 group-hover:bg-primary/20 transition-colors">
+                    <Icon size={18} strokeWidth={1.5} className="text-primary" />
+                    <span className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-primary text-primary-foreground text-[10px] font-bold flex items-center justify-center">
                       {i + 1}
                     </span>
                   </div>
-
-                  {/* Content */}
-                  <div className="pt-1 md:pt-2">
-                    <h3 className="font-display font-semibold text-sm md:text-base text-foreground">
-                      {step.title}
-                    </h3>
-                    <p className="text-xs md:text-sm text-muted-foreground mt-1 leading-relaxed">
-                      {step.description}
-                    </p>
-                  </div>
+                  <h3 className="font-display font-semibold text-xs md:text-sm text-foreground mb-1">
+                    {step.title}
+                  </h3>
+                  <p className="text-[11px] text-muted-foreground leading-relaxed">
+                    {step.description}
+                  </p>
                 </motion.div>
               );
             })}
           </div>
+
+          {/* CTA to generate */}
+          <motion.div
+            className="mt-8 text-center"
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.5 }}
+          >
+            <Button variant="nuclear" size="lg" onClick={scrollToTop}>
+              <Sparkles size={18} className="mr-2" />
+              Generate Your Thumbnail Now
+            </Button>
+          </motion.div>
         </div>
       </div>
     </SectionWrapper>

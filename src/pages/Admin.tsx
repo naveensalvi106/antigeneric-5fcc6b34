@@ -121,7 +121,11 @@ const Admin = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background relative">
+      {/* Admin glow effect */}
+      <div className="fixed inset-0 pointer-events-none z-0">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-primary/10 rounded-full blur-[120px]" />
+      </div>
       <input ref={uploadRef} type="file" accept="image/*" className="hidden" onChange={onFileChange} />
 
       <header className="border-b border-primary/20 bg-card/50 backdrop-blur-sm sticky top-0 z-50 shadow-[0_0_30px_-10px_hsl(217_91%_60%/0.3)]">
