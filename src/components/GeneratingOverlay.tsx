@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Loader2, Sparkles, Clock, Mail, Bell } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
