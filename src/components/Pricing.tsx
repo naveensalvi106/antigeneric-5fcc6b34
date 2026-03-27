@@ -25,6 +25,7 @@ const Pricing = () => {
   }, []);
 
   const PAYPAL_PRO = "https://www.paypal.com/ncp/payment/4B3DWRU97Y5PA";
+  const PAYPAL_AGENCY = "https://www.paypal.com/ncp/payment/XQ4DW6W76WKYN";
 
   const handlePlanClick = (plan: typeof PRICING[0]) => {
     if (!user) {
@@ -35,13 +36,9 @@ const Pricing = () => {
       window.scrollTo({ top: 0, behavior: "smooth" });
       return;
     }
-    if (plan.name === "Pro") {
-      window.open(PAYPAL_PRO, "_blank");
-      toast.info("After payment, your credits will be added within a few hours.");
-      return;
-    }
-    // Agency - placeholder until you add a link
-    toast.info("Contact us for Agency plan purchases.");
+    const link = plan.name === "Pro" ? PAYPAL_PRO : PAYPAL_AGENCY;
+    window.open(link, "_blank");
+    toast.info("After payment, your credits will be added within a few hours.");
   };
 
   return (
