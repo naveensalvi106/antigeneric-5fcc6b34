@@ -165,7 +165,7 @@ const Admin = () => {
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1 flex-wrap">
-                      <h3 className="font-semibold text-foreground truncate">{sub.title}</h3>
+                      <h3 className="font-semibold text-primary truncate">{sub.title}</h3>
                       <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium ${
                         sub.status === 'pending'
                           ? 'bg-yellow-500/10 text-yellow-400'
