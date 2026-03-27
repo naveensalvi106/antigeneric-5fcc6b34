@@ -107,6 +107,17 @@ const Navbar = () => {
           </nav>
 
           <div className="hidden md:flex items-center gap-2">
+            {user && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => navigate("/dashboard")}
+                className="gap-1.5"
+              >
+                <LayoutDashboard size={14} />
+                Dashboard
+              </Button>
+            )}
             {isAdmin && (
               <Button
                 variant="outline"
