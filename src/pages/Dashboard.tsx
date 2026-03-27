@@ -58,6 +58,15 @@ const Dashboard = () => {
     setLoading(false);
   };
 
+  const loadCredits = async (userId: string) => {
+    const { data } = await supabase
+      .from("user_credits")
+      .select("credits")
+      .eq("user_id", userId)
+      .single();
+    setCredits(data?.credits ?? 0);
+  };
+
   const handleLogout = async () => {
     await supabase.auth.signOut();
     navigate("/login");
