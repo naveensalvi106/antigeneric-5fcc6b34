@@ -6,7 +6,7 @@ type ThumbnailItem = { label: string; image?: string };
 const ThumbnailRow = ({ items, direction, speed }: { items: ThumbnailItem[]; direction: "left" | "right"; speed: string }) => {
   const doubled = [...items, ...items];
   return (
-    <div className="overflow-hidden py-2">
+    <div className="overflow-hidden">
       <div
         className={`flex gap-4 w-max ${direction === "left" ? "animate-marquee-left" : "animate-marquee-right"}`}
         style={{ "--marquee-duration": speed } as React.CSSProperties}
