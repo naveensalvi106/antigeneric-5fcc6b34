@@ -49,9 +49,9 @@ const Navbar = () => {
             <a
               href="#pricing"
               onClick={handleNavClick("#pricing")}
-              className="relative px-4 py-2 text-sm text-muted-foreground font-medium transition-colors duration-300 hover:text-foreground rounded-lg hover:bg-primary/5 flex items-center gap-1.5"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold font-display tracking-tight text-primary-foreground bg-gradient-to-b from-[hsl(210,100%,70%)] via-[hsl(217,91%,55%)] to-[hsl(220,90%,45%)] border border-white/20 shadow-[0_0_25px_-5px_hsl(217_91%_60%/0.5),inset_0_1px_0_rgba(255,255,255,0.3),inset_0_-1px_0_rgba(0,0,0,0.2)] hover:scale-105 active:scale-95 hover:shadow-[0_0_40px_-5px_hsl(217_91%_60%/0.7),inset_0_1px_0_rgba(255,255,255,0.35),inset_0_-1px_0_rgba(0,0,0,0.2)] transition-all duration-300"
             >
-              <Coins size={14} />
+              <Coins size={16} />
               1 Credit
             </a>
           </div>
