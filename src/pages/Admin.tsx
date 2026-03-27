@@ -24,6 +24,10 @@ const Admin = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [selectedSubmission, setSelectedSubmission] = useState<Submission | null>(null);
   const [uploadingId, setUploadingId] = useState<string | null>(null);
+  const [creditEmail, setCreditEmail] = useState("");
+  const [creditAmount, setCreditAmount] = useState("10");
+  const [addingCredits, setAddingCredits] = useState(false);
+  const [showCreditPanel, setShowCreditPanel] = useState(false);
   const uploadRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
 
