@@ -1,6 +1,9 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Smartphone } from "lucide-react";
+import { Smartphone, CheckCircle } from "lucide-react";
+import { useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 interface PaymentDialogProps {
   open: boolean;
@@ -17,19 +20,54 @@ const UPI_AMOUNTS: Record<string, string> = {
 
 const PaymentDialog = ({ open, onOpenChange, planName, price, paypalLink }: PaymentDialogProps) => {
   const upiAmount = UPI_AMOUNTS[planName] || "0";
+  const [paymentStarted, setPaymentStarted] = useState(false);
+  const [confirming, setConfirming] = useState(false);
 
   const handlePaypal = () => {
     window.open(paypalLink, "_blank");
-    onOpenChange(false);
+    setPaymentStarted(true);
   };
 
   const handleUPI = () => {
     const upiLink = `upi://pay?pa=9358935758@axl&pn=AntiGeneric&am=${upiAmount}&cu=INR&tn=${planName}%20Plan%20Purchase`;
     window.location.href = upiLink;
+    setPaymentStarted(true);
+  };
+
+  const handleConfirmPayment = async () => {
+    setConfirming(true);
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      const userEmail = user?.email || "Unknown";
+
+      await supabase.functions.invoke("notify-submission", {
+        body: {
+          title: `💰 Payment Confirmation — ${planName} Plan`,
+          description: `User claims payment of ${price} / ₹${upiAmount} for the ${planName} plan. Please verify and add credits.`,
+          userEmail,
+          submissionId: `payment-${Date.now()}`,
+        },
+      });
+
+      toast.success("Payment confirmation sent! Credits will be added after verification.");
+      setPaymentStarted(false);
+      onOpenChange(false);
+    } catch (err) {
+      toast.error("Failed to send confirmation. Please contact support.");
+    } finally {
+      setConfirming(false);
+    }
+  };
+
+  const handleClose = (isOpen: boolean) => {
+    if (!isOpen) {
+      setPaymentStarted(false);
+    }
+    onOpenChange(isOpen);
   };
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent className="sm:max-w-md bg-card border-border">
         <DialogHeader>
           <DialogTitle className="font-display text-xl text-foreground">
@@ -68,6 +106,27 @@ const PaymentDialog = ({ open, onOpenChange, planName, price, paypalLink }: Paym
           <p className="text-[11px] text-muted-foreground text-center mt-1">
             UPI works with PhonePe, GPay, Paytm & all UPI apps
           </p>
+
+          {paymentStarted && (
+            <div className="mt-3 pt-3 border-t border-border">
+              <p className="text-sm text-muted-foreground text-center mb-3">
+                Completed your payment? Tap below to notify us.
+              </p>
+              <Button
+                variant="nuclear"
+                size="lg"
+                className="w-full justify-center gap-3"
+                onClick={handleConfirmPayment}
+                disabled={confirming}
+              >
+                <CheckCircle size={20} />
+                {confirming ? "Sending..." : "I've Paid — Confirm"}
+              </Button>
+              <p className="text-[11px] text-muted-foreground text-center mt-2">
+                Credits will be added after we verify your payment
+              </p>
+            </div>
+          )}
         </div>
       </DialogContent>
     </Dialog>
