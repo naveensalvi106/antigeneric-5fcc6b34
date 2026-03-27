@@ -47,7 +47,6 @@ const GeneratingOverlay = ({ isVisible, onComplete }: GeneratingOverlayProps) =>
       if (pct >= 95) {
         clearInterval(timer);
         setShowNotification(true);
-        setTimeout(onComplete, 2000);
       }
     }, interval);
 
