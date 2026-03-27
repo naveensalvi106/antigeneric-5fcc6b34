@@ -21,6 +21,7 @@ const Hero = () => {
   const [faceImage, setFaceImage] = useState<File | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [showGenerating, setShowGenerating] = useState(false);
   const [user, setUser] = useState<any>(null);
   const imageInputRef = useRef<HTMLInputElement>(null);
   const faceInputRef = useRef<HTMLInputElement>(null);
