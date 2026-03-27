@@ -90,6 +90,11 @@ const Pricing = () => {
                   <div>
                     <span className="font-display font-extrabold text-2xl text-foreground">{plan.price}</span>
                     <span className="text-xs text-muted-foreground ml-2">{plan.per}</span>
+                    {plan.name !== "Free" && (
+                      <div className="text-sm font-semibold text-muted-foreground mt-0.5">
+                        ₹{plan.name === "Pro" ? "400" : "999"} INR
+                      </div>
+                    )}
                   </div>
                   {/* Credit highlight */}
                   <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-primary/20 to-primary/5 border border-primary/30">
