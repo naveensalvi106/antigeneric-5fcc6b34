@@ -86,7 +86,7 @@ const Examples = () => {
                         className="w-full h-full object-cover"
                         loading="lazy"
                       />
-                      <div className="absolute inset-0 border border-transparent group-hover:border-primary/30 rounded-xl transition-colors" />
+                      
                     </div>
                   </motion.div>
                 ))}
