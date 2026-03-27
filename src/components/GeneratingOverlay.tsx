@@ -21,9 +21,10 @@ const STEPS = [
 ];
 
 const GeneratingOverlay = ({ isVisible, onComplete }: GeneratingOverlayProps) => {
+  const navigate = useNavigate();
   const [progress, setProgress] = useState(0);
   const [currentStep, setCurrentStep] = useState(0);
-  const [estimatedTime] = useState(() => Math.floor(Math.random() * 6) + 5); // 5-10 minutes
+  const [estimatedTime] = useState(() => Math.floor(Math.random() * 6) + 5);
   const [showNotification, setShowNotification] = useState(false);
 
   useEffect(() => {
