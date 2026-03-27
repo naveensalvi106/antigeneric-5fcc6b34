@@ -207,6 +207,7 @@ const sections: ThumbnailSection[] = [
 ];
 
 const Examples = () => {
+  const navigate = useNavigate();
   const sectionRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
   const scrollToSection = (id: string) => {
