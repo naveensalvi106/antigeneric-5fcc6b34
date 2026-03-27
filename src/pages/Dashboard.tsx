@@ -27,6 +27,7 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState<any>(null);
   const [activeTab, setActiveTab] = useState<Tab>("inbox");
+  const [credits, setCredits] = useState<number>(0);
   const navigate = useNavigate();
 
   useEffect(() => {
