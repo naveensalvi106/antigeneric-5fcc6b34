@@ -154,7 +154,7 @@ const PaymentDialog = ({ open, onOpenChange, planName, price, paypalLink }: Paym
               <div className="flex items-center justify-center">
                 <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-gradient-to-r from-primary/20 to-accent/10 border border-primary/30">
                   <span className="font-display font-extrabold text-2xl gradient-text">₹{upiAmount}</span>
-                  <span className="text-sm text-muted-foreground font-medium">/ {price}</span>
+                  <span className="font-display font-extrabold text-2xl gradient-text">/ {price}</span>
                 </div>
               </div>
 
