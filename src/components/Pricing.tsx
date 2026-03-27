@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Check, Crown, Zap, Rocket, Gift } from "lucide-react";
+import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
