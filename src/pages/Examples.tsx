@@ -60,6 +60,17 @@ import si8 from "@/assets/thumbnails/self-improvement-8.jpg";
 import si9 from "@/assets/thumbnails/self-improvement-9.jpg";
 import si10 from "@/assets/thumbnails/self-improvement-10.jpg";
 
+import tech1 from "@/assets/thumbnails/tech-1.jpg";
+import tech2 from "@/assets/thumbnails/tech-2.jpg";
+import tech3 from "@/assets/thumbnails/tech-3.jpg";
+import tech4 from "@/assets/thumbnails/tech-4.jpg";
+import tech5 from "@/assets/thumbnails/tech-5.jpg";
+import tech6 from "@/assets/thumbnails/tech-6.jpg";
+import tech7 from "@/assets/thumbnails/tech-7.jpg";
+import tech8 from "@/assets/thumbnails/tech-8.jpg";
+import tech9 from "@/assets/thumbnails/tech-9.jpg";
+import tech10 from "@/assets/thumbnails/tech-10.jpg";
+
 interface ThumbnailSection {
   id: string;
   title: string;
@@ -149,7 +160,22 @@ const sections: ThumbnailSection[] = [
       { src: si10, alt: "YouTube Shorts Growth" },
     ],
   },
-  { id: "tech", title: "Tech", thumbnails: [] },
+  {
+    id: "tech",
+    title: "Tech",
+    thumbnails: [
+      { src: tech1, alt: "iOS 18.6 Update" },
+      { src: tech2, alt: "Mac Neo First Look" },
+      { src: tech3, alt: "I Was Right" },
+      { src: tech4, alt: "AI Suitcase" },
+      { src: tech5, alt: "This Hurts" },
+      { src: tech6, alt: "Watches 2023 vs 2026" },
+      { src: tech7, alt: "Buy Or Skip" },
+      { src: tech8, alt: "Good or Bad" },
+      { src: tech9, alt: "Can You Afford" },
+      { src: tech10, alt: "Nothing Phone Closeup" },
+    ],
+  },
   { id: "documentary", title: "Documentary", thumbnails: [] },
 ];
 
