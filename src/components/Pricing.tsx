@@ -23,10 +23,22 @@ const Pricing = () => {
     return () => subscription.unsubscribe();
   }, []);
 
-  const handlePlanClick = () => {
+  const PAYPAL_LINK = "https://paypal.me/NaveenSalvi377?locale.x=en_GB&country.x=IN";
+
+  const handlePlanClick = (plan: typeof PRICING[0]) => {
     if (!user) {
       navigate("/login");
+      return;
     }
+    if (plan.name === "Free") {
+      // Free plan - scroll to generator
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+    // Open PayPal with amount
+    const amount = plan.name === "Pro" ? "20" : "50";
+    window.open(`${PAYPAL_LINK}/${amount}USD`, "_blank");
+    toast.info("After payment, your credits will be added within a few hours.");
   };
 
   return (
