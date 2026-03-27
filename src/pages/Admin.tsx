@@ -1,0 +1,222 @@
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import { LogOut, Eye, Calendar, Loader2, Image as ImageIcon, User, FileText, ExternalLink } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
+
+interface Submission {
+  id: string;
+  title: string;
+  description: string | null;
+  thumbnail_image_url: string | null;
+  face_image_url: string | null;
+  status: string;
+  created_at: string | null;
+}
+
+const Admin = () => {
+  const [submissions, setSubmissions] = useState<Submission[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [selectedSubmission, setSelectedSubmission] = useState<Submission | null>(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    checkAdminAndLoad();
+  }, []);
+
+  const checkAdminAndLoad = async () => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) {
+      navigate("/login");
+      return;
+    }
+
+    const { data: roles } = await supabase
+      .from("user_roles")
+      .select("role")
+      .eq("user_id", user.id);
+
+    const hasAdmin = roles?.some((r) => r.role === "admin");
+    if (!hasAdmin) {
+      toast.error("You don't have admin access");
+      navigate("/");
+      return;
+    }
+
+    setIsAdmin(true);
+    await loadSubmissions();
+  };
+
+  const loadSubmissions = async () => {
+    setLoading(true);
+    const { data, error } = await supabase
+      .from("thumbnail_submissions")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      toast.error("Failed to load submissions");
+    } else {
+      setSubmissions(data || []);
+    }
+    setLoading(false);
+  };
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    navigate("/login");
+  };
+
+  if (!isAdmin) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-background">
+      {/* Header */}
+      <header className="border-b border-border/50 bg-card/50 backdrop-blur-sm sticky top-0 z-50">
+        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+          <h1 className="font-display text-xl font-bold text-foreground">
+            AntiGeneric <span className="gradient-text">Admin</span>
+          </h1>
+          <div className="flex items-center gap-3">
+            <span className="text-xs text-muted-foreground hidden sm:block">
+              {submissions.length} submissions
+            </span>
+            <Button variant="outline" size="sm" onClick={loadSubmissions}>
+              Refresh
+            </Button>
+            <Button variant="ghost" size="sm" onClick={handleLogout}>
+              <LogOut size={16} className="mr-1" /> Logout
+            </Button>
+          </div>
+        </div>
+      </header>
+
+      <div className="container mx-auto px-4 py-8">
+        {loading ? (
+          <div className="flex justify-center py-20">
+            <Loader2 className="h-8 w-8 animate-spin text-primary" />
+          </div>
+        ) : submissions.length === 0 ? (
+          <div className="text-center py-20">
+            <FileText className="mx-auto h-12 w-12 text-muted-foreground/30 mb-4" />
+            <p className="text-muted-foreground">No submissions yet</p>
+          </div>
+        ) : (
+          <div className="grid gap-4">
+            {submissions.map((sub, index) => (
+              <motion.div
+                key={sub.id}
+                className="p-5 rounded-xl card-nuclear border border-primary/10 hover:border-primary/20 transition-colors cursor-pointer"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.05 }}
+                onClick={() => setSelectedSubmission(selectedSubmission?.id === sub.id ? null : sub)}
+              >
+                <div className="flex items-start justify-between gap-4">
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-1">
+                      <h3 className="font-semibold text-foreground truncate">{sub.title}</h3>
+                      <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium ${
+                        sub.status === 'pending' 
+                          ? 'bg-yellow-500/10 text-yellow-400' 
+                          : sub.status === 'completed'
+                          ? 'bg-green-500/10 text-green-400'
+                          : 'bg-muted text-muted-foreground'
+                      }`}>
+                        {sub.status}
+                      </span>
+                    </div>
+                    {sub.description && (
+                      <p className="text-sm text-muted-foreground line-clamp-2">{sub.description}</p>
+                    )}
+                    <div className="flex items-center gap-4 mt-2 text-xs text-muted-foreground/60">
+                      <span className="flex items-center gap-1">
+                        <Calendar size={12} />
+                        {sub.created_at ? new Date(sub.created_at).toLocaleDateString() : 'N/A'}
+                      </span>
+                      {sub.thumbnail_image_url && (
+                        <span className="flex items-center gap-1">
+                          <ImageIcon size={12} /> Image attached
+                        </span>
+                      )}
+                      {sub.face_image_url && (
+                        <span className="flex items-center gap-1">
+                          <User size={12} /> Face attached
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                  <Button variant="ghost" size="sm" className="shrink-0">
+                    <Eye size={16} />
+                  </Button>
+                </div>
+
+                {/* Expanded details */}
+                {selectedSubmission?.id === sub.id && (
+                  <motion.div
+                    className="mt-4 pt-4 border-t border-border/50 space-y-3"
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                  >
+                    <div>
+                      <p className="text-xs font-medium text-muted-foreground mb-1">Description</p>
+                      <p className="text-sm text-foreground">{sub.description || "No description provided"}</p>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      {sub.thumbnail_image_url && (
+                        <div>
+                          <p className="text-xs font-medium text-muted-foreground mb-1">Reference Image</p>
+                          <a href={sub.thumbnail_image_url} target="_blank" rel="noopener noreferrer" className="block">
+                            <img
+                              src={sub.thumbnail_image_url}
+                              alt="Reference"
+                              className="w-full h-40 object-cover rounded-lg border border-border"
+                            />
+                            <span className="text-xs text-primary flex items-center gap-1 mt-1">
+                              <ExternalLink size={10} /> Open full size
+                            </span>
+                          </a>
+                        </div>
+                      )}
+                      {sub.face_image_url && (
+                        <div>
+                          <p className="text-xs font-medium text-muted-foreground mb-1">Face Image</p>
+                          <a href={sub.face_image_url} target="_blank" rel="noopener noreferrer" className="block">
+                            <img
+                              src={sub.face_image_url}
+                              alt="Face"
+                              className="w-full h-40 object-cover rounded-lg border border-border"
+                            />
+                            <span className="text-xs text-primary flex items-center gap-1 mt-1">
+                              <ExternalLink size={10} /> Open full size
+                            </span>
+                          </a>
+                        </div>
+                      )}
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <p className="text-xs text-muted-foreground/60">
+                        ID: {sub.id}
+                      </p>
+                    </div>
+                  </motion.div>
+                )}
+              </motion.div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default Admin;
