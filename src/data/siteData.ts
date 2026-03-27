@@ -63,7 +63,7 @@ export const THUMBNAILS_ROW3 = [
   { label: "Gaming", image: "/thumbnails/r3-3.jpeg" },
   { label: "Gaming", image: "/thumbnails/r3-4.jpeg" },
   { label: "Gaming", image: "/thumbnails/r3-5.jpeg" },
-  { label: "Gaming", image: "/thumbnails/r3-6.jpeg" },
+  
   { label: "Gaming", image: "/thumbnails/r3-7.jpg" },
   { label: "Gaming", image: "/thumbnails/r3-8.jpg" },
   { label: "Gaming", image: "/thumbnails/r3-9.jpg" },
