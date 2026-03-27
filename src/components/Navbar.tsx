@@ -1,17 +1,31 @@
 import { useState, useEffect, type MouseEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Coins } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { NAV_LINKS } from "@/data/siteData";
+import { supabase } from "@/integrations/supabase/client";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [user, setUser] = useState<any>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+    });
+    return () => subscription.unsubscribe();
   }, []);
 
   const handleNavClick = (href: string) => (e: MouseEvent<HTMLAnchorElement>) => {
@@ -24,6 +38,13 @@ const Navbar = () => {
     window.history.replaceState(null, "", href);
     window.scrollTo({ top, behavior: "smooth" });
     setMobileOpen(false);
+  };
+
+  const handleAuthAction = (e: MouseEvent) => {
+    if (!user) {
+      e.preventDefault();
+      navigate("/login");
+    }
   };
 
   return (
@@ -47,8 +68,8 @@ const Navbar = () => {
               </span>
             </a>
             <a
-              href="#pricing"
-              onClick={handleNavClick("#pricing")}
+              href={user ? "#pricing" : "/login"}
+              onClick={user ? handleNavClick("#pricing") : (e) => { e.preventDefault(); navigate("/login"); }}
               className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold font-display tracking-tight text-primary-foreground bg-gradient-to-b from-[hsl(210,100%,70%)] via-[hsl(217,91%,55%)] to-[hsl(220,90%,45%)] border border-white/20 shadow-[0_0_25px_-5px_hsl(217_91%_60%/0.5),inset_0_1px_0_rgba(255,255,255,0.3),inset_0_-1px_0_rgba(0,0,0,0.2)] hover:scale-105 active:scale-95 hover:shadow-[0_0_40px_-5px_hsl(217_91%_60%/0.7),inset_0_1px_0_rgba(255,255,255,0.35),inset_0_-1px_0_rgba(0,0,0,0.2)] transition-all duration-300"
             >
               <Coins size={16} />
@@ -69,7 +90,11 @@ const Navbar = () => {
             ))}
           </nav>
 
-          <a href="#pricing" className="hidden md:block">
+          <a
+            href={user ? "#pricing" : "/login"}
+            onClick={(e) => { if (!user) { e.preventDefault(); navigate("/login"); } }}
+            className="hidden md:block"
+          >
             <Button variant="nuclear" size="sm">Try Free</Button>
           </a>
 
@@ -101,7 +126,11 @@ const Navbar = () => {
                   {link.label}
                 </a>
               ))}
-              <a href="#pricing" className="mt-2">
+              <a
+                href={user ? "#pricing" : "/login"}
+                onClick={(e) => { if (!user) { e.preventDefault(); navigate("/login"); setMobileOpen(false); } }}
+                className="mt-2"
+              >
                 <Button variant="nuclear" className="w-full">Try Free</Button>
               </a>
             </nav>
