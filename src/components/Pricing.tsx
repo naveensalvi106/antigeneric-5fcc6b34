@@ -37,10 +37,11 @@ const Pricing = () => {
       window.scrollTo({ top: 0, behavior: "smooth" });
       return;
     }
-    const link = plan.name === "Pro" ? PAYPAL_PRO : PAYPAL_AGENCY;
-    window.open(link, "_blank");
-    toast.info("After payment, your credits will be added within a few hours.");
+    setPaymentPlan(plan);
   };
+
+  const getPaypalLink = (planName: string) =>
+    planName === "Pro" ? PAYPAL_PRO : PAYPAL_AGENCY;
 
   return (
     <SectionWrapper id="pricing">
