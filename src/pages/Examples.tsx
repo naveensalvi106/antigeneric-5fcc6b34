@@ -44,7 +44,7 @@ interface ThumbnailSection {
   thumbnails: { src: string; alt: string }[];
 }
 
-const categoryNames = ["Business", "Gaming", "IRL", "Reaction", "Self Improvement", "Tech", "Documentary"];
+const categoryNames = ["IRL", "Gaming", "Business", "Reaction", "Self Improvement", "Tech", "Documentary"];
 
 const sections: ThumbnailSection[] = [
   {
