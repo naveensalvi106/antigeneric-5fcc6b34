@@ -124,7 +124,7 @@ const Admin = () => {
     <div className="min-h-screen bg-background">
       <input ref={uploadRef} type="file" accept="image/*" className="hidden" onChange={onFileChange} />
 
-      <header className="border-b border-border/50 bg-card/50 backdrop-blur-sm sticky top-0 z-50">
+      <header className="border-b border-primary/20 bg-card/50 backdrop-blur-sm sticky top-0 z-50 shadow-[0_0_30px_-10px_hsl(217_91%_60%/0.3)]">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <h1 className="font-display text-xl font-bold text-foreground">
             AntiGeneric <span className="gradient-text">Admin</span>
@@ -133,6 +133,9 @@ const Admin = () => {
             <span className="text-xs text-muted-foreground hidden sm:block">
               {submissions.length} submissions
             </span>
+            <Button variant="outline" size="sm" onClick={() => navigate("/")}>
+              <Home size={16} className="mr-1" /> Home
+            </Button>
             <Button variant="outline" size="sm" onClick={loadSubmissions}>Refresh</Button>
             <Button variant="ghost" size="sm" onClick={handleLogout}>
               <LogOut size={16} className="mr-1" /> Logout
