@@ -71,6 +71,17 @@ import tech8 from "@/assets/thumbnails/tech-8.jpg";
 import tech9 from "@/assets/thumbnails/tech-9.jpg";
 import tech10 from "@/assets/thumbnails/tech-10.jpg";
 
+import doc1 from "@/assets/thumbnails/documentary-1.jpg";
+import doc2 from "@/assets/thumbnails/documentary-2.jpg";
+import doc3 from "@/assets/thumbnails/documentary-3.jpg";
+import doc4 from "@/assets/thumbnails/documentary-4.jpg";
+import doc5 from "@/assets/thumbnails/documentary-5.jpg";
+import doc6 from "@/assets/thumbnails/documentary-6.jpg";
+import doc7 from "@/assets/thumbnails/documentary-7.jpg";
+import doc8 from "@/assets/thumbnails/documentary-8.jpg";
+import doc9 from "@/assets/thumbnails/documentary-9.jpg";
+import doc10 from "@/assets/thumbnails/documentary-10.jpg";
+
 interface ThumbnailSection {
   id: string;
   title: string;
