@@ -48,6 +48,18 @@ import reaction7 from "@/assets/thumbnails/reaction-7.jpg";
 import reaction8 from "@/assets/thumbnails/reaction-8.jpg";
 import reaction9 from "@/assets/thumbnails/reaction-9.jpg";
 import reaction10 from "@/assets/thumbnails/reaction-10.jpg";
+
+import si1 from "@/assets/thumbnails/self-improvement-1.jpg";
+import si2 from "@/assets/thumbnails/self-improvement-2.jpg";
+import si3 from "@/assets/thumbnails/self-improvement-3.jpg";
+import si4 from "@/assets/thumbnails/self-improvement-4.jpg";
+import si5 from "@/assets/thumbnails/self-improvement-5.jpg";
+import si6 from "@/assets/thumbnails/self-improvement-6.jpg";
+import si7 from "@/assets/thumbnails/self-improvement-7.jpg";
+import si8 from "@/assets/thumbnails/self-improvement-8.jpg";
+import si9 from "@/assets/thumbnails/self-improvement-9.jpg";
+import si10 from "@/assets/thumbnails/self-improvement-10.jpg";
+
 interface ThumbnailSection {
   id: string;
   title: string;
