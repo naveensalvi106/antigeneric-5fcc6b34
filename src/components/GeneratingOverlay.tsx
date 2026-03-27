@@ -134,6 +134,14 @@ const GeneratingOverlay = ({ isVisible, onComplete }: GeneratingOverlayProps) =>
                 </p>
               </div>
             </div>
+
+            <Button
+              variant="nuclear"
+              className="w-full mt-6"
+              onClick={onComplete}
+            >
+              OK
+            </Button>
           </motion.div>
         )}
       </motion.div>
