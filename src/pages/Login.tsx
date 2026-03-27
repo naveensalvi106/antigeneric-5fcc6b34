@@ -15,6 +15,7 @@ const Login = () => {
   const [isSignUp, setIsSignUp] = useState(false);
   const [showVerification, setShowVerification] = useState(false);
   const navigate = useNavigate();
+  const oauthRedirectUrl = `${window.location.origin}/login`;
 
   // Redirect if already logged in (handles post-OAuth return)
   useEffect(() => {
@@ -64,7 +65,7 @@ const Login = () => {
     setLoading(true);
     try {
       const result = await lovable.auth.signInWithOAuth("google", {
-        redirect_uri: window.location.origin,
+        redirect_uri: oauthRedirectUrl,
       });
       if (result.error) {
         toast.error(result.error.message || "Google sign-in failed");
