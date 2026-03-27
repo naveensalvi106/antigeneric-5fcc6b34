@@ -104,7 +104,7 @@ const Login = () => {
                 Signing you in with Google
               </h2>
               <p className="text-sm text-muted-foreground">
-                Please complete the sign-in in the popup window…
+                This may take a moment…
               </p>
             </div>
           </div>
