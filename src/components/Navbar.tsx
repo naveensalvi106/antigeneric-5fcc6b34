@@ -33,7 +33,10 @@ const Navbar = () => {
     });
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null);
-      if (session?.user) checkAdmin(session.user.id);
+      if (session?.user) {
+        checkAdmin(session.user.id);
+        loadCredits(session.user.id);
+      }
     });
     return () => subscription.unsubscribe();
   }, []);
