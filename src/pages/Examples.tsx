@@ -187,7 +187,22 @@ const sections: ThumbnailSection[] = [
       { src: tech10, alt: "Nothing Phone Closeup" },
     ],
   },
-  { id: "documentary", title: "Documentary", thumbnails: [] },
+  {
+    id: "documentary",
+    title: "Documentary",
+    thumbnails: [
+      { src: doc1, alt: "Dark Side of DiCaprio" },
+      { src: doc2, alt: "Ponzi Scheme Con Artist" },
+      { src: doc3, alt: "Jalisco New Generation Cartel" },
+      { src: doc4, alt: "They Are Watching You" },
+      { src: doc5, alt: "Robert Hansen Wanted" },
+      { src: doc6, alt: "Mexico New China" },
+      { src: doc7, alt: "USA Mexico History" },
+      { src: doc8, alt: "Can Defeat Can't Defeat" },
+      { src: doc9, alt: "Exposed" },
+      { src: doc10, alt: "Trump Economy" },
+    ],
+  },
 ];
 
 const Examples = () => {
