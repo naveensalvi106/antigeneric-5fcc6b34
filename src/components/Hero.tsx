@@ -1,10 +1,11 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { Sparkles, Image, Zap, Download, Upload, User, FileText, Loader2, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import GeneratingOverlay from "@/components/GeneratingOverlay";
 
 const badges = [
   { icon: Sparkles, label: "AI-Powered" },
