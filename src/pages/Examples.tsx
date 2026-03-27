@@ -27,6 +27,17 @@ import gaming8 from "@/assets/thumbnails/gaming-8.jpg";
 import gaming9 from "@/assets/thumbnails/gaming-9.jpg";
 import gaming10 from "@/assets/thumbnails/gaming-10.jpg";
 
+import irl1 from "@/assets/thumbnails/irl-1.jpg";
+import irl2 from "@/assets/thumbnails/irl-2.jpg";
+import irl3 from "@/assets/thumbnails/irl-3.jpg";
+import irl4 from "@/assets/thumbnails/irl-4.jpg";
+import irl5 from "@/assets/thumbnails/irl-5.jpg";
+import irl6 from "@/assets/thumbnails/irl-6.jpg";
+import irl7 from "@/assets/thumbnails/irl-7.jpg";
+import irl8 from "@/assets/thumbnails/irl-8.jpg";
+import irl9 from "@/assets/thumbnails/irl-9.jpg";
+import irl10 from "@/assets/thumbnails/irl-10.jpg";
+
 interface ThumbnailSection {
   id: string;
   title: string;
