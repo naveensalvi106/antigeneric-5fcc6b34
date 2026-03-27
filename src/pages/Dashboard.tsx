@@ -27,6 +27,7 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState<any>(null);
   const [activeTab, setActiveTab] = useState<Tab>("inbox");
+  const [credits, setCredits] = useState<number>(0);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -37,6 +38,7 @@ const Dashboard = () => {
       }
       setUser(session.user);
       loadSubmissions();
+      loadCredits(session.user.id);
     });
   }, []);
 
@@ -54,6 +56,15 @@ const Dashboard = () => {
       setSubmissions((data as Submission[]) || []);
     }
     setLoading(false);
+  };
+
+  const loadCredits = async (userId: string) => {
+    const { data } = await supabase
+      .from("user_credits")
+      .select("credits")
+      .eq("user_id", userId)
+      .single();
+    setCredits(data?.credits ?? 0);
   };
 
   const handleLogout = async () => {
@@ -379,7 +390,7 @@ const Dashboard = () => {
                     </div>
                     <div className="p-3 rounded-lg bg-secondary/50">
                       <p className="text-xs text-muted-foreground">Credits Left</p>
-                      <p className="text-xl font-bold text-primary">1</p>
+                      <p className="text-xl font-bold text-primary">{credits}</p>
                     </div>
                   </div>
                 </div>

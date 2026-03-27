@@ -70,6 +70,20 @@ const Hero = () => {
       return;
     }
 
+    // Check credits
+    const { data: creditData } = await supabase
+      .from("user_credits")
+      .select("credits")
+      .eq("user_id", user.id)
+      .single();
+
+    if (!creditData || creditData.credits <= 0) {
+      toast.error("No credits left! Upgrade your plan to generate more thumbnails.");
+      const el = document.querySelector("#pricing");
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -98,6 +112,9 @@ const Hero = () => {
         });
 
       if (insertError) throw insertError;
+
+      // Deduct credit
+      await supabase.rpc("use_credit" as any, { p_user_id: user.id });
 
       // Notify admin
       await supabase.functions.invoke('notify-submission', {

@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Check, Crown, Zap, Rocket, Gift } from "lucide-react";
+import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -23,10 +24,22 @@ const Pricing = () => {
     return () => subscription.unsubscribe();
   }, []);
 
-  const handlePlanClick = () => {
+  const PAYPAL_LINK = "https://paypal.me/NaveenSalvi377?locale.x=en_GB&country.x=IN";
+
+  const handlePlanClick = (plan: typeof PRICING[0]) => {
     if (!user) {
       navigate("/login");
+      return;
     }
+    if (plan.name === "Free") {
+      // Free plan - scroll to generator
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+    // Open PayPal with amount
+    const amount = plan.name === "Pro" ? "20" : "50";
+    window.open(`${PAYPAL_LINK}/${amount}USD`, "_blank");
+    toast.info("After payment, your credits will be added within a few hours.");
   };
 
   return (
@@ -104,7 +117,7 @@ const Pricing = () => {
                   <Button
                     variant="nuclear"
                     className="w-full"
-                    onClick={handlePlanClick}
+                    onClick={() => handlePlanClick(plan)}
                   >
                     {plan.ctaLabel}
                   </Button>

@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { LogOut, Eye, Calendar, Loader2, Image as ImageIcon, User, FileText, ExternalLink, Upload, Mail, Home } from "lucide-react";
+import { LogOut, Eye, Calendar, Loader2, Image as ImageIcon, User, FileText, ExternalLink, Upload, Mail, Home, Coins, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
@@ -24,6 +24,10 @@ const Admin = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [selectedSubmission, setSelectedSubmission] = useState<Submission | null>(null);
   const [uploadingId, setUploadingId] = useState<string | null>(null);
+  const [creditEmail, setCreditEmail] = useState("");
+  const [creditAmount, setCreditAmount] = useState("10");
+  const [addingCredits, setAddingCredits] = useState(false);
+  const [showCreditPanel, setShowCreditPanel] = useState(false);
   const uploadRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
 
@@ -148,7 +152,78 @@ const Admin = () => {
         </div>
       </header>
 
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-8 relative z-10">
+        {/* Credit Management Toggle */}
+        <div className="mb-6 flex gap-3">
+          <Button
+            variant={showCreditPanel ? "nuclear" : "nuclear-outline"}
+            size="sm"
+            onClick={() => setShowCreditPanel(!showCreditPanel)}
+          >
+            <Coins size={16} className="mr-1" /> Manage Credits
+          </Button>
+        </div>
+
+        {/* Credit Management Panel */}
+        {showCreditPanel && (
+          <motion.div
+            className="mb-6 p-5 rounded-xl card-nuclear border border-primary/20"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+          >
+            <h3 className="font-display font-semibold text-foreground mb-3 flex items-center gap-2">
+              <Coins size={18} className="text-primary" /> Add Credits to User
+            </h3>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <input
+                type="email"
+                placeholder="User email..."
+                value={creditEmail}
+                onChange={(e) => setCreditEmail(e.target.value)}
+                className="flex-1 px-4 py-2.5 rounded-lg bg-background/50 border border-border text-foreground placeholder:text-muted-foreground/50 text-sm focus:outline-none focus:border-primary/40"
+              />
+              <input
+                type="number"
+                placeholder="Credits"
+                value={creditAmount}
+                onChange={(e) => setCreditAmount(e.target.value)}
+                min="1"
+                className="w-24 px-4 py-2.5 rounded-lg bg-background/50 border border-border text-foreground text-sm focus:outline-none focus:border-primary/40"
+              />
+              <Button
+                variant="nuclear"
+                size="sm"
+                disabled={addingCredits || !creditEmail.trim()}
+                onClick={async () => {
+                  setAddingCredits(true);
+                  try {
+                    // Find user by email via get_user_email function - we need to search submissions for user_email
+                    // Since we can't query auth.users directly, we use an edge function or RPC
+                    const { data, error } = await supabase.rpc("add_credits_by_email" as any, {
+                      p_email: creditEmail.trim(),
+                      p_credits: parseInt(creditAmount) || 10,
+                    });
+                    if (error) throw error;
+                    if (data) {
+                      toast.success(`Added ${creditAmount} credits to ${creditEmail}`);
+                      setCreditEmail("");
+                    } else {
+                      toast.error("User not found with that email");
+                    }
+                  } catch (err: any) {
+                    toast.error("Failed: " + (err.message || "Unknown error"));
+                  } finally {
+                    setAddingCredits(false);
+                  }
+                }}
+              >
+                {addingCredits ? <Loader2 size={14} className="animate-spin" /> : <Plus size={14} />}
+                Add
+              </Button>
+            </div>
+            <p className="text-[11px] text-muted-foreground mt-2">Enter the user's email and number of credits to add after verifying PayPal payment.</p>
+          </motion.div>
+        )}
         {loading ? (
           <div className="flex justify-center py-20">
             <Loader2 className="h-8 w-8 animate-spin text-primary" />

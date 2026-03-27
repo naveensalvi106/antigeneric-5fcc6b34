@@ -11,6 +11,7 @@ const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [user, setUser] = useState<any>(null);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [credits, setCredits] = useState<number | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,13 +25,18 @@ const Navbar = () => {
       setUser(session?.user ?? null);
       if (session?.user) {
         checkAdmin(session.user.id);
+        loadCredits(session.user.id);
       } else {
         setIsAdmin(false);
+        setCredits(null);
       }
     });
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null);
-      if (session?.user) checkAdmin(session.user.id);
+      if (session?.user) {
+        checkAdmin(session.user.id);
+        loadCredits(session.user.id);
+      }
     });
     return () => subscription.unsubscribe();
   }, []);
@@ -42,6 +48,15 @@ const Navbar = () => {
       .eq("user_id", userId)
       .eq("role", "admin");
     setIsAdmin(!!(data && data.length > 0));
+  };
+
+  const loadCredits = async (userId: string) => {
+    const { data } = await supabase
+      .from("user_credits")
+      .select("credits")
+      .eq("user_id", userId)
+      .single();
+    setCredits(data?.credits ?? 0);
   };
 
   const handleNavClick = (href: string) => (e: MouseEvent<HTMLAnchorElement>) => {
@@ -89,7 +104,7 @@ const Navbar = () => {
               className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold font-display tracking-tight text-primary-foreground bg-gradient-to-b from-[hsl(210,100%,70%)] via-[hsl(217,91%,55%)] to-[hsl(220,90%,45%)] border border-white/20 shadow-[0_0_25px_-5px_hsl(217_91%_60%/0.5),inset_0_1px_0_rgba(255,255,255,0.3),inset_0_-1px_0_rgba(0,0,0,0.2)] hover:scale-105 active:scale-95 hover:shadow-[0_0_40px_-5px_hsl(217_91%_60%/0.7),inset_0_1px_0_rgba(255,255,255,0.35),inset_0_-1px_0_rgba(0,0,0,0.2)] transition-all duration-300"
             >
               <Coins size={16} />
-              1 Credit
+              {credits !== null ? credits : 1} Credit{credits !== 1 ? "s" : ""}
             </a>
           </div>
 
