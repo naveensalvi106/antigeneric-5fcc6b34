@@ -24,7 +24,7 @@ const Pricing = () => {
     return () => subscription.unsubscribe();
   }, []);
 
-  const PAYPAL_LINK = "https://paypal.me/NaveenSalvi377?locale.x=en_GB&country.x=IN";
+  const PAYPAL_PRO = "https://www.paypal.com/ncp/payment/4B3DWRU97Y5PA";
 
   const handlePlanClick = (plan: typeof PRICING[0]) => {
     if (!user) {
@@ -32,14 +32,16 @@ const Pricing = () => {
       return;
     }
     if (plan.name === "Free") {
-      // Free plan - scroll to generator
       window.scrollTo({ top: 0, behavior: "smooth" });
       return;
     }
-    // Open PayPal with amount
-    const amount = plan.name === "Pro" ? "20" : "50";
-    window.open(`${PAYPAL_LINK}/${amount}USD`, "_blank");
-    toast.info("After payment, your credits will be added within a few hours.");
+    if (plan.name === "Pro") {
+      window.open(PAYPAL_PRO, "_blank");
+      toast.info("After payment, your credits will be added within a few hours.");
+      return;
+    }
+    // Agency - placeholder until you add a link
+    toast.info("Contact us for Agency plan purchases.");
   };
 
   return (
