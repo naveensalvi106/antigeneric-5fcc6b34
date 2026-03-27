@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { LogOut, Eye, Calendar, Loader2, Image as ImageIcon, User, FileText, ExternalLink, Upload, Mail, Home } from "lucide-react";
+import { LogOut, Eye, Calendar, Loader2, Image as ImageIcon, User, FileText, ExternalLink, Upload, Mail, Home, Coins, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
