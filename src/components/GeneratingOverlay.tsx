@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Loader2, Sparkles, Clock, Mail, Bell } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
@@ -20,9 +21,10 @@ const STEPS = [
 ];
 
 const GeneratingOverlay = ({ isVisible, onComplete }: GeneratingOverlayProps) => {
+  const navigate = useNavigate();
   const [progress, setProgress] = useState(0);
   const [currentStep, setCurrentStep] = useState(0);
-  const [estimatedTime] = useState(() => Math.floor(Math.random() * 6) + 5); // 5-10 minutes
+  const [estimatedTime] = useState(() => Math.floor(Math.random() * 6) + 5);
   const [showNotification, setShowNotification] = useState(false);
 
   useEffect(() => {
@@ -138,9 +140,12 @@ const GeneratingOverlay = ({ isVisible, onComplete }: GeneratingOverlayProps) =>
             <Button
               variant="nuclear"
               className="w-full mt-6"
-              onClick={onComplete}
+              onClick={() => {
+                onComplete();
+                navigate("/dashboard");
+              }}
             >
-              OK
+              Check Dashboard
             </Button>
           </motion.div>
         )}
