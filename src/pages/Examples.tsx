@@ -292,23 +292,24 @@ const Examples = () => {
             )
           ))}
 
-          {/* Empty sections placeholder */}
-          {sections.filter(s => s.thumbnails.length === 0).length > 0 && (
-            <div className="text-center text-muted-foreground py-8">
-              {sections.filter(s => s.thumbnails.length === 0).map(s => (
-                <div
-                  key={s.id}
-                  ref={(el) => { sectionRefs.current[s.id] = el; }}
-                  className="mb-8"
-                >
-                  <h2 className="font-display text-2xl md:text-3xl font-bold gradient-text mb-3">
-                    {s.title}
-                  </h2>
-                  <p className="text-sm">Coming soon...</p>
-                </div>
-              ))}
-            </div>
-          )}
+          {/* Generate Thumbnail CTA */}
+          <motion.div
+            className="text-center py-12"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
+            <p className="text-muted-foreground text-lg mb-6">
+              Ready to create your own?
+            </p>
+            <Button
+              variant="nuclear"
+              size="lg"
+              onClick={() => navigate("/")}
+            >
+              Generate Thumbnail
+            </Button>
+          </motion.div>
         </div>
         <Footer />
       </div>
