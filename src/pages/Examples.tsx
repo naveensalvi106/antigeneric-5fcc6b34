@@ -133,7 +133,22 @@ const sections: ThumbnailSection[] = [
       { src: reaction10, alt: "Queen Crown Gaming" },
     ],
   },
-  { id: "self-improvement", title: "Self Improvement", thumbnails: [] },
+  {
+    id: "self-improvement",
+    title: "Self Improvement",
+    thumbnails: [
+      { src: si1, alt: "Sleep Schedule Fix" },
+      { src: si2, alt: "Social Media Brain" },
+      { src: si3, alt: "New Body 3 Weeks" },
+      { src: si4, alt: "Legs After 40" },
+      { src: si5, alt: "10 Minute Workout" },
+      { src: si6, alt: "Time To Rise" },
+      { src: si7, alt: "Before After Transformation" },
+      { src: si8, alt: "How To Be Consistent" },
+      { src: si9, alt: "99% Productivity" },
+      { src: si10, alt: "YouTube Shorts Growth" },
+    ],
+  },
   { id: "tech", title: "Tech", thumbnails: [] },
   { id: "documentary", title: "Documentary", thumbnails: [] },
 ];
