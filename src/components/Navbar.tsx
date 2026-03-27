@@ -11,6 +11,7 @@ const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [user, setUser] = useState<any>(null);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [credits, setCredits] = useState<number | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
