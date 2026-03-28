@@ -336,6 +336,7 @@ const Hero = () => {
           hasReferenceImage: !!thumbnailImage,
           hasFaceImage: !!faceImage,
         }}
+        submissionId={lastSubmissionId || undefined}
       />
     </section>
   );
