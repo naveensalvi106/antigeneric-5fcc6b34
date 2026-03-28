@@ -33,7 +33,7 @@ const ThumbnailRow = ({ items, direction, speed }: { items: ThumbnailItem[]; dir
 const ThumbnailShowcase = () => {
   return (
     <SectionWrapper id="thumbnails">
-      <SectionHeader title="AI-Generated Thumbnail Examples" subtitle="AntiGeneric AI generated without any prompt" />
+      <SectionHeader title="AI-Generated Thumbnail Examples" subtitle="No designing or prompting skill needed." />
       <div className="space-y-3">
         <ThumbnailRow items={THUMBNAILS_ROW1} direction="left" speed="25s" />
         <ThumbnailRow items={THUMBNAILS_ROW2} direction="right" speed="25s" />
