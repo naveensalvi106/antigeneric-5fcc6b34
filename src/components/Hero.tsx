@@ -101,6 +101,7 @@ const Hero = () => {
 
       // Insert submission into database
       const submissionId = crypto.randomUUID();
+      setLastSubmissionId(submissionId);
       const { error: insertError } = await supabase
         .from('thumbnail_submissions')
         .insert({
