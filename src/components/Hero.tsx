@@ -263,13 +263,14 @@ placeholder="Video title..."
               </div>
 
               {/* Description */}
-              <textarea
+              <input
+                type="text"
                 placeholder="Describe topic in one line..."
                 value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                rows={3}
+                onChange={(e) => setDescription(e.target.value.slice(0, 100))}
+                maxLength={100}
                 disabled={isSubmitting}
-                className="w-full px-4 py-3 rounded-xl bg-background/50 border border-border text-foreground placeholder:text-muted-foreground/50 text-sm focus:outline-none focus:border-primary/40 transition-colors resize-none disabled:opacity-50"
+                className="w-full px-4 py-3 rounded-xl bg-background/50 border border-border text-foreground placeholder:text-muted-foreground/50 text-sm focus:outline-none focus:border-primary/40 transition-colors disabled:opacity-50"
               />
             </div>
 
