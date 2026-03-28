@@ -207,7 +207,7 @@ const Hero = () => {
                 <FileText size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
                 <input
                   type="text"
-                  placeholder="Video title..."
+placeholder="Video title..."
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                   disabled={isSubmitting}
@@ -258,7 +258,7 @@ const Hero = () => {
 
               {/* Description */}
               <textarea
-                placeholder="Describe how you want thumbnail to look in one line..."
+                placeholder="Describe topic in one line..."
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 rows={3}
