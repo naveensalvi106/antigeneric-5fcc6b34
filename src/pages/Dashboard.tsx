@@ -157,15 +157,14 @@ const Dashboard = () => {
     }
   };
 
-  const timeAgo = (dateStr: string | null) => {
+  const formatDateTime = (dateStr: string | null) => {
     if (!dateStr) return "N/A";
-    const diff = Date.now() - new Date(dateStr).getTime();
-    const mins = Math.floor(diff / 60000);
-    if (mins < 60) return `${mins}m ago`;
-    const hrs = Math.floor(mins / 60);
-    if (hrs < 24) return `${hrs}h ago`;
-    const days = Math.floor(hrs / 24);
-    return `${days}d ago`;
+    const d = new Date(dateStr);
+    return d.toLocaleDateString("en-US", {
+      month: "short", day: "numeric",
+    }) + ", " + d.toLocaleTimeString("en-US", {
+      hour: "2-digit", minute: "2-digit",
+    });
   };
 
   if (!user) {
@@ -289,7 +288,7 @@ const Dashboard = () => {
                           <div className="min-w-0 flex-1">
                             <h3 className="font-display font-semibold text-foreground text-base truncate">{sub.title}</h3>
                             <p className="text-xs text-muted-foreground mt-0.5">
-                              {timeAgo(sub.created_at)} • Generating...
+                              {formatDateTime(sub.created_at)} • Generating...
                             </p>
                           </div>
                           <div className="flex items-center gap-2 shrink-0">
@@ -327,7 +326,7 @@ const Dashboard = () => {
                           <div className="min-w-0 flex-1">
                             <h3 className="font-display font-semibold text-foreground text-base truncate">{sub.title}</h3>
                             <p className="text-xs text-muted-foreground mt-0.5">
-                              {timeAgo(sub.created_at)} • 4K Resolution
+                              {formatDateTime(sub.created_at)} • 4K Resolution
                             </p>
                           </div>
                           <div className="flex items-center gap-2 shrink-0">
