@@ -189,7 +189,7 @@ const GeneratingOverlay = ({ isVisible, onComplete, submissionDetails, initialEl
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
-      <div className="w-full max-w-2xl mx-4 max-h-[90vh] overflow-y-auto scrollbar-none">
+      <div className="w-full max-w-2xl mx-3 sm:mx-4 max-h-[95vh] sm:max-h-[90vh] overflow-y-auto scrollbar-none">
         <motion.div
           className="relative p-6 sm:p-8 rounded-3xl card-nuclear border border-primary/20 shadow-2xl"
           initial={{ scale: 0.9, opacity: 0 }}
