@@ -189,9 +189,9 @@ const GeneratingOverlay = ({ isVisible, onComplete, submissionDetails, initialEl
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
-      <div className="w-full max-w-2xl mx-4 max-h-[90vh] overflow-y-auto scrollbar-none">
+      <div className="w-full max-w-2xl mx-3 sm:mx-4 max-h-[95vh] sm:max-h-[90vh] overflow-y-auto scrollbar-none">
         <motion.div
-          className="relative p-6 sm:p-8 rounded-3xl card-nuclear border border-primary/20 shadow-2xl"
+          className="relative p-4 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl card-nuclear border border-primary/20 shadow-2xl"
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 0.1, type: "spring", stiffness: 200 }}
@@ -294,8 +294,8 @@ const GeneratingOverlay = ({ isVisible, onComplete, submissionDetails, initialEl
               )}
 
               {/* Circular Progress + Countdown */}
-              <div className="flex flex-col items-center mb-6">
-                <div className="relative w-44 h-44 mb-4">
+              <div className="flex flex-col items-center mb-4 sm:mb-6">
+                <div className="relative w-32 h-32 sm:w-44 sm:h-44 mb-3 sm:mb-4">
                   <div className="absolute inset-0 rounded-full bg-primary/5 blur-xl" />
                   
                   <svg className="w-full h-full -rotate-90" viewBox="0 0 160 160">
@@ -326,7 +326,7 @@ const GeneratingOverlay = ({ isVisible, onComplete, submissionDetails, initialEl
                   <div className="absolute inset-0 flex flex-col items-center justify-center">
                     {!allDone ? (
                       <>
-                        <span className="font-display font-extrabold text-3xl gradient-text">
+                        <span className="font-display font-extrabold text-2xl sm:text-3xl gradient-text">
                           {Math.round(progress)}%
                         </span>
                         <span className="text-[10px] text-muted-foreground/60 uppercase tracking-widest mt-1">
@@ -335,7 +335,7 @@ const GeneratingOverlay = ({ isVisible, onComplete, submissionDetails, initialEl
                       </>
                     ) : (
                       <>
-                        <CheckCircle2 className="w-10 h-10 text-green-400 mb-1" />
+                        <CheckCircle2 className="w-8 h-8 sm:w-10 sm:h-10 text-green-400 mb-1" />
                         <span className="text-xs text-green-400 font-semibold">Complete</span>
                       </>
                     )}
@@ -367,7 +367,7 @@ const GeneratingOverlay = ({ isVisible, onComplete, submissionDetails, initialEl
                   return (
                     <motion.div
                       key={i}
-                      className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-500 ${
+                      className={`flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl transition-all duration-500 ${
                         isActive
                           ? "bg-primary/10 border border-primary/20"
                           : isCompleted
