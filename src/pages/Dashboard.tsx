@@ -32,6 +32,7 @@ const Dashboard = () => {
   const [credits, setCredits] = useState<number>(0);
   const [showReadyPopup, setShowReadyPopup] = useState(false);
   const [readyTitle, setReadyTitle] = useState("");
+  const [selectedPending, setSelectedPending] = useState<Submission | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
