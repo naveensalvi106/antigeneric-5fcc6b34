@@ -441,6 +441,71 @@ const Dashboard = () => {
           </>
         )}
       </div>
+
+      {/* Thumbnail Ready Popup */}
+      <AnimatePresence>
+        {showReadyPopup && (
+          <motion.div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-md"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.div
+              className="w-full max-w-md mx-4 p-8 rounded-3xl card-nuclear border border-primary/20 shadow-2xl text-center"
+              initial={{ scale: 0.85, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.85, opacity: 0 }}
+              transition={{ type: "spring", stiffness: 200 }}
+            >
+              <button
+                onClick={() => setShowReadyPopup(false)}
+                className="absolute top-4 right-4 text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <X size={18} />
+              </button>
+
+              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-5">
+                <PartyPopper className="w-8 h-8 text-primary" />
+              </div>
+
+              <h2 className="font-display text-xl font-bold text-foreground mb-2">
+                Your Thumbnail is Ready! 🎉
+              </h2>
+              <p className="text-sm text-muted-foreground mb-2 leading-relaxed">
+                <span className="font-semibold text-foreground">"{readyTitle}"</span> has been crafted and is ready for download.
+              </p>
+              <p className="text-xs text-muted-foreground/70 mb-6">
+                You can also check your Gmail inbox for the delivery notification.
+              </p>
+
+              <div className="space-y-2">
+                <Button
+                  variant="nuclear"
+                  className="w-full"
+                  onClick={() => {
+                    setShowReadyPopup(false);
+                    setActiveTab("inbox");
+                    loadSubmissions();
+                  }}
+                >
+                  <Sparkles size={16} className="mr-2" /> View in Inbox
+                </Button>
+                <Button
+                  variant="outline"
+                  className="w-full"
+                  onClick={() => {
+                    setShowReadyPopup(false);
+                    window.location.reload();
+                  }}
+                >
+                  <RefreshCw size={16} className="mr-2" /> Refresh Page
+                </Button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
