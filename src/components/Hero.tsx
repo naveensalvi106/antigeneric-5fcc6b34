@@ -229,7 +229,7 @@ placeholder="Video title..."
                   </div>
                   <div className="min-w-0">
                     <p className="text-sm font-semibold text-foreground truncate">
-                      {thumbnailImage ? thumbnailImage.name : "Upload Reference Image"}
+                      {thumbnailImage ? thumbnailImage.name : "Upload Element Image"}
                     </p>
                     <p className="text-[11px] text-muted-foreground">Add a style reference (optional)</p>
                   </div>
