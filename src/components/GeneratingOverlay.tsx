@@ -294,8 +294,8 @@ const GeneratingOverlay = ({ isVisible, onComplete, submissionDetails, initialEl
               )}
 
               {/* Circular Progress + Countdown */}
-              <div className="flex flex-col items-center mb-6">
-                <div className="relative w-44 h-44 mb-4">
+              <div className="flex flex-col items-center mb-4 sm:mb-6">
+                <div className="relative w-32 h-32 sm:w-44 sm:h-44 mb-3 sm:mb-4">
                   <div className="absolute inset-0 rounded-full bg-primary/5 blur-xl" />
                   
                   <svg className="w-full h-full -rotate-90" viewBox="0 0 160 160">
