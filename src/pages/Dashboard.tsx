@@ -535,6 +535,25 @@ const Dashboard = () => {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Generation Progress Overlay */}
+      <GeneratingOverlay
+        isVisible={!!selectedPending}
+        onComplete={() => {
+          setSelectedPending(null);
+          loadSubmissions();
+        }}
+        submissionDetails={selectedPending ? {
+          title: selectedPending.title,
+          description: selectedPending.description || undefined,
+          hasReferenceImage: !!selectedPending.thumbnail_image_url,
+          hasFaceImage: !!selectedPending.face_image_url,
+        } : undefined}
+        initialElapsedSeconds={selectedPending?.created_at
+          ? Math.min(Math.floor((Date.now() - new Date(selectedPending.created_at).getTime()) / 1000), 600)
+          : 0
+        }
+      />
     </div>
   );
 };
