@@ -74,7 +74,7 @@ const GeneratingOverlay = ({ isVisible, onComplete, submissionDetails, initialEl
 
   useEffect(() => {
     if (!isVisible) {
-      setElapsedSeconds(0);
+      setElapsedSeconds(initialElapsedSeconds);
       setCompletedSteps([]);
       setActiveStep(0);
       if (timerRef.current) clearInterval(timerRef.current);
