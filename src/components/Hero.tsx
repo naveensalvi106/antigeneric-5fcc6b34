@@ -231,7 +231,7 @@ placeholder="Video title..."
                     <p className="text-sm font-semibold text-foreground truncate">
                       {thumbnailImage ? thumbnailImage.name : "Upload Element Image"}
                     </p>
-                    <p className="text-[11px] text-muted-foreground">Add a style reference (optional)</p>
+                    <p className="text-[11px] text-muted-foreground">Optional</p>
                   </div>
                   {thumbnailImage && (
                     <CheckCircle size={16} className="text-green-400 ml-auto shrink-0" />
