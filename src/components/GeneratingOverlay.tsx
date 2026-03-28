@@ -18,6 +18,7 @@ interface GeneratingOverlayProps {
   isVisible: boolean;
   onComplete: () => void;
   submissionDetails?: SubmissionDetails;
+  initialElapsedSeconds?: number;
 }
 
 const STEPS = [
