@@ -554,6 +554,7 @@ const Dashboard = () => {
           : 0
         }
         showCloseButton={true}
+        submissionId={selectedPending?.id}
       />
     </div>
   );
