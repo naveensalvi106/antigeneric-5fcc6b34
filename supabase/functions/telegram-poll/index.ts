@@ -18,7 +18,6 @@ Deno.serve(async () => {
 
   let totalProcessed = 0;
 
-  // Read initial offset
   const { data: state, error: stateErr } = await supabase
     .from("telegram_bot_state")
     .select("update_offset")
@@ -63,140 +62,73 @@ Deno.serve(async () => {
     for (const update of updates) {
       const message = update.message;
       if (!message) continue;
-
-      // Only process messages from admin chat
       if (String(message.chat.id) !== TELEGRAM_CHAT_ID) continue;
 
-      // Check if this is a result submission: photo with caption starting with /result
       const caption = message.caption || "";
       const text = message.text || "";
+      const replyToMessage = message.reply_to_message;
 
-      // Handle /result command with photo
-      if (message.photo && caption.toLowerCase().startsWith("/result")) {
-        const submissionId = caption.replace(/^\/result\s*/i, "").trim();
+      // ── Method 1: Reply to notification with a photo ──
+      if (message.photo && replyToMessage) {
+        const replyMsgId = replyToMessage.message_id;
 
-        if (!submissionId) {
+        // Find submission by the Telegram message ID it was notified with
+        const { data: submission, error: findErr } = await supabase
+          .from("thumbnail_submissions")
+          .select("id, title, user_email")
+          .eq("telegram_message_id", replyMsgId)
+          .single();
+
+        if (findErr || !submission) {
           await sendTelegramMessage(
             TELEGRAM_BOT_TOKEN,
             TELEGRAM_CHAT_ID,
-            "❌ Please provide the submission ID.\n\nFormat: `/result <submission_id>`\nSend this as the photo caption.",
+            "❌ Could not find a submission linked to that message. Use `/result <submission_id>` as caption instead.",
           );
           continue;
         }
 
-        // Get the highest resolution photo
-        const photo = message.photo[message.photo.length - 1];
-        const fileId = photo.file_id;
+        await deliverResult(TELEGRAM_BOT_TOKEN, supabase, supabaseUrl, supabaseServiceKey, message, submission);
+        totalProcessed++;
+        continue;
+      }
 
-        try {
-          // Step 1: Get file path from Telegram
-          const fileRes = await fetch(
-            `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getFile`,
-            {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ file_id: fileId }),
-            }
-          );
-          const fileData = await fileRes.json();
-          if (!fileData.ok) throw new Error("Failed to get file info");
-
-          const filePath = fileData.result.file_path;
-
-          // Step 2: Download the file
-          const downloadRes = await fetch(
-            `https://api.telegram.org/file/bot${TELEGRAM_BOT_TOKEN}/${filePath}`
-          );
-          if (!downloadRes.ok) throw new Error("Failed to download file");
-
-          const fileBytes = await downloadRes.arrayBuffer();
-          const ext = filePath.split(".").pop() || "jpg";
-          const storagePath = `results/${submissionId}.${ext}`;
-
-          // Step 3: Upload to Supabase Storage
-          const { error: uploadErr } = await supabase.storage
-            .from("thumbnail-uploads")
-            .upload(storagePath, fileBytes, {
-              contentType: `image/${ext === "jpg" ? "jpeg" : ext}`,
-              upsert: true,
-            });
-
-          if (uploadErr) throw new Error(`Upload failed: ${uploadErr.message}`);
-
-          // Step 4: Get public URL
-          const { data: urlData } = supabase.storage
-            .from("thumbnail-uploads")
-            .getPublicUrl(storagePath);
-
-          const publicUrl = urlData.publicUrl;
-
-          // Step 5: Update the submission
-          const { data: submission, error: updateErr } = await supabase
-            .from("thumbnail_submissions")
-            .update({
-              result_image_url: publicUrl,
-              status: "completed",
-            })
-            .eq("id", submissionId)
-            .select("title, user_email")
-            .single();
-
-          if (updateErr) throw new Error(`Update failed: ${updateErr.message}`);
-
-          // Step 6: Send email notification to user
-          if (submission?.user_email) {
-            try {
-              const emailRes = await fetch(`${supabaseUrl}/functions/v1/send-transactional-email`, {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                  "Authorization": `Bearer ${supabaseServiceKey}`,
-                },
-                body: JSON.stringify({
-                  templateName: "result-ready",
-                  recipientEmail: submission.user_email,
-                  templateData: {
-                    title: submission.title,
-                    resultImageUrl: publicUrl,
-                  },
-                }),
-              });
-              const emailText = await emailRes.text();
-              console.log("Email notification sent:", emailRes.status, emailText);
-            } catch (emailErr) {
-              console.error("Email notification failed:", emailErr);
-            }
-          }
-
-          await sendTelegramMessage(
-            TELEGRAM_BOT_TOKEN,
-            TELEGRAM_CHAT_ID,
-            `✅ *Result delivered!*\n\n📝 *Title:* ${submission?.title || submissionId}\n📧 *User:* ${submission?.user_email || "Unknown"}\n\nThe user will receive a popup notification and email automatically.`,
-          );
-
-          totalProcessed++;
-        } catch (err) {
-          await sendTelegramMessage(
-            TELEGRAM_BOT_TOKEN,
-            TELEGRAM_CHAT_ID,
-            `❌ *Failed to deliver result*\n\nID: \`${submissionId}\`\nError: ${err.message}`,
-          );
+      // ── Method 2: /result <id> as photo caption ──
+      if (message.photo && caption.toLowerCase().startsWith("/result")) {
+        const submissionId = caption.replace(/^\/result\s*/i, "").trim();
+        if (!submissionId) {
+          await sendTelegramMessage(TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID,
+            "❌ Please provide the submission ID.\nFormat: `/result <submission_id>`");
+          continue;
         }
+
+        const { data: submission, error: findErr } = await supabase
+          .from("thumbnail_submissions")
+          .select("id, title, user_email")
+          .eq("id", submissionId)
+          .single();
+
+        if (findErr || !submission) {
+          await sendTelegramMessage(TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID,
+            `❌ Submission \`${submissionId}\` not found.`);
+          continue;
+        }
+
+        await deliverResult(TELEGRAM_BOT_TOKEN, supabase, supabaseUrl, supabaseServiceKey, message, submission);
+        totalProcessed++;
+        continue;
       }
 
-      // Handle /help command
+      // ── /help or /start ──
       if (text.toLowerCase() === "/help" || text.toLowerCase() === "/start") {
-        await sendTelegramMessage(
-          TELEGRAM_BOT_TOKEN,
-          TELEGRAM_CHAT_ID,
-          `🤖 *AntiGeneric Bot Commands*\n\n` +
-          `📸 *Send Result:*\nSend a photo with caption:\n\`/result <submission_id>\`\n\n` +
-          `📋 *List Pending:*\n\`/pending\`\n\n` +
-          `The submission ID is included in the new request notifications.`,
-        );
+        await sendTelegramMessage(TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID,
+          `🤖 *AntiGeneric Bot*\n\n` +
+          `📸 *Send Result (Easy):*\nJust *reply* to a submission notification with the result photo!\n\n` +
+          `📸 *Send Result (Manual):*\nSend photo with caption: \`/result <id>\`\n\n` +
+          `📋 *List Pending:* /pending`);
       }
 
-      // Handle /pending command - list pending submissions
+      // ── /pending ──
       if (text.toLowerCase() === "/pending") {
         const { data: pending } = await supabase
           .from("thumbnail_submissions")
@@ -206,23 +138,18 @@ Deno.serve(async () => {
           .limit(10);
 
         if (!pending || pending.length === 0) {
-          await sendTelegramMessage(
-            TELEGRAM_BOT_TOKEN,
-            TELEGRAM_CHAT_ID,
-            "✨ No pending submissions!",
-          );
+          await sendTelegramMessage(TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, "✨ No pending submissions!");
         } else {
-          let msg = `📋 *Pending Submissions (${pending.length}):*\n\n`;
+          let msg = `📋 *Pending (${pending.length}):*\n\n`;
           for (const s of pending) {
-            msg += `• *${s.title}*\n  📧 ${s.user_email || "Anonymous"}\n  🆔 \`${s.id}\`\n\n`;
+            msg += `• *${s.title}*\n  📧 ${s.user_email || "Anon"}\n  🆔 \`${s.id}\`\n\n`;
           }
-          msg += `_Reply with a photo + caption \`/result <id>\` to deliver._`;
+          msg += `_Reply to the original notification with the result photo!_`;
           await sendTelegramMessage(TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, msg);
         }
       }
     }
 
-    // Advance offset
     const newOffset = Math.max(...updates.map((u: any) => u.update_id)) + 1;
     await supabase
       .from("telegram_bot_state")
@@ -234,19 +161,97 @@ Deno.serve(async () => {
   return new Response(JSON.stringify({ ok: true, processed: totalProcessed }));
 });
 
+async function deliverResult(
+  botToken: string,
+  supabase: any,
+  supabaseUrl: string,
+  supabaseServiceKey: string,
+  message: any,
+  submission: { id: string; title: string; user_email: string | null },
+) {
+  const photo = message.photo[message.photo.length - 1];
+  const fileId = photo.file_id;
+
+  try {
+    // Get file path
+    const fileRes = await fetch(`https://api.telegram.org/bot${botToken}/getFile`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ file_id: fileId }),
+    });
+    const fileData = await fileRes.json();
+    if (!fileData.ok) throw new Error("Failed to get file info");
+
+    const filePath = fileData.result.file_path;
+
+    // Download file
+    const downloadRes = await fetch(`https://api.telegram.org/file/bot${botToken}/${filePath}`);
+    if (!downloadRes.ok) throw new Error("Failed to download file");
+
+    const fileBytes = await downloadRes.arrayBuffer();
+    const ext = filePath.split(".").pop() || "jpg";
+    const storagePath = `results/${submission.id}.${ext}`;
+
+    // Upload to storage
+    const { error: uploadErr } = await supabase.storage
+      .from("thumbnail-uploads")
+      .upload(storagePath, fileBytes, {
+        contentType: `image/${ext === "jpg" ? "jpeg" : ext}`,
+        upsert: true,
+      });
+    if (uploadErr) throw new Error(`Upload failed: ${uploadErr.message}`);
+
+    // Get public URL
+    const { data: urlData } = supabase.storage
+      .from("thumbnail-uploads")
+      .getPublicUrl(storagePath);
+    const publicUrl = urlData.publicUrl;
+
+    // Update submission
+    const { error: updateErr } = await supabase
+      .from("thumbnail_submissions")
+      .update({ result_image_url: publicUrl, status: "completed" })
+      .eq("id", submission.id);
+    if (updateErr) throw new Error(`Update failed: ${updateErr.message}`);
+
+    // Send email notification
+    if (submission.user_email) {
+      try {
+        const emailRes = await fetch(`${supabaseUrl}/functions/v1/send-transactional-email`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${supabaseServiceKey}`,
+          },
+          body: JSON.stringify({
+            templateName: "result-ready",
+            recipientEmail: submission.user_email,
+            templateData: { title: submission.title, resultImageUrl: publicUrl },
+          }),
+        });
+        await emailRes.text();
+      } catch (e) {
+        console.error("Email failed:", e);
+      }
+    }
+
+    await sendTelegramMessage(botToken, TELEGRAM_CHAT_ID,
+      `✅ *Result delivered!*\n\n📝 *Title:* ${submission.title}\n📧 *User:* ${submission.user_email || "Unknown"}\n\n🔔 User will get popup + email automatically.`);
+  } catch (err) {
+    await sendTelegramMessage(botToken, TELEGRAM_CHAT_ID,
+      `❌ *Failed:* ${err.message}\nID: \`${submission.id}\``);
+  }
+}
+
 async function sendTelegramMessage(token: string, chatId: string, text: string) {
   const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      chat_id: chatId,
-      text,
-      parse_mode: "Markdown",
-    }),
+    body: JSON.stringify({ chat_id: chatId, text, parse_mode: "Markdown" }),
   });
   if (!res.ok) {
-    console.error("Failed to send Telegram message:", res.status, await res.text());
+    console.error("Telegram send failed:", res.status, await res.text());
   } else {
-    await res.text(); // consume body
+    await res.text();
   }
 }
