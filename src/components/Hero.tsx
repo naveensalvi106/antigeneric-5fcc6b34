@@ -66,7 +66,7 @@ const Hero = () => {
       return;
     }
     if (!title.trim()) {
-      toast.error("Please enter a thumbnail title");
+      toast.error("Please enter a video title");
       return;
     }
 
