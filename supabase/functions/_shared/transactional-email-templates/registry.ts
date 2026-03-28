@@ -9,7 +9,7 @@ export interface TemplateEntry {
   previewData?: Record<string, any>
 }
 
-import { template as resultReady } from './result-ready.tsx'
+import { template as resultReady } from './result-ready.ts'
 
 export const TEMPLATES: Record<string, TemplateEntry> = {
   'result-ready': resultReady,
