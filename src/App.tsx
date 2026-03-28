@@ -11,6 +11,7 @@ import OAuthCallback from "./pages/OAuthCallback.tsx";
 import Admin from "./pages/Admin.tsx";
 import Dashboard from "./pages/Dashboard.tsx";
 import Unsubscribe from "./pages/Unsubscribe.tsx";
+import GlobalResultNotification from "./components/GlobalResultNotification";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
