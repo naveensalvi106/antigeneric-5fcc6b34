@@ -1,4 +1,5 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -63,6 +64,7 @@ serve(async (req) => {
       if (faceImageUrl) {
         message += `🧑 [View Face Image](${faceImageUrl})\n`;
       }
+      message += `\n💡 *Reply to this message with the result photo to deliver it!*`;
 
       const telegramRes = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
         method: 'POST',
@@ -74,7 +76,23 @@ serve(async (req) => {
           disable_web_page_preview: false,
         }),
       });
-      if (!telegramRes.ok) {
+
+      if (telegramRes.ok && submissionId) {
+        const telegramData = await telegramRes.json();
+        const telegramMessageId = telegramData.result?.message_id;
+
+        if (telegramMessageId) {
+          // Store the Telegram message ID in the submission
+          const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
+          const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
+          const supabase = createClient(supabaseUrl, supabaseServiceKey);
+
+          await supabase
+            .from('thumbnail_submissions')
+            .update({ telegram_message_id: telegramMessageId })
+            .eq('id', submissionId);
+        }
+      } else if (!telegramRes.ok) {
         console.error('Telegram send failed:', telegramRes.status, await telegramRes.text());
       }
     } else {
