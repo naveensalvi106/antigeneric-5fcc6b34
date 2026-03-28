@@ -1,0 +1,1 @@
+ALTER TABLE public.thumbnail_submissions ADD COLUMN telegram_message_id bigint;

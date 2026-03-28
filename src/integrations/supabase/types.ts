@@ -151,6 +151,7 @@ export type Database = {
           id: string
           result_image_url: string | null
           status: string
+          telegram_message_id: number | null
           thumbnail_image_url: string | null
           title: string
           user_email: string | null
@@ -162,6 +163,7 @@ export type Database = {
           id?: string
           result_image_url?: string | null
           status?: string
+          telegram_message_id?: number | null
           thumbnail_image_url?: string | null
           title: string
           user_email?: string | null
@@ -173,6 +175,7 @@ export type Database = {
           id?: string
           result_image_url?: string | null
           status?: string
+          telegram_message_id?: number | null
           thumbnail_image_url?: string | null
           title?: string
           user_email?: string | null
