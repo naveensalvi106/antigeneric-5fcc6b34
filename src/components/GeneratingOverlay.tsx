@@ -313,26 +313,52 @@ const GeneratingOverlay = ({ isVisible, onComplete, submissionDetails }: Generat
             })}
           </div>
 
-          {/* CTA */}
+          {/* CTA section */}
           <motion.div
             className="mt-6"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1 }}
           >
-            <Button
-              variant="nuclear"
-              className="w-full"
-              onClick={() => {
-                onComplete();
-                navigate("/dashboard");
-              }}
-            >
-              Check Dashboard
-            </Button>
-            <p className="text-center text-[10px] text-muted-foreground/50 mt-2">
-              You can close this — we'll notify you when it's ready
-            </p>
+            {allDone ? (
+              <div className="space-y-3">
+                <div className="p-4 rounded-2xl bg-primary/5 border border-primary/15 text-center">
+                  <PartyPopper className="w-8 h-8 text-primary mx-auto mb-2" />
+                  <h3 className="font-display font-bold text-foreground text-sm mb-1">
+                    Generation Complete!
+                  </h3>
+                  <p className="text-xs text-muted-foreground leading-relaxed">
+                    Your thumbnail is ready. Refresh your dashboard or check your <span className="text-foreground font-medium">Gmail inbox</span> to see it.
+                  </p>
+                </div>
+                <Button
+                  variant="nuclear"
+                  className="w-full"
+                  onClick={() => {
+                    onComplete();
+                    navigate("/dashboard");
+                  }}
+                >
+                  <RefreshCw size={16} className="mr-2" /> Refresh & Check Dashboard
+                </Button>
+              </div>
+            ) : (
+              <>
+                <Button
+                  variant="nuclear"
+                  className="w-full"
+                  onClick={() => {
+                    onComplete();
+                    navigate("/dashboard");
+                  }}
+                >
+                  Check Dashboard
+                </Button>
+                <p className="text-center text-[10px] text-muted-foreground/50 mt-2">
+                  You can close this — we'll notify you when it's ready
+                </p>
+              </>
+            )}
           </motion.div>
         </motion.div>
       </div>
