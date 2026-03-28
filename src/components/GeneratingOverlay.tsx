@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   Search, Wand2, LayoutGrid, UserCheck, ArrowUpCircle, Sparkles,
-  Clock, CheckCircle2, Circle, Image, FileText
+  Clock, CheckCircle2, Circle, Image, FileText, PartyPopper, RefreshCw
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
