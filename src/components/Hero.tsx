@@ -203,16 +203,22 @@ const Hero = () => {
           >
             <div className="space-y-4">
               {/* Title Input */}
-              <div className="relative">
-                <FileText size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
-                <input
-                  type="text"
-placeholder="Video title..."
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                  disabled={isSubmitting}
-                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-background/50 border border-border text-foreground placeholder:text-muted-foreground/50 text-sm focus:outline-none focus:border-primary/40 transition-colors disabled:opacity-50"
-                />
+              <div>
+                <div className="relative">
+                  <FileText size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+                  <input
+                    type="text"
+                    placeholder="Video title..."
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value.slice(0, 80))}
+                    maxLength={80}
+                    disabled={isSubmitting}
+                    className="w-full pl-10 pr-4 py-3 rounded-xl bg-background/50 border border-border text-foreground placeholder:text-muted-foreground/50 text-sm focus:outline-none focus:border-primary/40 transition-colors disabled:opacity-50"
+                  />
+                </div>
+                {title.length >= 80 && (
+                  <p className="text-xs text-destructive mt-1">Title limit reached (80 characters max)</p>
+                )}
               </div>
 
               {/* Upload Row */}
@@ -263,15 +269,20 @@ placeholder="Video title..."
               </div>
 
               {/* Description */}
-              <input
-                type="text"
-                placeholder="Describe topic in one line..."
-                value={description}
-                onChange={(e) => setDescription(e.target.value.slice(0, 100))}
-                maxLength={100}
-                disabled={isSubmitting}
-                className="w-full px-4 py-3 rounded-xl bg-background/50 border border-border text-foreground placeholder:text-muted-foreground/50 text-sm focus:outline-none focus:border-primary/40 transition-colors disabled:opacity-50"
-              />
+              <div>
+                <input
+                  type="text"
+                  placeholder="Describe topic in one line..."
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value.slice(0, 100))}
+                  maxLength={100}
+                  disabled={isSubmitting}
+                  className="w-full px-4 py-3 rounded-xl bg-background/50 border border-border text-foreground placeholder:text-muted-foreground/50 text-sm focus:outline-none focus:border-primary/40 transition-colors disabled:opacity-50"
+                />
+                {description.length >= 100 && (
+                  <p className="text-xs text-destructive mt-1">Description limit reached (100 characters max)</p>
+                )}
+              </div>
             </div>
 
             {/* Generate Button */}
