@@ -553,6 +553,7 @@ const Dashboard = () => {
           ? Math.min(Math.floor((Date.now() - new Date(selectedPending.created_at).getTime()) / 1000), 600)
           : 0
         }
+        showCloseButton={true}
       />
     </div>
   );

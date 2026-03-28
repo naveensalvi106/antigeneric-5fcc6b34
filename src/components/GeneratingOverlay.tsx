@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   Search, Wand2, LayoutGrid, UserCheck, ArrowUpCircle, Sparkles,
-  Clock, CheckCircle2, Circle, Image, FileText, PartyPopper, RefreshCw
+  Clock, CheckCircle2, Circle, Image, FileText, PartyPopper, RefreshCw, X
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -19,6 +19,7 @@ interface GeneratingOverlayProps {
   onComplete: () => void;
   submissionDetails?: SubmissionDetails;
   initialElapsedSeconds?: number;
+  showCloseButton?: boolean;
 }
 
 const STEPS = [
@@ -65,18 +66,22 @@ const TOTAL_DURATION = 10 * 60; // 10 minutes in seconds
 // Step completion times in seconds (spread across 10 minutes)
 const STEP_TIMES = [90, 180, 300, 420, 510, 580]; // ~1.5, 3, 5, 7, 8.5, ~9.7 min
 
-const GeneratingOverlay = ({ isVisible, onComplete, submissionDetails, initialElapsedSeconds = 0 }: GeneratingOverlayProps) => {
+const GeneratingOverlay = ({ isVisible, onComplete, submissionDetails, initialElapsedSeconds = 0, showCloseButton = false }: GeneratingOverlayProps) => {
   const navigate = useNavigate();
   const [elapsedSeconds, setElapsedSeconds] = useState(initialElapsedSeconds);
   const [completedSteps, setCompletedSteps] = useState<number[]>([]);
   const [activeStep, setActiveStep] = useState(0);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
+  // Sync initialElapsedSeconds when it changes (e.g. reopening from dashboard)
+  useEffect(() => {
+    if (isVisible) {
+      setElapsedSeconds(initialElapsedSeconds);
+    }
+  }, [isVisible, initialElapsedSeconds]);
+
   useEffect(() => {
     if (!isVisible) {
-      setElapsedSeconds(initialElapsedSeconds);
-      setCompletedSteps([]);
-      setActiveStep(0);
       if (timerRef.current) clearInterval(timerRef.current);
       return;
     }
@@ -135,11 +140,20 @@ const GeneratingOverlay = ({ isVisible, onComplete, submissionDetails, initialEl
     >
       <div className="w-full max-w-2xl mx-4 max-h-[90vh] overflow-y-auto scrollbar-none">
         <motion.div
-          className="p-6 sm:p-8 rounded-3xl card-nuclear border border-primary/20 shadow-2xl"
+          className="relative p-6 sm:p-8 rounded-3xl card-nuclear border border-primary/20 shadow-2xl"
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 0.1, type: "spring", stiffness: 200 }}
         >
+          {/* Close button */}
+          {showCloseButton && (
+            <button
+              onClick={onComplete}
+              className="absolute top-4 right-4 z-10 w-8 h-8 rounded-full bg-muted/50 hover:bg-muted flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
+            >
+              <X size={16} />
+            </button>
+          )}
           {/* Submission Details */}
           {submissionDetails && (
             <motion.div
