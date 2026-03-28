@@ -208,7 +208,6 @@ const Hero = () => {
                 <input
                   type="text"
 placeholder="Video title..."
-                  style={{ color: 'white' }}
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                   disabled={isSubmitting}
