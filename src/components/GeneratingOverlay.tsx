@@ -18,6 +18,7 @@ interface GeneratingOverlayProps {
   isVisible: boolean;
   onComplete: () => void;
   submissionDetails?: SubmissionDetails;
+  initialElapsedSeconds?: number;
 }
 
 const STEPS = [
@@ -64,16 +65,16 @@ const TOTAL_DURATION = 10 * 60; // 10 minutes in seconds
 // Step completion times in seconds (spread across 10 minutes)
 const STEP_TIMES = [90, 180, 300, 420, 510, 580]; // ~1.5, 3, 5, 7, 8.5, ~9.7 min
 
-const GeneratingOverlay = ({ isVisible, onComplete, submissionDetails }: GeneratingOverlayProps) => {
+const GeneratingOverlay = ({ isVisible, onComplete, submissionDetails, initialElapsedSeconds = 0 }: GeneratingOverlayProps) => {
   const navigate = useNavigate();
-  const [elapsedSeconds, setElapsedSeconds] = useState(0);
+  const [elapsedSeconds, setElapsedSeconds] = useState(initialElapsedSeconds);
   const [completedSteps, setCompletedSteps] = useState<number[]>([]);
   const [activeStep, setActiveStep] = useState(0);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
     if (!isVisible) {
-      setElapsedSeconds(0);
+      setElapsedSeconds(initialElapsedSeconds);
       setCompletedSteps([]);
       setActiveStep(0);
       if (timerRef.current) clearInterval(timerRef.current);
