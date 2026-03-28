@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Loader2, Download, Clock, CheckCircle, AlertCircle,
   Image as ImageIcon, Inbox, History, User, LogOut, Home, Sparkles,
+  RefreshCw, Mail, X, PartyPopper,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
