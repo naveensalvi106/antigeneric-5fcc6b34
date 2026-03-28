@@ -288,7 +288,7 @@ const Dashboard = () => {
                           <div className="min-w-0 flex-1">
                             <h3 className="font-display font-semibold text-foreground text-base truncate">{sub.title}</h3>
                             <p className="text-xs text-muted-foreground mt-0.5">
-                              {timeAgo(sub.created_at)} • Generating...
+                              {formatDateTime(sub.created_at)} • Generating...
                             </p>
                           </div>
                           <div className="flex items-center gap-2 shrink-0">
