@@ -351,8 +351,8 @@ const Admin = () => {
                       )}
                     </div>
 
-                    {/* Upload result button */}
-                    <div className="flex items-center gap-3">
+                    {/* Upload result & Delete buttons */}
+                    <div className="flex items-center gap-3 flex-wrap">
                       <Button
                         variant="nuclear"
                         size="sm"
@@ -365,6 +365,52 @@ const Admin = () => {
                           <><Upload size={14} className="mr-1" /> {sub.result_image_url ? "Replace Result" : "Upload Result"}</>
                         )}
                       </Button>
+                      {sub.status === "pending" && (
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="border-destructive/30 text-destructive hover:bg-destructive/10"
+                          onClick={async (e) => {
+                            e.stopPropagation();
+                            if (!confirm("Reject this submission? The user will be notified and their credit will be refunded.")) return;
+                            try {
+                              // Refund the credit
+                              if (sub.user_email) {
+                                await supabase.rpc("add_credits_by_email" as any, {
+                                  p_email: sub.user_email,
+                                  p_credits: 1,
+                                });
+                              }
+                              // Delete the submission
+                              const { error } = await supabase
+                                .from("thumbnail_submissions")
+                                .delete()
+                                .eq("id", sub.id);
+                              if (error) throw error;
+
+                              // Notify user via email
+                              if (sub.user_email) {
+                                await supabase.functions.invoke("send-transactional-email", {
+                                  body: {
+                                    templateName: "submission-rejected",
+                                    recipientEmail: sub.user_email,
+                                    idempotencyKey: `rejected-${sub.id}`,
+                                    templateData: { title: sub.title },
+                                  },
+                                });
+                              }
+
+                              toast.success("Submission rejected, credit refunded & user notified");
+                              setSelectedSubmission(null);
+                              await loadSubmissions();
+                            } catch (err: any) {
+                              toast.error("Failed: " + (err.message || "Unknown error"));
+                            }
+                          }}
+                        >
+                          <Trash2 size={14} className="mr-1" /> Reject & Refund
+                        </Button>
+                      )}
                       <p className="text-xs text-muted-foreground/60">ID: {sub.id}</p>
                     </div>
                   </motion.div>
