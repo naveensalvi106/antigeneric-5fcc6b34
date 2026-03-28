@@ -368,7 +368,8 @@ const Dashboard = () => {
                   submissions.map((sub, i) => (
                     <motion.div
                       key={sub.id}
-                      className="p-4 rounded-xl card-nuclear border border-primary/10"
+                      className={`p-4 rounded-xl card-nuclear border border-primary/10 ${sub.status === "pending" ? "cursor-pointer hover:border-primary/30" : ""}`}
+                      onClick={() => sub.status === "pending" && setSelectedPending(sub)}
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: i * 0.05 }}
