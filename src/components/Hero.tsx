@@ -22,6 +22,7 @@ const Hero = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [showGenerating, setShowGenerating] = useState(false);
+  const [lastSubmissionId, setLastSubmissionId] = useState<string | null>(null);
   const [user, setUser] = useState<any>(null);
   const imageInputRef = useRef<HTMLInputElement>(null);
   const faceInputRef = useRef<HTMLInputElement>(null);
@@ -100,6 +101,7 @@ const Hero = () => {
 
       // Insert submission into database
       const submissionId = crypto.randomUUID();
+      setLastSubmissionId(submissionId);
       const { error: insertError } = await supabase
         .from('thumbnail_submissions')
         .insert({
@@ -334,6 +336,7 @@ const Hero = () => {
           hasReferenceImage: !!thumbnailImage,
           hasFaceImage: !!faceImage,
         }}
+        submissionId={lastSubmissionId || undefined}
       />
     </section>
   );
