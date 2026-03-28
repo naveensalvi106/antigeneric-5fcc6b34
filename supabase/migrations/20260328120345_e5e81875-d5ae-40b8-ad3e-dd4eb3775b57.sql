@@ -1,0 +1,1 @@
+ALTER TABLE public.thumbnail_submissions REPLICA IDENTITY FULL;
