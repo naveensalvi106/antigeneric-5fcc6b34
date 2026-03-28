@@ -267,59 +267,85 @@ const Dashboard = () => {
             {/* Inbox - shows completed thumbnails ready to download */}
             {activeTab === "inbox" && (
               <div className="space-y-3">
-                {completedSubmissions.length === 0 ? (
+                {submissions.length === 0 ? (
                   <EmptyState
                     icon={Inbox}
-                    title="No thumbnails ready yet"
+                    title="No thumbnails yet"
                     description="When your thumbnails are completed, they'll appear here for download."
                   />
                 ) : (
-                  completedSubmissions.map((sub, i) => (
-                    <motion.div
-                      key={sub.id}
-                      className="rounded-2xl card-nuclear border border-primary/15 hover:border-primary/30 transition-all duration-300 overflow-hidden"
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: i * 0.05 }}
-                    >
-                      {/* Full-width thumbnail preview */}
-                      {sub.result_image_url && (
-                        <div className="relative group">
-                          <div className="aspect-video w-full overflow-hidden bg-secondary/30">
-                            <img
-                              src={sub.result_image_url}
-                              alt={sub.title}
-                              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                            />
+                  <>
+                    {/* Pending submissions in inbox */}
+                    {pendingSubmissions.map((sub, i) => (
+                      <motion.div
+                        key={sub.id}
+                        className="rounded-2xl card-nuclear border border-yellow-500/20 hover:border-yellow-500/40 transition-all duration-300 overflow-hidden cursor-pointer"
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: i * 0.05 }}
+                        onClick={() => setSelectedPending(sub)}
+                      >
+                        <div className="p-4 flex items-center justify-between gap-3">
+                          <div className="min-w-0 flex-1">
+                            <h3 className="font-display font-semibold text-foreground text-base truncate">{sub.title}</h3>
+                            <p className="text-xs text-muted-foreground mt-0.5">
+                              {timeAgo(sub.created_at)} • Generating...
+                            </p>
                           </div>
-                          {/* Gradient overlay */}
-                          <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                        </div>
-                      )}
-
-                      {/* Info bar */}
-                      <div className="p-4 flex items-center justify-between gap-3">
-                        <div className="min-w-0 flex-1">
-                          <h3 className="font-display font-semibold text-foreground text-base truncate">{sub.title}</h3>
-                          <p className="text-xs text-muted-foreground mt-0.5">
-                            {timeAgo(sub.created_at)} • 4K Resolution
-                          </p>
-                        </div>
-                        <div className="flex items-center gap-2 shrink-0">
-                          {getStatusBadge(sub.status)}
-                          {sub.result_image_url && (
-                            <Button
-                              variant="nuclear"
-                              size="default"
-                              onClick={() => handleDownload(sub.result_image_url!, sub.title)}
-                            >
-                              <Download size={16} className="mr-2" /> Download 4K
+                          <div className="flex items-center gap-2 shrink-0">
+                            {getStatusBadge(sub.status)}
+                            <Button variant="outline" size="sm">
+                              <Clock size={14} className="mr-1" /> View Progress
                             </Button>
-                          )}
+                          </div>
                         </div>
-                      </div>
-                    </motion.div>
-                  ))
+                      </motion.div>
+                    ))}
+
+                    {/* Completed submissions */}
+                    {completedSubmissions.map((sub, i) => (
+                      <motion.div
+                        key={sub.id}
+                        className="rounded-2xl card-nuclear border border-primary/15 hover:border-primary/30 transition-all duration-300 overflow-hidden"
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: (pendingSubmissions.length + i) * 0.05 }}
+                      >
+                        {sub.result_image_url && (
+                          <div className="relative group">
+                            <div className="aspect-video w-full overflow-hidden bg-secondary/30">
+                              <img
+                                src={sub.result_image_url}
+                                alt={sub.title}
+                                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                              />
+                            </div>
+                            <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                          </div>
+                        )}
+                        <div className="p-4 flex items-center justify-between gap-3">
+                          <div className="min-w-0 flex-1">
+                            <h3 className="font-display font-semibold text-foreground text-base truncate">{sub.title}</h3>
+                            <p className="text-xs text-muted-foreground mt-0.5">
+                              {timeAgo(sub.created_at)} • 4K Resolution
+                            </p>
+                          </div>
+                          <div className="flex items-center gap-2 shrink-0">
+                            {getStatusBadge(sub.status)}
+                            {sub.result_image_url && (
+                              <Button
+                                variant="nuclear"
+                                size="default"
+                                onClick={() => handleDownload(sub.result_image_url!, sub.title)}
+                              >
+                                <Download size={16} className="mr-2" /> Download 4K
+                              </Button>
+                            )}
+                          </div>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </>
                 )}
               </div>
             )}
