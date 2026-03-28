@@ -326,7 +326,7 @@ const GeneratingOverlay = ({ isVisible, onComplete, submissionDetails, initialEl
                   <div className="absolute inset-0 flex flex-col items-center justify-center">
                     {!allDone ? (
                       <>
-                        <span className="font-display font-extrabold text-3xl gradient-text">
+                        <span className="font-display font-extrabold text-2xl sm:text-3xl gradient-text">
                           {Math.round(progress)}%
                         </span>
                         <span className="text-[10px] text-muted-foreground/60 uppercase tracking-widest mt-1">
