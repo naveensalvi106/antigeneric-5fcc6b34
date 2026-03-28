@@ -29,6 +29,8 @@ const Dashboard = () => {
   const [user, setUser] = useState<any>(null);
   const [activeTab, setActiveTab] = useState<Tab>("inbox");
   const [credits, setCredits] = useState<number>(0);
+  const [showReadyPopup, setShowReadyPopup] = useState(false);
+  const [readyTitle, setReadyTitle] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
