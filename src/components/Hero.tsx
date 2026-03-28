@@ -258,7 +258,7 @@ const Hero = () => {
 
               {/* Description */}
               <textarea
-                placeholder="Describe how you want thumbnail to look in one line..."
+                placeholder="Describe topic in one line..."
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 rows={3}
