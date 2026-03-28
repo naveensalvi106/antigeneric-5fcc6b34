@@ -186,6 +186,14 @@ const Navbar = () => {
                   <LayoutDashboard size={16} /> Dashboard
                 </button>
               )}
+              {isAdmin && (
+                <button
+                  onClick={() => { navigate("/admin"); setMobileOpen(false); }}
+                  className="px-4 py-3 text-sm text-muted-foreground font-medium rounded-lg hover:bg-primary/5 hover:text-foreground transition-colors text-left flex items-center gap-2"
+                >
+                  <Shield size={14} /> Admin
+                </button>
+              )}
               <a
                 href={user ? "#pricing" : "/login"}
                 onClick={(e) => { if (!user) { e.preventDefault(); navigate("/login"); setMobileOpen(false); } }}
