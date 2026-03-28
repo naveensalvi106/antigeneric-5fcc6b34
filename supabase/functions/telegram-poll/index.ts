@@ -153,11 +153,11 @@ Deno.serve(async () => {
                   "Authorization": `Bearer ${supabaseServiceKey}`,
                 },
                 body: JSON.stringify({
-                  to: submission.user_email,
-                  template: "result-ready",
-                  data: {
+                  templateName: "result-ready",
+                  recipientEmail: submission.user_email,
+                  templateData: {
                     title: submission.title,
-                    resultUrl: publicUrl,
+                    resultImageUrl: publicUrl,
                   },
                 }),
               });
