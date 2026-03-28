@@ -19,6 +19,7 @@ interface GeneratingOverlayProps {
   onComplete: () => void;
   submissionDetails?: SubmissionDetails;
   initialElapsedSeconds?: number;
+  showCloseButton?: boolean;
 }
 
 const STEPS = [
