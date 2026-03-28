@@ -45,6 +45,37 @@ const Dashboard = () => {
     });
   }, []);
 
+  // Realtime: listen for completed thumbnails
+  useEffect(() => {
+    const channel = supabase
+      .channel("submission-updates")
+      .on(
+        "postgres_changes",
+        {
+          event: "UPDATE",
+          schema: "public",
+          table: "thumbnail_submissions",
+        },
+        (payload: any) => {
+          const updated = payload.new as Submission;
+          if (updated.status === "completed" && updated.result_image_url) {
+            // Update local state
+            setSubmissions((prev) =>
+              prev.map((s) => (s.id === updated.id ? updated : s))
+            );
+            // Show popup
+            setReadyTitle(updated.title);
+            setShowReadyPopup(true);
+          }
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, []);
+
   const loadSubmissions = async () => {
     setLoading(true);
     const { data, error } = await supabase
