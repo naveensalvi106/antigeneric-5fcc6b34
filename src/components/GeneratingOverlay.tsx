@@ -335,7 +335,7 @@ const GeneratingOverlay = ({ isVisible, onComplete, submissionDetails, initialEl
                       </>
                     ) : (
                       <>
-                        <CheckCircle2 className="w-10 h-10 text-green-400 mb-1" />
+                        <CheckCircle2 className="w-8 h-8 sm:w-10 sm:h-10 text-green-400 mb-1" />
                         <span className="text-xs text-green-400 font-semibold">Complete</span>
                       </>
                     )}
