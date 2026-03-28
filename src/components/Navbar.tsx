@@ -168,7 +168,7 @@ const Navbar = () => {
             className="md:hidden bg-background/95 backdrop-blur-xl border-b border-border overflow-hidden relative z-50"
           >
             <nav className="flex flex-col p-4 gap-1">
-              {NAV_LINKS.map((link) => (
+            {NAV_LINKS.map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
@@ -178,6 +178,14 @@ const Navbar = () => {
                   {link.label}
                 </a>
               ))}
+              {isAdmin && (
+                <button
+                  onClick={() => { navigate("/admin"); setMobileOpen(false); }}
+                  className="px-4 py-3 text-sm text-muted-foreground font-medium rounded-lg hover:bg-primary/5 hover:text-foreground transition-colors text-left flex items-center gap-2"
+                >
+                  <Shield size={16} /> Admin Panel
+                </button>
+              )}
               {user && (
                 <button
                   onClick={() => { navigate("/dashboard"); setMobileOpen(false); }}
@@ -186,22 +194,13 @@ const Navbar = () => {
                   <LayoutDashboard size={16} /> Dashboard
                 </button>
               )}
-              {isAdmin ? (
-                <button
-                  onClick={() => { navigate("/admin"); setMobileOpen(false); }}
-                  className="mt-2 w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg text-sm font-semibold font-display tracking-tight text-primary-foreground bg-gradient-to-b from-[hsl(210,100%,70%)] via-[hsl(217,91%,55%)] to-[hsl(220,90%,45%)] border border-white/20 shadow-[0_0_25px_-5px_hsl(217_91%_60%/0.5),inset_0_1px_0_rgba(255,255,255,0.3),inset_0_-1px_0_rgba(0,0,0,0.2)]"
-                >
-                  <Shield size={16} /> Admin Panel
-                </button>
-              ) : (
-                <a
-                  href={user ? "#pricing" : "/login"}
-                  onClick={(e) => { if (!user) { e.preventDefault(); navigate("/login"); setMobileOpen(false); } }}
-                  className="mt-2"
-                >
-                  <Button variant="nuclear" className="w-full">{user ? "Try Free" : "Login"}</Button>
-                </a>
-              )}
+              <a
+                href={user ? "#pricing" : "/login"}
+                onClick={(e) => { if (!user) { e.preventDefault(); navigate("/login"); setMobileOpen(false); } }}
+                className="mt-2"
+              >
+                <Button variant="nuclear" className="w-full">{user ? "Try Free" : "Login"}</Button>
+              </a>
             </nav>
           </motion.div>
         )}
