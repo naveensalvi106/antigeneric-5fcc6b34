@@ -94,7 +94,23 @@ const Admin = () => {
 
       if (updateError) throw updateError;
 
-      toast.success("Thumbnail uploaded & marked as completed!");
+      // Find submission to get user email and title
+      const sub = submissions.find(s => s.id === submissionId);
+      if (sub?.user_email) {
+        await supabase.functions.invoke('send-transactional-email', {
+          body: {
+            templateName: 'result-ready',
+            recipientEmail: sub.user_email,
+            idempotencyKey: `result-ready-${submissionId}`,
+            templateData: {
+              title: sub.title,
+              resultImageUrl: urlData.publicUrl,
+            },
+          },
+        });
+      }
+
+      toast.success("Thumbnail uploaded & email sent to user!");
       await loadSubmissions();
     } catch (err: any) {
       toast.error("Upload failed: " + (err.message || "Unknown error"));

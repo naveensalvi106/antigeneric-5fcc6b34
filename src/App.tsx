@@ -10,6 +10,7 @@ import Login from "./pages/Login.tsx";
 import OAuthCallback from "./pages/OAuthCallback.tsx";
 import Admin from "./pages/Admin.tsx";
 import Dashboard from "./pages/Dashboard.tsx";
+import Unsubscribe from "./pages/Unsubscribe.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -28,6 +29,7 @@ const App = () => (
           <Route path="/~oauth" element={<OAuthCallback />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/unsubscribe" element={<Unsubscribe />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
