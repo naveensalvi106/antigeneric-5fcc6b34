@@ -222,17 +222,20 @@ placeholder="Video title..."
                   type="button"
                   onClick={() => imageInputRef.current?.click()}
                   disabled={isSubmitting}
-                  className="flex items-center gap-3 px-4 py-3 rounded-xl bg-background/50 border border-border hover:border-primary/30 transition-colors text-left disabled:opacity-50"
+                  className="group relative flex items-center gap-3 px-4 py-4 rounded-xl bg-primary/5 border-2 border-dashed border-primary/30 hover:border-primary/60 hover:bg-primary/10 transition-all duration-300 text-left disabled:opacity-50"
                 >
-                  <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                    <Upload size={16} className="text-primary" />
+                  <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                    <Upload size={18} className="text-primary" />
                   </div>
                   <div className="min-w-0">
-                    <p className="text-xs font-medium text-foreground truncate">
-                      {thumbnailImage ? thumbnailImage.name : "Upload Image"}
+                    <p className="text-sm font-semibold text-foreground truncate">
+                      {thumbnailImage ? thumbnailImage.name : "Upload Reference Image"}
                     </p>
-                    <p className="text-[10px] text-muted-foreground">Optional</p>
+                    <p className="text-[11px] text-muted-foreground">Add a style reference (optional)</p>
                   </div>
+                  {thumbnailImage && (
+                    <CheckCircle size={16} className="text-green-400 ml-auto shrink-0" />
+                  )}
                 </button>
                 <input ref={imageInputRef} type="file" accept="image/*" className="hidden" onChange={(e) => handleImageUpload(e, "thumbnail")} />
 
@@ -241,17 +244,20 @@ placeholder="Video title..."
                   type="button"
                   onClick={() => faceInputRef.current?.click()}
                   disabled={isSubmitting}
-                  className="flex items-center gap-3 px-4 py-3 rounded-xl bg-background/50 border border-border hover:border-primary/30 transition-colors text-left disabled:opacity-50"
+                  className="group relative flex items-center gap-3 px-4 py-4 rounded-xl bg-primary/5 border-2 border-dashed border-primary/30 hover:border-primary/60 hover:bg-primary/10 transition-all duration-300 text-left disabled:opacity-50"
                 >
-                  <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                    <User size={16} className="text-primary" />
+                  <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                    <User size={18} className="text-primary" />
                   </div>
                   <div className="min-w-0">
-                    <p className="text-xs font-medium text-foreground truncate">
-                      {faceImage ? faceImage.name : "Face Reaction"}
+                    <p className="text-sm font-semibold text-foreground truncate">
+                      {faceImage ? faceImage.name : "Upload Your Face"}
                     </p>
-                    <p className="text-[10px] text-muted-foreground">Optional</p>
+                    <p className="text-[11px] text-muted-foreground">For face reaction shots (optional)</p>
                   </div>
+                  {faceImage && (
+                    <CheckCircle size={16} className="text-green-400 ml-auto shrink-0" />
+                  )}
                 </button>
                 <input ref={faceInputRef} type="file" accept="image/*" className="hidden" onChange={(e) => handleImageUpload(e, "face")} />
               </div>
