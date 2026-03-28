@@ -325,7 +325,16 @@ const Hero = () => {
         </motion.div>
       </div>
 
-      <GeneratingOverlay isVisible={showGenerating} onComplete={handleGeneratingComplete} />
+      <GeneratingOverlay
+        isVisible={showGenerating}
+        onComplete={handleGeneratingComplete}
+        submissionDetails={{
+          title: title,
+          description: description || undefined,
+          hasReferenceImage: !!thumbnailImage,
+          hasFaceImage: !!faceImage,
+        }}
+      />
     </section>
   );
 };
