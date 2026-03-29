@@ -327,7 +327,7 @@ const Hero = () => {
           >
             <a href="/examples">
               <Button variant="nuclear" size="xl" className="w-full max-w-2xl">
-                See Examples
+                Community Works
               </Button>
             </a>
           </motion.div>
