@@ -23,6 +23,7 @@ const UPI_ID = "9358935758@ibl";
 
 const PAYPAL_HOSTED_BUTTON_IDS: Record<string, string> = {
   Pro: "MQ9GDB6QXPLAN",
+  Agency: "CD5VXXWGZEFY2",
 };
 
 type PaymentStep = "choose" | "paypal" | "upi" | "upload";
