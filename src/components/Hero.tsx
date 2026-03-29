@@ -79,10 +79,7 @@ const Hero = () => {
   const handleSubmit = async () => {
     if (!user) {
       // Save form data before redirecting to login
-      sessionStorage.setItem("hero-form-draft", JSON.stringify({
-        title,
-        description,
-      }));
+      sessionStorage.setItem("hero-form-draft", JSON.stringify({ title }));
       navigate("/login");
       return;
     }
