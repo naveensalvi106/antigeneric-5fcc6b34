@@ -290,21 +290,6 @@ const Hero = () => {
                 <input ref={faceInputRef} type="file" accept="image/*" className="hidden" onChange={(e) => handleImageUpload(e, "face")} />
               </div>
 
-              {/* Description */}
-              <div>
-                <input
-                  type="text"
-                  placeholder="Describe topic in one line..."
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value.slice(0, 100))}
-                  maxLength={100}
-                  disabled={isSubmitting}
-                  className="w-full px-4 py-3 rounded-xl bg-background/50 border border-border text-foreground placeholder:text-muted-foreground/50 text-sm focus:outline-none focus:border-primary/40 transition-colors disabled:opacity-50"
-                />
-                {description.length >= 100 && (
-                  <p className="text-xs text-destructive mt-1">Description limit reached (100 characters max)</p>
-                )}
-              </div>
             </div>
 
             {/* Generate Button */}
