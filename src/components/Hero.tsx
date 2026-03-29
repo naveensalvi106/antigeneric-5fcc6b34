@@ -357,7 +357,7 @@ const Hero = () => {
         onComplete={handleGeneratingComplete}
         submissionDetails={{
           title: title,
-          description: description || undefined,
+          description: undefined,
           hasReferenceImage: !!thumbnailImage,
           hasFaceImage: !!faceImage,
         }}
