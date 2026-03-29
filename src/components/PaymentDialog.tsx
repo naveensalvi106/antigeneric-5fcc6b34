@@ -153,18 +153,20 @@ const PaymentDialog = ({ open, onOpenChange, planName, price, paypalLink }: Paym
             <DialogTitle className="font-display text-xl text-foreground flex items-center gap-2">
               {step !== "choose" && (
                 <button
-                  onClick={() => setStep(step === "upload" ? "upi" : "choose")}
+                  onClick={() => setStep(step === "upload" ? "upi" : step === "paypal" ? "choose" : "choose")}
                   className="w-7 h-7 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 transition-colors"
                 >
                   <ArrowLeft size={14} />
                 </button>
               )}
               {step === "choose" && `Pay for ${planName} Plan`}
+              {step === "paypal" && "Pay with PayPal"}
               {step === "upi" && "Scan & Pay via UPI"}
               {step === "upload" && "Upload Payment Proof"}
             </DialogTitle>
             <DialogDescription className="text-muted-foreground">
               {step === "choose" && `Choose your preferred payment method — ${price} / ₹${upiAmount}`}
+              {step === "paypal" && `Complete your payment of ${price} via PayPal`}
               {step === "upi" && `Scan the QR code or copy UPI ID to pay ₹${upiAmount}`}
               {step === "upload" && "Upload a screenshot of your successful payment"}
             </DialogDescription>
