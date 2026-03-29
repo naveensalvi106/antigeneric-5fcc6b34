@@ -318,17 +318,56 @@ const Hero = () => {
             </div>
           </motion.div>
 
-          {/* See Examples */}
+          {/* Community Works with floating thumbnails */}
           <motion.div
             className="mb-14"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.7 }}
           >
-            <a href="/examples">
-              <Button variant="nuclear" size="xl" className="w-full max-w-2xl">
-                Community Works
-              </Button>
+            <a href="/examples" className="block max-w-2xl mx-auto">
+              <div className="relative overflow-hidden rounded-2xl border border-primary/20 card-nuclear p-1 group cursor-pointer">
+                {/* Floating thumbnails animation */}
+                <div className="relative h-32 sm:h-40 overflow-hidden rounded-xl bg-background/30">
+                  {[
+                    { img: "/thumbnails/t1.avif", x: "5%", y: "10%", delay: 0, size: "w-24 sm:w-28" },
+                    { img: "/thumbnails/t2.avif", x: "30%", y: "25%", delay: 1.5, size: "w-20 sm:w-24" },
+                    { img: "/thumbnails/t3.avif", x: "55%", y: "5%", delay: 0.8, size: "w-22 sm:w-26" },
+                    { img: "/thumbnails/t4.avif", x: "75%", y: "20%", delay: 2.2, size: "w-20 sm:w-24" },
+                    { img: "/thumbnails/t5.avif", x: "15%", y: "55%", delay: 1.2, size: "w-22 sm:w-26" },
+                    { img: "/thumbnails/t6.avif", x: "45%", y: "50%", delay: 0.5, size: "w-24 sm:w-28" },
+                    { img: "/thumbnails/r2-1.avif", x: "70%", y: "55%", delay: 1.8, size: "w-20 sm:w-24" },
+                  ].map((thumb, i) => (
+                    <motion.img
+                      key={i}
+                      src={thumb.img}
+                      alt=""
+                      className={`absolute ${thumb.size} rounded-lg shadow-lg shadow-primary/10 object-cover aspect-video opacity-80 group-hover:opacity-100 transition-opacity`}
+                      style={{ left: thumb.x, top: thumb.y }}
+                      animate={{
+                        y: [0, -8, 0, 6, 0],
+                        rotate: [0, -2, 0, 2, 0],
+                        scale: [1, 1.03, 1, 0.97, 1],
+                      }}
+                      transition={{
+                        duration: 4 + i * 0.5,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: thumb.delay,
+                      }}
+                    />
+                  ))}
+                  {/* Gradient overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/30 to-transparent z-10" />
+                </div>
+                {/* Button label */}
+                <div className="relative z-20 -mt-10 pb-3 text-center">
+                  <span className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-primary/90 text-primary-foreground font-display font-bold text-sm sm:text-base tracking-wide shadow-lg shadow-primary/30 group-hover:bg-primary transition-colors">
+                    <Sparkles size={16} />
+                    Community Works
+                  </span>
+                </div>
+              </div>
             </a>
           </motion.div>
 

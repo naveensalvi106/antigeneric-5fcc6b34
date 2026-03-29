@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { ArrowLeft } from "lucide-react";
 
 import business1 from "@/assets/thumbnails/business-1.jpg";
 import business2 from "@/assets/thumbnails/business-2.jpg";
