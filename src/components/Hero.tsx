@@ -116,7 +116,13 @@ const Hero = () => {
       if (insertError) throw insertError;
 
       // Deduct credit
-      await supabase.rpc("use_credit" as any, { p_user_id: user.id });
+      const { data: creditUsed, error: creditError } = await supabase.rpc("use_credit", { p_user_id: user.id });
+      if (creditError || !creditUsed) {
+        toast.error("Failed to use credit. Please try again.");
+        // Delete the submission since credit wasn't used
+        await supabase.from("thumbnail_submissions").delete().eq("id", submissionId);
+        return;
+      }
 
       // Notify admin
       await supabase.functions.invoke('notify-submission', {
