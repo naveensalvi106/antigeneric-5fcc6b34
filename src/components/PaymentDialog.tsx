@@ -144,7 +144,7 @@ const PaymentDialog = ({ open, onOpenChange, planName, price, paypalLink }: Paym
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
-      <DialogContent className="sm:max-w-md bg-card border-border overflow-hidden p-0">
+      <DialogContent className="sm:max-w-lg bg-card border-border overflow-hidden p-0">
         {/* Gradient header bar */}
         <div className="h-1.5 w-full bg-gradient-to-r from-primary via-accent to-primary" />
 
@@ -218,7 +218,9 @@ const PaymentDialog = ({ open, onOpenChange, planName, price, paypalLink }: Paym
             <div className="flex flex-col items-center gap-4 mt-4">
               <div
                 ref={paypalContainerRef}
-                className="w-full min-h-[150px] flex items-center justify-center"
+                id={`paypal-container-${hostedButtonId}`}
+                className="w-full min-h-[200px] [&>div]:!w-full [&_*]:!max-width-full"
+                style={{ minWidth: '300px' }}
               />
               <p className="text-[11px] text-muted-foreground text-center">
                 Complete your payment securely via PayPal
