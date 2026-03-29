@@ -35,9 +35,28 @@ const PaymentDialog = ({ open, onOpenChange, planName, price, paypalLink }: Paym
   const [screenshotPreview, setScreenshotPreview] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const paypalContainerRef = useRef<HTMLDivElement>(null);
+
+  const hostedButtonId = PAYPAL_HOSTED_BUTTON_IDS[planName];
+
+  useEffect(() => {
+    if (step === "paypal" && hostedButtonId && paypalContainerRef.current) {
+      paypalContainerRef.current.innerHTML = "";
+      const w = window as any;
+      if (w.paypal?.HostedButtons) {
+        w.paypal.HostedButtons({
+          hostedButtonId,
+        }).render(paypalContainerRef.current);
+      }
+    }
+  }, [step, hostedButtonId]);
 
   const handlePaypal = () => {
-    window.open(paypalLink, "_blank");
+    if (hostedButtonId) {
+      setStep("paypal");
+    } else {
+      window.open(paypalLink, "_blank");
+    }
   };
 
   const copyUpiId = async () => {
