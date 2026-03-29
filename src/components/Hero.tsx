@@ -145,7 +145,7 @@ const Hero = () => {
       await supabase.functions.invoke('notify-submission', {
         body: {
           title: title.trim(),
-          description: description.trim(),
+          description: "",
           thumbnailImageUrl,
           faceImageUrl,
           submissionId,
