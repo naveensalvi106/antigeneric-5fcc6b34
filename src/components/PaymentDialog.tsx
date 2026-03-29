@@ -144,7 +144,7 @@ const PaymentDialog = ({ open, onOpenChange, planName, price, paypalLink }: Paym
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
-      <DialogContent className="sm:max-w-md bg-card border-border overflow-hidden p-0">
+      <DialogContent className="sm:max-w-lg bg-card border-border overflow-hidden p-0">
         {/* Gradient header bar */}
         <div className="h-1.5 w-full bg-gradient-to-r from-primary via-accent to-primary" />
 
