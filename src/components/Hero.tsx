@@ -168,7 +168,6 @@ const Hero = () => {
     toast.success("Your thumbnail is being crafted! We'll notify you when it's ready.");
     // Reset form
     setTitle("");
-    setDescription("");
     setThumbnailImage(null);
     setFaceImage(null);
     setIsSubmitted(false);
