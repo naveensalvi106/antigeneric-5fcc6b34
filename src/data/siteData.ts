@@ -104,7 +104,7 @@ export const PRICING = [
   {
     name: "Pro",
     description: "For creators who need consistent, high-quality thumbnails.",
-    price: "$20",
+    price: "$5",
     per: "one-time",
     features: ["10 credits", "High quality 4K thumbnails", "Topic research for viral design", "No watermark", "Face reaction support", "Download in full resolution"],
     popular: true,
