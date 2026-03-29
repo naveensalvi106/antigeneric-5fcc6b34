@@ -336,39 +336,44 @@ const Hero = () => {
           >
             <a href="/examples" className="block max-w-2xl mx-auto">
               <div className="relative overflow-hidden rounded-2xl border border-primary/20 card-nuclear p-2 group cursor-pointer">
-                {/* Floating thumbnails grid */}
-                <div className="relative overflow-hidden rounded-xl bg-background/20 p-3">
-                  <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
-                    {[
-                      { img: c1, delay: 0 },
-                      { img: c2, delay: 0.3 },
-                      { img: c3, delay: 0.6 },
-                      { img: c4, delay: 0.9 },
-                      { img: c5, delay: 1.2 },
-                      { img: c6, delay: 1.5 },
-                      { img: c7, delay: 1.8 },
-                      { img: c8, delay: 2.1 },
-                    ].map((thumb, i) => (
-                      <motion.img
-                        key={i}
-                        src={thumb.img}
-                        alt=""
-                        className="w-full rounded-lg shadow-lg shadow-primary/10 object-cover aspect-video opacity-85 group-hover:opacity-100 transition-opacity"
-                        animate={{
-                          y: [0, -6, 0, 5, 0],
-                          rotate: [0, -1.5, 0, 1.5, 0],
-                        }}
-                        transition={{
-                          duration: 3.5 + i * 0.4,
-                          repeat: Infinity,
-                          ease: "easeInOut",
-                          delay: thumb.delay,
-                        }}
-                      />
-                    ))}
-                  </div>
+                <div className="relative h-44 sm:h-52 overflow-hidden rounded-xl bg-background/20">
+                  {[
+                    { img: c1, left: "1%", top: "4%", w: 140, rot: -3, delay: 0 },
+                    { img: c2, left: "22%", top: "30%", w: 120, rot: 2, delay: 0.6 },
+                    { img: c3, left: "42%", top: "2%", w: 130, rot: -1, delay: 1.1 },
+                    { img: c4, left: "66%", top: "22%", w: 115, rot: 3, delay: 0.3 },
+                    { img: c5, left: "5%", top: "55%", w: 125, rot: 1, delay: 1.6 },
+                    { img: c6, left: "32%", top: "58%", w: 135, rot: -2, delay: 0.9 },
+                    { img: c7, left: "58%", top: "50%", w: 120, rot: 2.5, delay: 1.4 },
+                    { img: c8, left: "78%", top: "5%", w: 110, rot: -1.5, delay: 2.0 },
+                    { img: c9, left: "80%", top: "55%", w: 118, rot: 1, delay: 0.4 },
+                  ].map((thumb, i) => (
+                    <motion.img
+                      key={i}
+                      src={thumb.img}
+                      alt=""
+                      className="absolute rounded-lg shadow-xl shadow-primary/15 object-cover aspect-video opacity-90 group-hover:opacity-100 transition-opacity"
+                      style={{
+                        left: thumb.left,
+                        top: thumb.top,
+                        width: thumb.w,
+                        rotate: `${thumb.rot}deg`,
+                      }}
+                      animate={{
+                        y: [0, -10, 2, 8, -3, 0],
+                        x: [0, 4, -3, 2, -5, 0],
+                        rotate: [thumb.rot, thumb.rot + 2, thumb.rot - 1, thumb.rot + 1.5, thumb.rot - 2, thumb.rot],
+                      }}
+                      transition={{
+                        duration: 5 + i * 0.6,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: thumb.delay,
+                      }}
+                    />
+                  ))}
                   {/* Gradient overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent z-10 pointer-events-none" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/85 via-transparent to-transparent z-10 pointer-events-none" />
                 </div>
                 {/* Button label */}
                 <div className="relative z-20 -mt-8 pb-2 text-center">
