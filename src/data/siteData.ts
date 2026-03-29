@@ -113,7 +113,7 @@ export const PRICING = [
   {
     name: "Agency",
     description: "For teams and agencies managing multiple channels.",
-    price: "$50",
+    price: "$10",
     per: "one-time",
     features: ["25 credits", "High quality 4K thumbnails", "Topic research for viral design", "No watermark", "Face reaction support", "Download in full resolution", "Priority generation"],
     popular: false,
