@@ -68,7 +68,6 @@ const Hero = () => {
       try {
         const draft = JSON.parse(saved);
         if (draft.title) setTitle(draft.title);
-        if (draft.description) setDescription(draft.description);
       } catch {}
       // Only clear after user is logged in so data persists through auth flow
       if (user) {
