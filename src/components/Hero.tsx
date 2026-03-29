@@ -6,6 +6,15 @@ import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import GeneratingOverlay from "@/components/GeneratingOverlay";
+import c1 from "@/assets/community/c1.jpg";
+import c2 from "@/assets/community/c2.jpg";
+import c3 from "@/assets/community/c3.jpg";
+import c4 from "@/assets/community/c4.jpg";
+import c5 from "@/assets/community/c5.jpg";
+import c6 from "@/assets/community/c6.jpg";
+import c7 from "@/assets/community/c7.jpg";
+import c8 from "@/assets/community/c8.jpg";
+import c9 from "@/assets/community/c9.jpg";
 
 const badges = [
   { icon: Sparkles, label: "AI-Powered" },
