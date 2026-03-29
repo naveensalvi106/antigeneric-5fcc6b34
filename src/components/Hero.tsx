@@ -6,6 +6,15 @@ import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import GeneratingOverlay from "@/components/GeneratingOverlay";
+import c1 from "@/assets/community/c1.jpg";
+import c2 from "@/assets/community/c2.jpg";
+import c3 from "@/assets/community/c3.jpg";
+import c4 from "@/assets/community/c4.jpg";
+import c5 from "@/assets/community/c5.jpg";
+import c6 from "@/assets/community/c6.jpg";
+import c7 from "@/assets/community/c7.jpg";
+import c8 from "@/assets/community/c8.jpg";
+import c9 from "@/assets/community/c9.jpg";
 
 const badges = [
   { icon: Sparkles, label: "AI-Powered" },
@@ -330,13 +339,13 @@ const Hero = () => {
                 {/* Floating thumbnails animation */}
                 <div className="relative h-32 sm:h-40 overflow-hidden rounded-xl bg-background/30">
                   {[
-                    { img: "/thumbnails/t1.avif", x: "5%", y: "10%", delay: 0, size: "w-24 sm:w-28" },
-                    { img: "/thumbnails/t2.avif", x: "30%", y: "25%", delay: 1.5, size: "w-20 sm:w-24" },
-                    { img: "/thumbnails/t3.avif", x: "55%", y: "5%", delay: 0.8, size: "w-22 sm:w-26" },
-                    { img: "/thumbnails/t4.avif", x: "75%", y: "20%", delay: 2.2, size: "w-20 sm:w-24" },
-                    { img: "/thumbnails/t5.avif", x: "15%", y: "55%", delay: 1.2, size: "w-22 sm:w-26" },
-                    { img: "/thumbnails/t6.avif", x: "45%", y: "50%", delay: 0.5, size: "w-24 sm:w-28" },
-                    { img: "/thumbnails/r2-1.avif", x: "70%", y: "55%", delay: 1.8, size: "w-20 sm:w-24" },
+                    { img: c1, x: "2%", y: "8%", delay: 0, size: "w-24 sm:w-28" },
+                    { img: c2, x: "28%", y: "22%", delay: 1.5, size: "w-20 sm:w-24" },
+                    { img: c3, x: "52%", y: "5%", delay: 0.8, size: "w-22 sm:w-26" },
+                    { img: c4, x: "76%", y: "18%", delay: 2.2, size: "w-20 sm:w-24" },
+                    { img: c5, x: "10%", y: "52%", delay: 1.2, size: "w-22 sm:w-26" },
+                    { img: c6, x: "38%", y: "48%", delay: 0.5, size: "w-24 sm:w-28" },
+                    { img: c7, x: "65%", y: "52%", delay: 1.8, size: "w-20 sm:w-24" },
                   ].map((thumb, i) => (
                     <motion.img
                       key={i}
