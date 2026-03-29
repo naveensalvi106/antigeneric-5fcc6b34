@@ -335,42 +335,43 @@ const Hero = () => {
             transition={{ delay: 0.7 }}
           >
             <a href="/examples" className="block max-w-2xl mx-auto">
-              <div className="relative overflow-hidden rounded-2xl border border-primary/20 card-nuclear p-1 group cursor-pointer">
-                {/* Floating thumbnails animation */}
-                <div className="relative h-32 sm:h-40 overflow-hidden rounded-xl bg-background/30">
-                  {[
-                    { img: c1, x: "2%", y: "8%", delay: 0, size: "w-24 sm:w-28" },
-                    { img: c2, x: "28%", y: "22%", delay: 1.5, size: "w-20 sm:w-24" },
-                    { img: c3, x: "52%", y: "5%", delay: 0.8, size: "w-22 sm:w-26" },
-                    { img: c4, x: "76%", y: "18%", delay: 2.2, size: "w-20 sm:w-24" },
-                    { img: c5, x: "10%", y: "52%", delay: 1.2, size: "w-22 sm:w-26" },
-                    { img: c6, x: "38%", y: "48%", delay: 0.5, size: "w-24 sm:w-28" },
-                    { img: c7, x: "65%", y: "52%", delay: 1.8, size: "w-20 sm:w-24" },
-                  ].map((thumb, i) => (
-                    <motion.img
-                      key={i}
-                      src={thumb.img}
-                      alt=""
-                      className={`absolute ${thumb.size} rounded-lg shadow-lg shadow-primary/10 object-cover aspect-video opacity-80 group-hover:opacity-100 transition-opacity`}
-                      style={{ left: thumb.x, top: thumb.y }}
-                      animate={{
-                        y: [0, -8, 0, 6, 0],
-                        rotate: [0, -2, 0, 2, 0],
-                        scale: [1, 1.03, 1, 0.97, 1],
-                      }}
-                      transition={{
-                        duration: 4 + i * 0.5,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                        delay: thumb.delay,
-                      }}
-                    />
-                  ))}
+              <div className="relative overflow-hidden rounded-2xl border border-primary/20 card-nuclear p-2 group cursor-pointer">
+                {/* Floating thumbnails grid */}
+                <div className="relative overflow-hidden rounded-xl bg-background/20 p-3">
+                  <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
+                    {[
+                      { img: c1, delay: 0 },
+                      { img: c2, delay: 0.3 },
+                      { img: c3, delay: 0.6 },
+                      { img: c4, delay: 0.9 },
+                      { img: c5, delay: 1.2 },
+                      { img: c6, delay: 1.5 },
+                      { img: c7, delay: 1.8 },
+                      { img: c8, delay: 2.1 },
+                    ].map((thumb, i) => (
+                      <motion.img
+                        key={i}
+                        src={thumb.img}
+                        alt=""
+                        className="w-full rounded-lg shadow-lg shadow-primary/10 object-cover aspect-video opacity-85 group-hover:opacity-100 transition-opacity"
+                        animate={{
+                          y: [0, -6, 0, 5, 0],
+                          rotate: [0, -1.5, 0, 1.5, 0],
+                        }}
+                        transition={{
+                          duration: 3.5 + i * 0.4,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                          delay: thumb.delay,
+                        }}
+                      />
+                    ))}
+                  </div>
                   {/* Gradient overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/30 to-transparent z-10" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent z-10 pointer-events-none" />
                 </div>
                 {/* Button label */}
-                <div className="relative z-20 -mt-10 pb-3 text-center">
+                <div className="relative z-20 -mt-8 pb-2 text-center">
                   <span className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-primary/90 text-primary-foreground font-display font-bold text-sm sm:text-base tracking-wide shadow-lg shadow-primary/30 group-hover:bg-primary transition-colors">
                     <Sparkles size={16} />
                     Community Works
