@@ -21,6 +21,10 @@ const UPI_AMOUNTS: Record<string, string> = {
 
 const UPI_ID = "9358935758@ibl";
 
+const PAYPAL_HOSTED_BUTTON_IDS: Record<string, string> = {
+  Pro: "MQ9GDB6QXPLAN",
+};
+
 type PaymentStep = "choose" | "upi" | "upload";
 
 const PaymentDialog = ({ open, onOpenChange, planName, price, paypalLink }: PaymentDialogProps) => {
