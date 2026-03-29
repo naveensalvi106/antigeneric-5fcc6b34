@@ -25,7 +25,7 @@ const PAYPAL_HOSTED_BUTTON_IDS: Record<string, string> = {
   Pro: "MQ9GDB6QXPLAN",
 };
 
-type PaymentStep = "choose" | "upi" | "upload";
+type PaymentStep = "choose" | "paypal" | "upi" | "upload";
 
 const PaymentDialog = ({ open, onOpenChange, planName, price, paypalLink }: PaymentDialogProps) => {
   const upiAmount = UPI_AMOUNTS[planName] || "0";
