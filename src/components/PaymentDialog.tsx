@@ -1,7 +1,7 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Smartphone, CheckCircle, Copy, Upload, X, QrCode, CreditCard, ArrowLeft } from "lucide-react";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import upiQrCode from "@/assets/upi-qr-code.png";
@@ -21,7 +21,11 @@ const UPI_AMOUNTS: Record<string, string> = {
 
 const UPI_ID = "9358935758@ibl";
 
-type PaymentStep = "choose" | "upi" | "upload";
+const PAYPAL_HOSTED_BUTTON_IDS: Record<string, string> = {
+  Pro: "MQ9GDB6QXPLAN",
+};
+
+type PaymentStep = "choose" | "paypal" | "upi" | "upload";
 
 const PaymentDialog = ({ open, onOpenChange, planName, price, paypalLink }: PaymentDialogProps) => {
   const upiAmount = UPI_AMOUNTS[planName] || "0";
@@ -31,9 +35,28 @@ const PaymentDialog = ({ open, onOpenChange, planName, price, paypalLink }: Paym
   const [screenshotPreview, setScreenshotPreview] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const paypalContainerRef = useRef<HTMLDivElement>(null);
+
+  const hostedButtonId = PAYPAL_HOSTED_BUTTON_IDS[planName];
+
+  useEffect(() => {
+    if (step === "paypal" && hostedButtonId && paypalContainerRef.current) {
+      paypalContainerRef.current.innerHTML = "";
+      const w = window as any;
+      if (w.paypal?.HostedButtons) {
+        w.paypal.HostedButtons({
+          hostedButtonId,
+        }).render(paypalContainerRef.current);
+      }
+    }
+  }, [step, hostedButtonId]);
 
   const handlePaypal = () => {
-    window.open(paypalLink, "_blank");
+    if (hostedButtonId) {
+      setStep("paypal");
+    } else {
+      window.open(paypalLink, "_blank");
+    }
   };
 
   const copyUpiId = async () => {
@@ -130,18 +153,20 @@ const PaymentDialog = ({ open, onOpenChange, planName, price, paypalLink }: Paym
             <DialogTitle className="font-display text-xl text-foreground flex items-center gap-2">
               {step !== "choose" && (
                 <button
-                  onClick={() => setStep(step === "upload" ? "upi" : "choose")}
+                  onClick={() => setStep(step === "upload" ? "upi" : step === "paypal" ? "choose" : "choose")}
                   className="w-7 h-7 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 transition-colors"
                 >
                   <ArrowLeft size={14} />
                 </button>
               )}
               {step === "choose" && `Pay for ${planName} Plan`}
+              {step === "paypal" && "Pay with PayPal"}
               {step === "upi" && "Scan & Pay via UPI"}
               {step === "upload" && "Upload Payment Proof"}
             </DialogTitle>
             <DialogDescription className="text-muted-foreground">
               {step === "choose" && `Choose your preferred payment method — ${price} / ₹${upiAmount}`}
+              {step === "paypal" && `Complete your payment of ${price} via PayPal`}
               {step === "upi" && `Scan the QR code or copy UPI ID to pay ₹${upiAmount}`}
               {step === "upload" && "Upload a screenshot of your successful payment"}
             </DialogDescription>
@@ -184,6 +209,19 @@ const PaymentDialog = ({ open, onOpenChange, planName, price, paypalLink }: Paym
 
               <p className="text-[11px] text-muted-foreground text-center mt-1">
                 UPI works with PhonePe, GPay, Paytm & all UPI apps
+              </p>
+            </div>
+          )}
+
+          {/* Step: PayPal Hosted Button */}
+          {step === "paypal" && (
+            <div className="flex flex-col items-center gap-4 mt-4">
+              <div
+                ref={paypalContainerRef}
+                className="w-full min-h-[150px] flex items-center justify-center"
+              />
+              <p className="text-[11px] text-muted-foreground text-center">
+                Complete your payment securely via PayPal
               </p>
             </div>
           )}
