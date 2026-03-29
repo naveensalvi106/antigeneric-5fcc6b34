@@ -16,7 +16,7 @@ const badges = [
 
 const Hero = () => {
   const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  
   const [thumbnailImage, setThumbnailImage] = useState<File | null>(null);
   const [faceImage, setFaceImage] = useState<File | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
