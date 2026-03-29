@@ -61,8 +61,29 @@ const Hero = () => {
     return urlData.publicUrl;
   };
 
+  // Restore form data from sessionStorage after login redirect
+  useEffect(() => {
+    const saved = sessionStorage.getItem("hero-form-draft");
+    if (saved) {
+      try {
+        const draft = JSON.parse(saved);
+        if (draft.title) setTitle(draft.title);
+        if (draft.description) setDescription(draft.description);
+      } catch {}
+      // Only clear after user is logged in so data persists through auth flow
+      if (user) {
+        sessionStorage.removeItem("hero-form-draft");
+      }
+    }
+  }, [user]);
+
   const handleSubmit = async () => {
     if (!user) {
+      // Save form data before redirecting to login
+      sessionStorage.setItem("hero-form-draft", JSON.stringify({
+        title,
+        description,
+      }));
       navigate("/login");
       return;
     }
