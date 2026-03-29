@@ -213,6 +213,19 @@ const PaymentDialog = ({ open, onOpenChange, planName, price, paypalLink }: Paym
             </div>
           )}
 
+          {/* Step: PayPal Hosted Button */}
+          {step === "paypal" && (
+            <div className="flex flex-col items-center gap-4 mt-4">
+              <div
+                ref={paypalContainerRef}
+                className="w-full min-h-[150px] flex items-center justify-center"
+              />
+              <p className="text-[11px] text-muted-foreground text-center">
+                Complete your payment securely via PayPal
+              </p>
+            </div>
+          )}
+
           {/* Step: UPI QR + copy */}
           {step === "upi" && (
             <div className="flex flex-col items-center gap-4 mt-4">
