@@ -16,7 +16,7 @@ const badges = [
 
 const Hero = () => {
   const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  
   const [thumbnailImage, setThumbnailImage] = useState<File | null>(null);
   const [faceImage, setFaceImage] = useState<File | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -68,7 +68,6 @@ const Hero = () => {
       try {
         const draft = JSON.parse(saved);
         if (draft.title) setTitle(draft.title);
-        if (draft.description) setDescription(draft.description);
       } catch {}
       // Only clear after user is logged in so data persists through auth flow
       if (user) {
@@ -80,10 +79,7 @@ const Hero = () => {
   const handleSubmit = async () => {
     if (!user) {
       // Save form data before redirecting to login
-      sessionStorage.setItem("hero-form-draft", JSON.stringify({
-        title,
-        description,
-      }));
+      sessionStorage.setItem("hero-form-draft", JSON.stringify({ title }));
       navigate("/login");
       return;
     }
@@ -128,7 +124,7 @@ const Hero = () => {
         .insert({
           id: submissionId,
           title: title.trim(),
-          description: description.trim() || null,
+          description: null,
           thumbnail_image_url: thumbnailImageUrl,
           face_image_url: faceImageUrl,
           user_email: user?.email || null,
@@ -149,7 +145,7 @@ const Hero = () => {
       await supabase.functions.invoke('notify-submission', {
         body: {
           title: title.trim(),
-          description: description.trim(),
+          description: "",
           thumbnailImageUrl,
           faceImageUrl,
           submissionId,
@@ -172,7 +168,6 @@ const Hero = () => {
     toast.success("Your thumbnail is being crafted! We'll notify you when it's ready.");
     // Reset form
     setTitle("");
-    setDescription("");
     setThumbnailImage(null);
     setFaceImage(null);
     setIsSubmitted(false);
@@ -295,21 +290,6 @@ const Hero = () => {
                 <input ref={faceInputRef} type="file" accept="image/*" className="hidden" onChange={(e) => handleImageUpload(e, "face")} />
               </div>
 
-              {/* Description */}
-              <div>
-                <input
-                  type="text"
-                  placeholder="Describe topic in one line..."
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value.slice(0, 100))}
-                  maxLength={100}
-                  disabled={isSubmitting}
-                  className="w-full px-4 py-3 rounded-xl bg-background/50 border border-border text-foreground placeholder:text-muted-foreground/50 text-sm focus:outline-none focus:border-primary/40 transition-colors disabled:opacity-50"
-                />
-                {description.length >= 100 && (
-                  <p className="text-xs text-destructive mt-1">Description limit reached (100 characters max)</p>
-                )}
-              </div>
             </div>
 
             {/* Generate Button */}
@@ -377,7 +357,7 @@ const Hero = () => {
         onComplete={handleGeneratingComplete}
         submissionDetails={{
           title: title,
-          description: description || undefined,
+          description: undefined,
           hasReferenceImage: !!thumbnailImage,
           hasFaceImage: !!faceImage,
         }}
