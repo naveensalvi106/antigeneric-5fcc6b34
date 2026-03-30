@@ -33,12 +33,33 @@ const Login = () => {
     return () => subscription.unsubscribe();
   }, [navigate]);
 
+  const BLOCKED_EMAILS = ["cajop48788@xorvy.com"];
+
+  const isGmailAddress = (email: string) => {
+    return email.trim().toLowerCase().endsWith("@gmail.com");
+  };
+
+  const isBlockedEmail = (email: string) => {
+    return BLOCKED_EMAILS.includes(email.trim().toLowerCase());
+  };
+
   const handleEmailAuth = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email.trim() || !password.trim()) {
       toast.error("Please fill in all fields");
       return;
     }
+
+    if (isBlockedEmail(email)) {
+      toast.error("🚫 This account has been permanently blocked for using fake emails to bypass the system.", { duration: 6000 });
+      return;
+    }
+
+    if (!isGmailAddress(email)) {
+      toast.error("Only @gmail.com email addresses are allowed. Please use your Gmail account.", { duration: 5000 });
+      return;
+    }
+
     setLoading(true);
     try {
       if (isSignUp) {
