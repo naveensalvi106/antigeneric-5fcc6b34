@@ -187,6 +187,7 @@ export type Database = {
           created_at: string | null
           credits: number
           id: string
+          is_flagged: boolean
           updated_at: string | null
           user_id: string
         }
@@ -194,6 +195,7 @@ export type Database = {
           created_at?: string | null
           credits?: number
           id?: string
+          is_flagged?: boolean
           updated_at?: string | null
           user_id: string
         }
@@ -201,6 +203,7 @@ export type Database = {
           created_at?: string | null
           credits?: number
           id?: string
+          is_flagged?: boolean
           updated_at?: string | null
           user_id?: string
         }

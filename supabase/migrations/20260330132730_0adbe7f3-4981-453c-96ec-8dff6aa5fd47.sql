@@ -1,0 +1,1 @@
+ALTER TABLE public.user_credits ADD COLUMN is_flagged boolean NOT NULL DEFAULT false;
