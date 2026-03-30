@@ -97,12 +97,22 @@ const Hero = () => {
       return;
     }
 
-    // Check credits
+    // Check credits and flag status
     const { data: creditData } = await supabase
       .from("user_credits")
-      .select("credits")
+      .select("credits, is_flagged")
       .eq("user_id", user.id)
       .single();
+
+    if (creditData?.is_flagged) {
+      toast.error(
+        "⚠️ Suspicious activity detected on your account. You've been flagged for switching between multiple Gmail accounts to exploit free credits. To continue generating thumbnails, please purchase a credit pack.",
+        { duration: 10000 }
+      );
+      const el = document.querySelector("#pricing");
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+      return;
+    }
 
     if (!creditData || creditData.credits <= 0) {
       toast.error("No credits left! Upgrade your plan to generate more thumbnails.");
