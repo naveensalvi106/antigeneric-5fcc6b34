@@ -119,12 +119,48 @@ Deno.serve(async () => {
         continue;
       }
 
+      // ── /flag email ──
+      if (text.toLowerCase().startsWith("/flag ")) {
+        const targetEmail = text.replace(/^\/flag\s+/i, "").trim().toLowerCase();
+        if (!targetEmail || !targetEmail.includes("@")) {
+          await sendTelegramMessage(TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, "❌ Usage: `/flag user@gmail.com`");
+          continue;
+        }
+        const { data: flagResult, error: flagErr } = await supabase.rpc("flag_user_by_email", { p_email: targetEmail, p_flagged: true });
+        if (flagErr) {
+          await sendTelegramMessage(TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, `❌ Failed to flag: ${flagErr.message}`);
+        } else if (!flagResult) {
+          await sendTelegramMessage(TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, `❌ User \`${targetEmail}\` not found.`);
+        } else {
+          await sendTelegramMessage(TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, `🚩 *Flagged!* \`${targetEmail}\`\nThey'll see a suspicious activity warning and must buy credits to continue.`);
+        }
+        continue;
+      }
+
+      // ── /unflag email ──
+      if (text.toLowerCase().startsWith("/unflag ")) {
+        const targetEmail = text.replace(/^\/unflag\s+/i, "").trim().toLowerCase();
+        if (!targetEmail || !targetEmail.includes("@")) {
+          await sendTelegramMessage(TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, "❌ Usage: `/unflag user@gmail.com`");
+          continue;
+        }
+        const { error: unflagErr } = await supabase.rpc("flag_user_by_email", { p_email: targetEmail, p_flagged: false });
+        if (unflagErr) {
+          await sendTelegramMessage(TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, `❌ Failed to unflag: ${unflagErr.message}`);
+        } else {
+          await sendTelegramMessage(TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, `✅ *Unflagged!* \`${targetEmail}\` can now use free credits again.`);
+        }
+        continue;
+      }
+
       // ── /help or /start ──
       if (text.toLowerCase() === "/help" || text.toLowerCase() === "/start") {
         await sendTelegramMessage(TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID,
           `🤖 *AntiGeneric Bot*\n\n` +
           `📸 *Send Result (Easy):*\nJust *reply* to a submission notification with the result photo!\n\n` +
           `📸 *Send Result (Manual):*\nSend photo with caption: \`/result <id>\`\n\n` +
+          `🚩 *Flag User:* \`/flag email@gmail.com\`\n` +
+          `✅ *Unflag User:* \`/unflag email@gmail.com\`\n\n` +
           `📋 *List Pending:* /pending`);
       }
 
