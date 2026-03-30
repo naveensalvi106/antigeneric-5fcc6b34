@@ -244,6 +244,10 @@ export type Database = {
         Args: { payload: Json; queue_name: string }
         Returns: number
       }
+      flag_user_by_email: {
+        Args: { p_email: string; p_flagged: boolean }
+        Returns: boolean
+      }
       get_user_email: { Args: { _user_id: string }; Returns: string }
       has_role: {
         Args: {
