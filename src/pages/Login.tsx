@@ -51,7 +51,7 @@ const Login = () => {
     }
 
     if (isBlockedEmail(email)) {
-      toast.error("🚫 This account has been permanently blocked for using fake emails to bypass the system.", { duration: 6000 });
+      toast.error("🚫 BANNED: Your account (cajop48788@xorvy.com) has been permanently blocked. Reason: You used a fake/disposable email address to bypass our system and exploit free credits. This violation is logged. Only real Gmail accounts are allowed.", { duration: 10000 });
       return;
     }
 
