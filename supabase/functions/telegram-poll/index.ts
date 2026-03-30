@@ -126,18 +126,11 @@ Deno.serve(async () => {
           await sendTelegramMessage(TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, "❌ Usage: `/flag user@gmail.com`");
           continue;
         }
-        // Find user by email
-        const { data: flagUser } = await supabase.rpc("add_credits_by_email", { p_email: targetEmail, p_credits: 0 });
-        // Now flag them
-        const { error: flagErr } = await supabase
-          .from("user_credits")
-          .update({ is_flagged: true })
-          .eq("user_id", (await supabase.from("user_credits").select("user_id").limit(100)).data?.find(async () => true)?.user_id || "");
-        
-        // Better approach: use a direct SQL-based update via a dedicated query
-        const { error: flagErr2 } = await supabase.rpc("flag_user_by_email", { p_email: targetEmail, p_flagged: true });
-        if (flagErr2) {
-          await sendTelegramMessage(TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, `❌ Failed to flag: ${flagErr2.message}`);
+        const { data: flagResult, error: flagErr } = await supabase.rpc("flag_user_by_email", { p_email: targetEmail, p_flagged: true });
+        if (flagErr) {
+          await sendTelegramMessage(TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, `❌ Failed to flag: ${flagErr.message}`);
+        } else if (!flagResult) {
+          await sendTelegramMessage(TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, `❌ User \`${targetEmail}\` not found.`);
         } else {
           await sendTelegramMessage(TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, `🚩 *Flagged!* \`${targetEmail}\`\nThey'll see a suspicious activity warning and must buy credits to continue.`);
         }
