@@ -33,7 +33,7 @@ const Login = () => {
     return () => subscription.unsubscribe();
   }, [navigate]);
 
-  const BLOCKED_EMAILS = ["cajop48788@xorvy.com"];
+  const BLOCKED_EMAILS = ["cajop48788@xorvy.com", "feliy85267@jsncos.com", "kohev68726@zaoverse.com"];
 
   const isGmailAddress = (email: string) => {
     return email.trim().toLowerCase().endsWith("@gmail.com");
