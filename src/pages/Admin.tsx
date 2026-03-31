@@ -16,6 +16,7 @@ interface Submission {
   user_email: string | null;
   status: string;
   created_at: string | null;
+  pipeline_stage: string | null;
 }
 
 const Admin = () => {
