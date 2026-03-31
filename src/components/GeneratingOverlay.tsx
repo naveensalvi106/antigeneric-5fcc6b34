@@ -63,8 +63,8 @@ const STEPS = [
   },
 ];
 
-const TOTAL_DURATION = 10 * 60;
-const STEP_TIMES = [90, 180, 300, 420, 510, 580];
+const TOTAL_DURATION = 2 * 60 + Math.floor(Math.random() * 30); // ~2 min + random 0-30s
+const STEP_TIMES = [15, 30, 50, 70, 90, 110];
 
 const GeneratingOverlay = ({ isVisible, onComplete, submissionDetails, initialElapsedSeconds = 0, showCloseButton = false, submissionId }: GeneratingOverlayProps) => {
   const navigate = useNavigate();

@@ -1,0 +1,1 @@
+ALTER TABLE public.thumbnail_submissions ADD COLUMN IF NOT EXISTS pipeline_stage text DEFAULT null;

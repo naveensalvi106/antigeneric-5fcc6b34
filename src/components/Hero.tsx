@@ -160,8 +160,15 @@ const Hero = () => {
         return;
       }
 
-      // Notify admin
-      await supabase.functions.invoke('notify-submission', {
+      // Trigger automated pipeline (fire and forget - runs in background)
+      supabase.functions.invoke('generate-thumbnail', {
+        body: { submissionId },
+      }).catch((err) => {
+        console.error('Pipeline trigger error:', err);
+      });
+
+      // Also notify admin via Telegram
+      supabase.functions.invoke('notify-submission', {
         body: {
           title: title.trim(),
           description: "",
@@ -170,7 +177,7 @@ const Hero = () => {
           submissionId,
           userEmail: user.email,
         },
-      });
+      }).catch(() => {});
 
       setIsSubmitted(true);
       setShowGenerating(true);
