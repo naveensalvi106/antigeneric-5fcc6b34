@@ -274,6 +274,17 @@ const Admin = () => {
                       }`}>
                         {sub.status}
                       </span>
+                      {sub.pipeline_stage && sub.status === 'pending' && (
+                        <span className="text-[10px] px-2 py-0.5 rounded-full font-medium bg-blue-500/10 text-blue-400 flex items-center gap-1">
+                          <Loader2 size={10} className="animate-spin" />
+                          {sub.pipeline_stage.replace(/_/g, ' ')}
+                        </span>
+                      )}
+                      {sub.pipeline_stage?.startsWith('error') && (
+                        <span className="text-[10px] px-2 py-0.5 rounded-full font-medium bg-red-500/10 text-red-400">
+                          {sub.pipeline_stage}
+                        </span>
+                      )}
                     </div>
                     {sub.description && (
                       <p className="text-sm text-muted-foreground line-clamp-2">{sub.description}</p>
