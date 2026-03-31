@@ -36,6 +36,22 @@ const Admin = () => {
     checkAdminAndLoad();
   }, []);
 
+  // Realtime subscription for live pipeline updates
+  useEffect(() => {
+    if (!isAdmin) return;
+    const channel = supabase
+      .channel("admin-submissions")
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "thumbnail_submissions" },
+        () => {
+          loadSubmissions();
+        }
+      )
+      .subscribe();
+    return () => { supabase.removeChannel(channel); };
+  }, [isAdmin]);
+
   const checkAdminAndLoad = async () => {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) { navigate("/login"); return; }
