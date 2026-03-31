@@ -149,6 +149,7 @@ export type Database = {
           description: string | null
           face_image_url: string | null
           id: string
+          pipeline_stage: string | null
           result_image_url: string | null
           status: string
           telegram_message_id: number | null
@@ -161,6 +162,7 @@ export type Database = {
           description?: string | null
           face_image_url?: string | null
           id?: string
+          pipeline_stage?: string | null
           result_image_url?: string | null
           status?: string
           telegram_message_id?: number | null
@@ -173,6 +175,7 @@ export type Database = {
           description?: string | null
           face_image_url?: string | null
           id?: string
+          pipeline_stage?: string | null
           result_image_url?: string | null
           status?: string
           telegram_message_id?: number | null
